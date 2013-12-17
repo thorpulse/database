@@ -7,13 +7,23 @@ use Icecave\Recoil\Channel\BidirectionalChannelInterface;
 use PDO;
 use PDOException as NativePdoException;
 
+/**
+ * Responds to RPC calls from the parent process, and dispatches them to a real
+ * PDO connection.
+ */
 class ConnectionService
 {
+    /**
+     * @param BidirectionalChannelInterface $channel The channel used for RPC communication.
+     */
     public function __construct(BidirectionalChannelInterface $channel)
     {
         $this->channel = $channel;
     }
 
+    /**
+     * [CO-ROUTINE]
+     */
     public function run()
     {
         do {
@@ -31,39 +41,56 @@ class ConnectionService
         yield $this->channel->close();
     }
 
+    /**
+     * Establish the database connection.
+     */
     public function handleConnect($dsn, $username = null, $password = null, $driverOptions = null)
     {
         $this->connection = new PDO($dsn, $username, $password, $driverOptions);
     }
 
+    /**
+     * Disconnect the connection.
+     */
     public function handleDisconnect()
     {
         $this->connection = null;
     }
 
+    /**
+     * Dispatch an RPC.
+     *
+     * @param string $method
+     * @param array  $arguments
+     *
+     * @return mixed
+     */
     protected function dispatch($method, array $arguments)
     {
-        if ($method === 'connect') {
-            $method = [$this, 'handleConnect'];
-        } elseif ($method === 'disconnect') {
-            $method = [$this, 'handleDisconnect'];
-        } elseif (!$this->connection) {
-            return [
-                null,
-                [
-                    PdoException::CLASS,
-                    [
-                        'Connection has not been established.',
-                        '08003',
-                    ]
-                ]
-            ];
-        } else {
-            $method = [$this->connection, $method];
-        }
+        $value = null;
 
         try {
-            $value = call_user_func_array($method, $arguments);
+            if ($method === 'connect') {
+                list($dsn, $username, $password, $driverOptions) = $arguments;
+                $this->handleConnect($dsn, $username, $password, $driverOptions);
+            } elseif ($method === 'disconnect') {
+                $this->handleDisconnect();
+            } elseif (!$this->connection) {
+                return [
+                    null,
+                    [
+                        PdoException::CLASS,
+                        [
+                            'Connection has not been established.',
+                            '08003',
+                        ]
+                    ]
+                ];
+            } else {
+                $method = [$this->connection, $method];
+                $value = call_user_func_array($method, $arguments);
+            }
+
         } catch (NativePdoException $e) {
             return [
                 null,
@@ -89,11 +116,7 @@ class ConnectionService
             ];
         }
 
-        if (is_array($value)) {
-            return [$value, null];
-        }
-
-        return $value;
+        return [$value, null];
     }
 
     private $channel;

@@ -7,8 +7,17 @@ use Icecave\Recoil\Channel\Stream\WritableStreamChannel;
 use Icecave\Recoil\Recoil;
 use React\ChildProcess\Process;
 
+/**
+ * Creates new connections by spawning sub-processes to handle synchronous
+ * database access.
+ */
 class ConnectionFactory
 {
+    /**
+     * [CO-ROUTINE] Create a new connection.
+     *
+     * @return ConnectionInterface
+     */
     public function create()
     {
         $eventLoop = (yield Recoil::eventLoop());
@@ -16,9 +25,18 @@ class ConnectionFactory
         $process = $this->createProcess();
         $process->start($eventLoop);
 
-        $process->stderr->on('data', function ($data) {
-            echo 'ERR: ' . $data;
-        });
+        // $buffer = '';
+        // $process->stderr->on('data', function ($data) use ($process, &$buffer) {
+        //     $buffer .= $data;
+
+        //     $pos = strpos($buffer, PHP_EOL);
+
+        //     if (false !== $pos) {
+        //         $line = substr($buffer, 0, $pos + 1);
+        //         $buffer = substr($buffer, $pos + 1);
+        //         echo 'ERR [' . $process->getPid() . ']: ' . $line;
+        //     }
+        // });
 
         $channel = new BidirectionalChannelAdaptor(
             new ReadableStreamChannel($process->stdout),

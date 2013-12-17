@@ -3,6 +3,7 @@ namespace Icecave\Engage;
 
 use Icecave\Recoil\Channel\BidirectionalChannelInterface;
 use Icecave\Recoil\Recoil;
+use PDO;
 use PDOException;
 use ReflectionClass;
 
@@ -11,6 +12,9 @@ use ReflectionClass;
  */
 class Connection implements ConnectionInterface
 {
+    /**
+     * @param BidirectionalChannelInterface $channel The channel used for RPC communication.
+     */
     public function __construct(BidirectionalChannelInterface $channel)
     {
         $this->channel = $channel;
@@ -263,13 +267,7 @@ class Connection implements ConnectionInterface
     {
         yield $this->channel->write([$name, $arguments]);
 
-        $response = (yield $this->channel->read());
-
-        if (!is_array($response)) {
-            yield Recoil::return_($response);
-        }
-
-        list($value, $error) = $response;
+        list($value, $error) = $x = (yield $this->channel->read());
 
         if (null === $error) {
             yield Recoil::return_($value);

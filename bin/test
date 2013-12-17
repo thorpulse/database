@@ -2,18 +2,63 @@
 <?php
 require dirname(__DIR__) . '/vendor/autoload.php';
 
-function main()
+use Icecave\Recoil\Recoil;
+
+function insertTestData($connection, $connectionName, $count)
 {
-    $dsn = 'sqlite:' . dirname(__DIR__) . '/res/test.sq3';
+    for ($i = 1; $i <= $count; ++$i) {
+        $value = $i . '-' . $connectionName;
+
+        yield $connection->exec(
+            sprintf(
+                'INSERT INTO test VALUES (null, %s)',
+                (yield $connection->quote($value))
+            )
+        );
+
+        $id = (yield $connection->lastInsertId());
+
+        echo 'Connection "' . $connectionName . '" inserted "' . $value . '" with ID ' . $id . PHP_EOL;
+    }
+}
+
+function connect($dsn)
+{
     $factory = new Icecave\Engage\ConnectionFactory;
-
     $connection = (yield $factory->create());
-
     yield $connection->connect($dsn);
     yield $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    yield $connection->exec('INSERT INTO test VALUES (null, "test value")');
+    yield Recoil::return_($connection);
+}
 
-    echo 'Row ID: ' . (yield $connection->lastInsertId()) . PHP_EOL;
+function main()
+{
+    $db  = sys_get_temp_dir() . '/engage-test.sq3';
+    $dsn = 'sqlite:' . $db;
+    $new = !file_exists($db);
+
+    $connectionA = (yield connect($dsn));
+    $connectionB = (yield connect($dsn));
+    $connectionC = (yield connect($dsn));
+    $connectionD = (yield connect($dsn));
+
+    // Prepare a test table ...
+    if ($new) {
+        yield $connectionA->exec(
+            'CREATE TABLE test (
+            id INTEGER PRIMARY KEY,
+            name STRING NOT NULL
+            )'
+        );
+    } else {
+        yield $connectionA->exec('DELETE FROM test');
+    }
+
+    // Perform some interleaved, asynchronous inserts ...
+    yield Recoil::execute(insertTestData($connectionA, 'A', 5));
+    yield Recoil::execute(insertTestData($connectionB, 'B', 5));
+    yield Recoil::execute(insertTestData($connectionC, 'C', 5));
+    yield Recoil::execute(insertTestData($connectionD, 'D', 5));
 }
 
 $kernel = new Icecave\Recoil\Kernel\Kernel;

@@ -1,6 +1,7 @@
 <?php
 namespace Icecave\Engage;
 
+use PDO;
 use PDOException;
 
 /**
