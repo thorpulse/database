@@ -30,7 +30,7 @@ class PdoException extends NativePdoException
             if (0 === $code) {
                 $errorInfo = null;
             } else {
-                $errorInfo = array($code, $code, $message);
+                $errorInfo = [$code, $code, $message];
             }
         }
 

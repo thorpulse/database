@@ -27,11 +27,11 @@ class ConnectionService
     public function run()
     {
         do {
-            list($method, $arguments) = $x = (yield $this->channel->read());
+            list($object, $method, $arguments) = $x = (yield $this->channel->read());
 
             fwrite(STDERR, 'CALL: ' . $method . '(' . json_encode($arguments) . ')' . PHP_EOL);
 
-            $response = $this->dispatch($method, $arguments);
+            $response = $this->dispatch($object, $method, $arguments);
 
             fwrite(STDERR, 'RESPOND: ' . json_encode($response) . PHP_EOL);
 
@@ -65,7 +65,7 @@ class ConnectionService
      *
      * @return mixed
      */
-    protected function dispatch($method, array $arguments)
+    protected function dispatch($object, $method, array $arguments)
     {
         $value = null;
 
@@ -121,4 +121,5 @@ class ConnectionService
 
     private $channel;
     private $connection;
+    private $statements;
 }

@@ -81,8 +81,13 @@ class Connection implements ConnectionInterface
      * @return StatementInterface The prepared PDO statement.
      * @throws PDOException       If the statement cannot be prepared.
      */
-    public function prepare($statement, $attributes = array())
+    public function prepare($statement, $attributes = [])
     {
+        $statementId = (yield $this->rpc('prepare', [$statement, $attributes]));
+
+        yield Recoil::return_(
+            new Statement($this->channel, $statementId)
+        );
     }
 
     /**
@@ -93,17 +98,26 @@ class Connection implements ConnectionInterface
      *
      * @link http://php.net/pdo.query
      *
+     * @param string $statement The statement to execute.
      * @param mixed $argument,... Arguments.
      *
      * @return StatementInterface The result set.
      * @throws PDOException       If the statement cannot be executed.
      */
-    public function query()
+    public function query($statement)
     {
-        return call_user_func_array(
-            [$this->rpcClient, 'query'],
-            func_get_args()
-        );
+        $statementId = (yield $this->rpc('query', $statement));
+
+        $statement = new Statement($this->channel, $statementId);
+
+        if (func_num_args() > 1) {
+            call_user_func_array(
+                [$statement, 'setFetchMode'],
+                array_slice(func_get_args(), 1)
+            );
+        }
+
+        yield Recoil::return_($statement);
     }
 
     /**
@@ -184,7 +198,7 @@ class Connection implements ConnectionInterface
      */
     public function lastInsertId($name = null)
     {
-        return $this->rpc('lastInsertId', [null]);
+        return $this->rpc('lastInsertId', [$name]);
     }
 
     /**
@@ -265,7 +279,13 @@ class Connection implements ConnectionInterface
 
     protected function rpc($name, array $arguments = [])
     {
-        yield $this->channel->write([$name, $arguments]);
+        yield $this->channel->write(
+            [
+                'connection',
+                $name,
+                $arguments
+            ]
+        );
 
         list($value, $error) = $x = (yield $this->channel->read());
 

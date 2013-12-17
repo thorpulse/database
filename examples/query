@@ -1,0 +1,35 @@
+#!/usr/bin/env php
+<?php
+require dirname(__DIR__) . '/vendor/autoload.php';
+
+use Icecave\Engage\ConnectionFactory;
+use Icecave\Recoil\Kernel\Kernel;
+use Icecave\Recoil\Recoil;
+
+function main()
+{
+    $db  = sys_get_temp_dir() . '/engage-examples.sq3';
+    $dsn = 'sqlite:' . $db;
+
+    $factory = new ConnectionFactory;
+    $connection = (yield $factory->create());
+    yield $connection->connect($dsn);
+    yield $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    yield $connection->exec('DROP TABLE IF EXISTS query');
+    yield $connection->exec(
+        'CREATE TABLE query (
+            id INTEGER PRIMARY KEY,
+            name STRING NOT NULL
+        )'
+    );
+    yield $connection->exec('INSERT INTO query VALUES (null, "foo")');
+    yield $connection->exec('INSERT INTO query VALUES (null, "bar")');
+    yield $connection->exec('INSERT INTO query VALUES (null, "spam")');
+
+    $statement = (yield $connection->query('SELECT * FROM query'));
+}
+
+$kernel = new Kernel;
+$kernel->execute(main());
+$kernel->eventLoop()->run();

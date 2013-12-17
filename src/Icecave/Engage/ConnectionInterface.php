@@ -35,7 +35,7 @@ interface ConnectionInterface
      * @return StatementInterface The prepared PDO statement.
      * @throws PDOException       If the statement cannot be prepared.
      */
-    public function prepare($statement, $attributes = array());
+    public function prepare($statement, $attributes = []);
 
     /**
      * [CO-ROUTINE] Execute an SQL statement and return the result set.
@@ -45,12 +45,13 @@ interface ConnectionInterface
      *
      * @link http://php.net/pdo.query
      *
+     * @param string $statement The statement to execute.
      * @param mixed $argument,... Arguments.
      *
      * @return StatementInterface The result set.
      * @throws PDOException       If the statement cannot be executed.
      */
-    public function query();
+    public function query($statement);
 
     /**
      * [CO-ROUTINE] Execute an SQL statement and return the number of rows

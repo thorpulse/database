@@ -38,6 +38,10 @@ class ConnectionFactory
         //     }
         // });
 
+        // $process->stderr->on('end', function () use ($process, &$buffer) {
+        //     echo 'ERR [' . $process->getPid() . ']: ' . $buffer . PHP_EOL;
+        // });
+
         $channel = new BidirectionalChannelAdaptor(
             new ReadableStreamChannel($process->stdout),
             new WritableStreamChannel($process->stdin)
