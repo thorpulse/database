@@ -1,0 +1,21 @@
+#!/usr/bin/env php
+<?php
+require dirname(__DIR__) . '/vendor/autoload.php';
+
+function main()
+{
+    $dsn = 'sqlite:' . dirname(__DIR__) . '/res/test.sq3';
+    $factory = new Icecave\Engage\ConnectionFactory;
+
+    $connection = (yield $factory->create());
+
+    yield $connection->connect($dsn);
+    yield $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    yield $connection->exec('INSERT INTO test VALUES (null, "test value")');
+
+    echo 'Row ID: ' . (yield $connection->lastInsertId()) . PHP_EOL;
+}
+
+$kernel = new Icecave\Recoil\Kernel\Kernel;
+$kernel->execute(main());
+$kernel->eventLoop()->run();

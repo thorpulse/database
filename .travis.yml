@@ -1,0 +1,21 @@
+#
+# This is the default Travis CI configuration.
+#
+# It uses a GitHub OAuth token when fetching composer dependencies
+# to avoid IP-based API throttling.
+#
+# It also allows publication of artifacts via an additional build.
+#
+language: php
+
+php: ["5.5"]
+
+env:
+  global:
+    - ARCHER_PUBLISH_VERSION=5.5
+    - secure: "FOPc/F30Wn605YuClWLO9MsUIOfsBJJPiweh31wVVcus3jPYK5KXT6UP385/iCiARRon2BwVhWHE/5XTkFGytvOvJ6SK9YGlB6vKW1q9/j9JWXCyxbrBqJL7GI4koRcyasrGBemRqpcVSkZ0w7Ysrl7fTKInNNLiOf/3+QyEe00="
+
+install:
+  - ./.travis.install
+script:
+  - ./vendor/bin/archer travis:build

@@ -1,0 +1,37 @@
+{
+    "name": "icecave/engage",
+    "description": "This package needs a description!",
+    "keywords": [],
+    "homepage": "https://github.com/IcecaveStudios/engage",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "James Harris",
+            "email": "james.harris@icecave.com.au",
+            "homepage": "https://github.com/jmalloc"
+        }
+    ],
+    "require": {
+        "php": ">=5.5",
+        "icecave/recoil": "dev-develop"
+    },
+    "require-dev": {
+        "icecave/archer": "~1"
+    },
+    "suggest": {
+        "eloquent/asplode": "Drop-in exception-based error handling."
+    },
+    "autoload": {
+        "psr-0": {
+            "Icecave\\Engage": "src"
+        }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/IcecaveLabs/recoil"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
