@@ -14,8 +14,19 @@ class InvokeStatementMethod implements RequestInterface
 
     public function execute(Service $service)
     {
+        $statement = $service->getStatement($this->statementId);
+
+        if ($this->method === 'debugDumpParams') {
+            ob_start();
+            $statement->debugDumpParams();
+            $output = ob_get_contents();
+            ob_end_clean();
+
+            return $output;
+        }
+
         return call_user_func_array(
-            [$service->getStatement($this->statementId), $this->method],
+            [$statement, $this->method],
             $this->arguments
         );
     }

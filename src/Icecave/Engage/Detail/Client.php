@@ -53,6 +53,10 @@ class Client
 
     public function releaseStatement($statementId)
     {
+        if (!$this->kernel) {
+            return;
+        }
+
         $this->kernel->execute(
             $this->channel->write(new ReleaseStatement($statementId))
         );

@@ -9,11 +9,11 @@ class ExceptionResponse implements ResponseInterface
 {
     public function __construct(Exception $e)
     {
-        $this->className = get_class($e);
-
         if ($e instanceof PDOException) {
+            $this->className = 'Icecave\Engage\Exception\PdoException';
             $this->arguments = [$e->getMessage(), $e->getCode(), $e->errorInfo];
         } else {
+            $this->className = 'RuntimeException';
             $this->arguments = [$e->getMessage(), $e->getCode()];
         }
     }

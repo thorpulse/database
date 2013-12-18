@@ -2,6 +2,11 @@
 <?php
 require dirname(__DIR__) . '/vendor/autoload.php';
 
+class X
+{
+
+}
+
 use Icecave\Engage\ConnectionFactory;
 use Icecave\Recoil\Kernel\Kernel;
 
@@ -26,7 +31,11 @@ function main()
     // Select the values ...
     $statement = (yield $connection->query('SELECT * FROM testing'));
 
-    echo 'Row count: ' . (yield $statement->rowCount()) . PHP_EOL;
+    yield $statement->debugDumpParams();
+
+    // while ($row = (yield $statement->fetchObject('X', [1, 2, 3]))) {
+    //     var_dump($row);
+    // }
 }
 
 $kernel = new Kernel;

@@ -54,9 +54,7 @@ class Connection implements ConnectionInterface
      */
     public function query($statement)
     {
-        $statementId = (yield $this->serviceClient->send(
-            new InvokeConnectionMethod('query', [$statement])
-        ));
+        $statementId = (yield $this->invoke('query', [$statement]));
 
         $statementObject = new Statement($this->serviceClient, $statementId);
 
@@ -83,9 +81,7 @@ class Connection implements ConnectionInterface
      */
     public function exec($statement)
     {
-        return $this->serviceClient->send(
-            new InvokeConnectionMethod('exec', [$statement])
-        );
+        return $this->invoke('exec', [$statement]);
     }
 
     /**
@@ -97,9 +93,7 @@ class Connection implements ConnectionInterface
      */
     public function inTransaction()
     {
-        return $this->serviceClient->send(
-            new InvokeConnectionMethod('inTransaction')
-        );
+        return $this->invoke('inTransaction');
     }
 
     /**
@@ -112,9 +106,7 @@ class Connection implements ConnectionInterface
      */
     public function beginTransaction()
     {
-        return $this->serviceClient->send(
-            new InvokeConnectionMethod('beginTransaction')
-        );
+        return $this->invoke('beginTransaction');
     }
 
     /**
@@ -127,9 +119,7 @@ class Connection implements ConnectionInterface
      */
     public function commit()
     {
-        return $this->serviceClient->send(
-            new InvokeConnectionMethod('commit')
-        );
+        return $this->invoke('commit');
     }
 
     /**
@@ -142,9 +132,7 @@ class Connection implements ConnectionInterface
      */
     public function rollBack()
     {
-        return $this->serviceClient->send(
-            new InvokeConnectionMethod('rollBack')
-        );
+        return $this->invoke('rollBack');
     }
 
     /**
@@ -158,9 +146,7 @@ class Connection implements ConnectionInterface
      */
     public function lastInsertId($name = null)
     {
-        return $this->serviceClient->send(
-            new InvokeConnectionMethod('lastInsertId', [$name])
-        );
+        return $this->invoke('lastInsertId', [$name]);
     }
 
     /**
@@ -172,9 +158,7 @@ class Connection implements ConnectionInterface
      */
     public function errorCode()
     {
-        return $this->serviceClient->send(
-            new InvokeConnectionMethod('errorCode')
-        );
+        return $this->invoke('errorCode');
     }
 
     /**
@@ -190,9 +174,7 @@ class Connection implements ConnectionInterface
      */
     public function errorInfo()
     {
-        return $this->serviceClient->send(
-            new InvokeConnectionMethod('errorInfo')
-        );
+        return $this->invoke('errorInfo');
     }
 
     /**
@@ -209,9 +191,7 @@ class Connection implements ConnectionInterface
      */
     public function quote($string, $parameterType = PDO::PARAM_STR)
     {
-        return $this->serviceClient->send(
-            new InvokeConnectionMethod('quote', [$string, $parameterType])
-        );
+        return $this->invoke('quote', [$string, $parameterType]);
     }
 
     /**
@@ -227,9 +207,7 @@ class Connection implements ConnectionInterface
      */
     public function setAttribute($attribute, $value)
     {
-        return $this->serviceClient->send(
-            new InvokeConnectionMethod('setAttribute', [$attribute, $value])
-        );
+        return $this->invoke('setAttribute', [$attribute, $value]);
     }
 
     /**
@@ -244,10 +222,18 @@ class Connection implements ConnectionInterface
      */
     public function getAttribute($attribute)
     {
-        return $this->serviceClient->send(
-            new InvokeConnectionMethod('getAttribute', [$attribute])
-        );
+        return $this->invoke('getAttribute', [$attribute]);
     }
 
-    private $remoteConnection;
+    private function invoke($name, array $arguments = [])
+    {
+        $request = new InvokeConnectionMethod(
+            $name,
+            $arguments
+        );
+
+        return $this->serviceClient->send($request);
+    }
+
+    private $serviceClient;
 }
