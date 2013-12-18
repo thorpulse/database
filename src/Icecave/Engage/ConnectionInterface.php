@@ -10,21 +10,6 @@ use PDOException;
 interface ConnectionInterface
 {
     /**
-     * [CO-ROUTINE] Establish a connection.
-     *
-     * @param string      $dsn           The data source name.
-     * @param string|null $username      The username for the DSN, this parameter is optional for some drivers.
-     * @param string|null $password      The password for the DSN, this parameter is optional for some drivers.
-     * @param array|null  $driverOptions An associative array of driver-specific connection options.
-     */
-    public function connect($dsn, $username = null, $password = null, array $driverOptions = null);
-
-    /**
-     * [CO-ROUTINE] Disconnect from the database.
-     */
-    public function disconnect();
-
-    /**
      * [CO-ROUTINE] Prepare an SQL statement to be executed.
      *
      * @link http://php.net/pdo.prepare

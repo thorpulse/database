@@ -1,73 +1,25 @@
 <?php
 namespace Icecave\Engage;
 
-use Icecave\Recoil\Channel\BidirectionalChannelInterface;
+use Icecave\Engage\Detail\Client;
+use Icecave\Engage\Detail\Request\InvokeConnectionMethod;
 use Icecave\Recoil\Recoil;
 use PDO;
 use PDOException;
-use ReflectionClass;
 
 /**
  * An asynchronous PDO-like database connection.
  */
 class Connection implements ConnectionInterface
 {
-    /**
-     * @param BidirectionalChannelInterface $channel The channel used for RPC communication.
-     */
-    public function __construct(BidirectionalChannelInterface $channel)
+    public function __construct(Client $serviceClient)
     {
-        $this->channel = $channel;
+        $this->serviceClient = $serviceClient;
     }
 
     public function __destruct()
     {
-        if ($this->kernel) {
-            $this->kernel->execute($this->disconnect());
-        }
-    }
-
-    /**
-     * [CO-ROUTINE] Establish a connection.
-     *
-     * @param string      $dsn           The data source name.
-     * @param string|null $username      The username for the DSN, this parameter is optional for some drivers.
-     * @param string|null $password      The password for the DSN, this parameter is optional for some drivers.
-     * @param array|null  $driverOptions An associative array of driver-specific connection options.
-     */
-    public function connect($dsn, $username = null, $password = null, array $driverOptions = null)
-    {
-        if ($this->kernel) {
-            return;
-        }
-
-        yield $this->rpc(
-            'connect',
-            [
-                $dsn,
-                $username,
-                $password,
-                $driverOptions,
-            ]
-        );
-
-        $strand = (yield Recoil::strand());
-
-        $this->kernel = $strand->kernel();
-    }
-
-    /**
-     * [CO-ROUTINE] Disconnect from the database.
-     */
-    public function disconnect()
-    {
-        if (!$this->kernel) {
-            return;
-        }
-
-        yield $this->rpc('disconnect');
-
-        $this->kernel = null;
+        $this->serviceClient->releaseConnection();
     }
 
     /**
@@ -83,11 +35,7 @@ class Connection implements ConnectionInterface
      */
     public function prepare($statement, $attributes = [])
     {
-        $statementId = (yield $this->rpc('prepare', [$statement, $attributes]));
-
-        yield Recoil::return_(
-            new Statement($this->channel, $statementId)
-        );
+        throw new \LogicException('Not implemented.');
     }
 
     /**
@@ -106,18 +54,20 @@ class Connection implements ConnectionInterface
      */
     public function query($statement)
     {
-        $statementId = (yield $this->rpc('query', $statement));
+        $statementId = (yield $this->serviceClient->send(
+            new InvokeConnectionMethod('query', [$statement])
+        ));
 
-        $statement = new Statement($this->channel, $statementId);
+        $statementObject = new Statement($this->serviceClient, $statementId);
 
-        if (func_num_args() > 1) {
-            call_user_func_array(
-                [$statement, 'setFetchMode'],
-                array_slice(func_get_args(), 1)
-            );
-        }
+        // // if (func_num_args() > 1) {
+        // //     call_user_func_array(
+        // //         [$statement, 'setFetchMode'],
+        // //         array_slice(func_get_args(), 1)
+        // //     );
+        // // }
 
-        yield Recoil::return_($statement);
+        yield Recoil::return_($statementObject);
     }
 
     /**
@@ -133,7 +83,9 @@ class Connection implements ConnectionInterface
      */
     public function exec($statement)
     {
-        return $this->rpc('exec', [$statement]);
+        return $this->serviceClient->send(
+            new InvokeConnectionMethod('exec', [$statement])
+        );
     }
 
     /**
@@ -145,7 +97,9 @@ class Connection implements ConnectionInterface
      */
     public function inTransaction()
     {
-        return $this->rpc('inTransaction');
+        return $this->serviceClient->send(
+            new InvokeConnectionMethod('inTransaction')
+        );
     }
 
     /**
@@ -158,7 +112,9 @@ class Connection implements ConnectionInterface
      */
     public function beginTransaction()
     {
-        return $this->rpc('beginTransaction');
+        return $this->serviceClient->send(
+            new InvokeConnectionMethod('beginTransaction')
+        );
     }
 
     /**
@@ -171,7 +127,9 @@ class Connection implements ConnectionInterface
      */
     public function commit()
     {
-        return $this->rpc('commit');
+        return $this->serviceClient->send(
+            new InvokeConnectionMethod('commit')
+        );
     }
 
     /**
@@ -184,7 +142,9 @@ class Connection implements ConnectionInterface
      */
     public function rollBack()
     {
-        return $this->rpc('rollBack');
+        return $this->serviceClient->send(
+            new InvokeConnectionMethod('rollBack')
+        );
     }
 
     /**
@@ -198,7 +158,9 @@ class Connection implements ConnectionInterface
      */
     public function lastInsertId($name = null)
     {
-        return $this->rpc('lastInsertId', [$name]);
+        return $this->serviceClient->send(
+            new InvokeConnectionMethod('lastInsertId', [$name])
+        );
     }
 
     /**
@@ -210,7 +172,9 @@ class Connection implements ConnectionInterface
      */
     public function errorCode()
     {
-        return $this->rpc('errorCode');
+        return $this->serviceClient->send(
+            new InvokeConnectionMethod('errorCode')
+        );
     }
 
     /**
@@ -226,7 +190,9 @@ class Connection implements ConnectionInterface
      */
     public function errorInfo()
     {
-        return $this->rpc('errorInfo');
+        return $this->serviceClient->send(
+            new InvokeConnectionMethod('errorInfo')
+        );
     }
 
     /**
@@ -243,7 +209,9 @@ class Connection implements ConnectionInterface
      */
     public function quote($string, $parameterType = PDO::PARAM_STR)
     {
-        return $this->rpc('quote', [$string, $parameterType]);
+        return $this->serviceClient->send(
+            new InvokeConnectionMethod('quote', [$string, $parameterType])
+        );
     }
 
     /**
@@ -259,7 +227,9 @@ class Connection implements ConnectionInterface
      */
     public function setAttribute($attribute, $value)
     {
-        return $this->rpc('setAttribute', [$attribute, $value]);
+        return $this->serviceClient->send(
+            new InvokeConnectionMethod('setAttribute', [$attribute, $value])
+        );
     }
 
     /**
@@ -274,36 +244,10 @@ class Connection implements ConnectionInterface
      */
     public function getAttribute($attribute)
     {
-        return $this->rpc('getAttribute', [$attribute]);
-    }
-
-    protected function rpc($name, array $arguments = [])
-    {
-        yield $this->channel->write(
-            [
-                'connection',
-                $name,
-                $arguments
-            ]
+        return $this->serviceClient->send(
+            new InvokeConnectionMethod('getAttribute', [$attribute])
         );
-
-        list($value, $error) = $x = (yield $this->channel->read());
-
-        if (null === $error) {
-            yield Recoil::return_($value);
-        }
-
-        list($class, $arguments) = $error;
-
-        $reflector = new ReflectionClass($class);
-
-        throw $reflector->newInstanceArgs($arguments);
     }
 
-    private $channel;
-    private $dsn;
-    private $username;
-    private $password;
-    private $driverOptions;
-    private $kernel;
+    private $remoteConnection;
 }

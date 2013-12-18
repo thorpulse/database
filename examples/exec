@@ -20,13 +20,13 @@ function main()
 
     // Insert some values ...
     yield $connection->exec('INSERT INTO testing VALUES (null, "foo")');
+    echo 'Inserted "foo" with ID ' . (yield $connection->lastInsertId()) . PHP_EOL;
+
     yield $connection->exec('INSERT INTO testing VALUES (null, "bar")');
+    echo 'Inserted "bar" with ID ' . (yield $connection->lastInsertId()) . PHP_EOL;
+
     yield $connection->exec('INSERT INTO testing VALUES (null, "spam")');
-
-    // Select the values ...
-    $statement = (yield $connection->query('SELECT * FROM testing'));
-
-    echo 'Row count: ' . (yield $statement->rowCount()) . PHP_EOL;
+    echo 'Inserted "spam" with ID ' . (yield $connection->lastInsertId()) . PHP_EOL;
 }
 
 $kernel = new Kernel;

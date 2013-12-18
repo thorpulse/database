@@ -2,7 +2,7 @@
 <?php
 require dirname(__DIR__) . '/vendor/autoload.php';
 
-use Icecave\Engage\ConnectionService;
+use Icecave\Engage\Detail\Service;
 use Icecave\Recoil\Channel\BidirectionalChannelAdaptor;
 use Icecave\Recoil\Channel\Stream\ReadableStreamChannel;
 use Icecave\Recoil\Channel\Stream\WritableStreamChannel;
@@ -11,14 +11,10 @@ use React\Stream\Stream;
 
 $kernel = new Kernel;
 
-$service = new ConnectionService(
+$service = new Service(
     new BidirectionalChannelAdaptor(
-        new ReadableStreamChannel(
-            new Stream(fopen('php://stdin', 'r'), $kernel->eventLoop())
-        ),
-        new WritableStreamChannel(
-            new Stream(fopen('php://stdout', 'w'), $kernel->eventLoop())
-        )
+        new ReadableStreamChannel(new Stream(fopen('php://stdin',  'r'), $kernel->eventLoop())),
+        new WritableStreamChannel(new Stream(fopen('php://stdout', 'w'), $kernel->eventLoop()))
     )
 );
 
