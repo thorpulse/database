@@ -1,5 +1,5 @@
 {
-    "name": "icecave/engage",
+    "name": "icecave/recoil-database",
     "description": "This package needs a description!",
     "keywords": [],
     "homepage": "https://github.com/IcecaveStudios/engage",
@@ -26,12 +26,6 @@
             "Icecave\\Engage": "src"
         }
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/IcecaveLabs/recoil"
-        }
-    ],
     "minimum-stability": "dev",
     "prefer-stable": true
 }

@@ -61,7 +61,7 @@ class Service
         return $this->statements[$statementId];
     }
 
-    public function run()
+    public function __invoke()
     {
         do {
             $request = (yield $this->channel->read());

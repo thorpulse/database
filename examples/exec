@@ -3,32 +3,29 @@
 require dirname(__DIR__) . '/vendor/autoload.php';
 
 use Icecave\Engage\ConnectionFactory;
-use Icecave\Recoil\Kernel\Kernel;
+use Icecave\Recoil\Recoil;
 
-function main()
-{
-    $factory = new ConnectionFactory;
+Recoil::run(
+    function () {
+        $factory = new ConnectionFactory;
 
-    // Establish a connection to an in-memory sqlite database ...
-    $connection = (yield $factory->connect('sqlite::memory:'));
+        // Establish a connection to an in-memory sqlite database ...
+        $connection = (yield $factory->connect('sqlite::memory:'));
 
-    // Use exceptions for error reporting ...
-    yield $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        // Use exceptions for error reporting ...
+        yield $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Create a table for testing ...
-    yield $connection->exec('CREATE TABLE testing (id INTEGER PRIMARY KEY, name STRING NOT NULL)');
+        // Create a table for testing ...
+        yield $connection->exec('CREATE TABLE testing (id INTEGER PRIMARY KEY, name STRING NOT NULL)');
 
-    // Insert some values ...
-    yield $connection->exec('INSERT INTO testing VALUES (null, "foo")');
-    echo 'Inserted "foo" with ID ' . (yield $connection->lastInsertId()) . PHP_EOL;
+        // Insert some values ...
+        yield $connection->exec('INSERT INTO testing VALUES (null, "foo")');
+        echo 'Inserted "foo" with ID ' . (yield $connection->lastInsertId()) . PHP_EOL;
 
-    yield $connection->exec('INSERT INTO testing VALUES (null, "bar")');
-    echo 'Inserted "bar" with ID ' . (yield $connection->lastInsertId()) . PHP_EOL;
+        yield $connection->exec('INSERT INTO testing VALUES (null, "bar")');
+        echo 'Inserted "bar" with ID ' . (yield $connection->lastInsertId()) . PHP_EOL;
 
-    yield $connection->exec('INSERT INTO testing VALUES (null, "spam")');
-    echo 'Inserted "spam" with ID ' . (yield $connection->lastInsertId()) . PHP_EOL;
-}
-
-$kernel = new Kernel;
-$kernel->execute(main());
-$kernel->eventLoop()->run();
+        yield $connection->exec('INSERT INTO testing VALUES (null, "spam")');
+        echo 'Inserted "spam" with ID ' . (yield $connection->lastInsertId()) . PHP_EOL;
+    }
+);

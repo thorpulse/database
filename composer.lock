@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "fe68b7ddec33bc14295183f989ee2ccf",
+    "hash": "1bc21d9e48d0f4c34c8b2abd01385237",
     "packages": [
         {
             "name": "evenement/evenement",
@@ -148,13 +148,13 @@
             "version": "dev-develop",
             "source": {
                 "type": "git",
-                "url": "https://github.com/IcecaveLabs/recoil.git",
-                "reference": "5accd393494e1bd83a311a1aa434c291621f6fd4"
+                "url": "https://github.com/IcecaveStudios/recoil.git",
+                "reference": "5c28c24614f74dfa275f0c589c280447510b19c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/IcecaveLabs/recoil/zipball/5accd393494e1bd83a311a1aa434c291621f6fd4",
-                "reference": "5accd393494e1bd83a311a1aa434c291621f6fd4",
+                "url": "https://api.github.com/repos/IcecaveStudios/recoil/zipball/5c28c24614f74dfa275f0c589c280447510b19c5",
+                "reference": "5c28c24614f74dfa275f0c589c280447510b19c5",
                 "shasum": ""
             },
             "require": {
@@ -164,7 +164,6 @@
                 "react/react": "dev-master"
             },
             "require-dev": {
-                "eloquent/asplode": "~1",
                 "icecave/archer": "~1",
                 "phake/phake": "2.0.0-alpha4 as v1.0.3"
             },
@@ -177,6 +176,7 @@
                     "Icecave\\Recoil": "src"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -190,22 +190,18 @@
             "description": "A generator-based cooperative multitasking kernel for ReactPHP.",
             "homepage": "https://github.com/IcecaveStudios/recoil",
             "keywords": [
+                "Thread",
                 "async",
                 "asynchronous",
-                "co-routine",
                 "continuation",
+                "coroutine",
                 "event",
                 "generator",
                 "green",
                 "multitasking",
-                "react",
-                "thread"
+                "react"
             ],
-            "support": {
-                "source": "https://github.com/IcecaveLabs/recoil/tree/develop",
-                "issues": "https://github.com/IcecaveLabs/recoil/issues"
-            },
-            "time": "2013-12-17 01:40:58"
+            "time": "2013-12-29 01:09:15"
         },
         {
             "name": "icecave/repr",
@@ -305,12 +301,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactphp/react.git",
-                "reference": "74da4510fa22ef01be09bdfdee8991dcbbffb8de"
+                "reference": "581b3c944497649739449d4cf5cc4cff5598d152"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/reactphp/react/zipball/74da4510fa22ef01be09bdfdee8991dcbbffb8de",
-                "reference": "74da4510fa22ef01be09bdfdee8991dcbbffb8de",
+                "url": "https://api.github.com/repos/reactphp/react/zipball/581b3c944497649739449d4cf5cc4cff5598d152",
+                "reference": "581b3c944497649739449d4cf5cc4cff5598d152",
                 "shasum": ""
             },
             "require": {
@@ -328,6 +324,9 @@
                 "react/socket": "self.version",
                 "react/socket-client": "self.version",
                 "react/stream": "self.version"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
             },
             "suggest": {
                 "ext-libev": "*",
@@ -353,7 +352,7 @@
                 "event-loop",
                 "reactor"
             ],
-            "time": "2013-12-15 15:11:56"
+            "time": "2013-12-21 19:51:45"
         },
         {
             "name": "symfony/event-dispatcher",

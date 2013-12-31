@@ -4,20 +4,21 @@ require dirname(__DIR__) . '/vendor/autoload.php';
 
 use Icecave\Engage\Detail\Service;
 use Icecave\Recoil\Channel\BidirectionalChannelAdaptor;
-use Icecave\Recoil\Channel\Stream\ReadableStreamChannel;
-use Icecave\Recoil\Channel\Stream\WritableStreamChannel;
-use Icecave\Recoil\Kernel\Kernel;
-use React\Stream\Stream;
+use Icecave\Recoil\Channel\ReadableStreamChannel;
+use Icecave\Recoil\Channel\WritableStreamChannel;
+use Icecave\Recoil\Recoil;
+use Icecave\Recoil\Stream\ReadableStream;
+use Icecave\Recoil\Stream\WritableStream;
 
-$kernel = new Kernel;
-
-$service = new Service(
-    new BidirectionalChannelAdaptor(
-        new ReadableStreamChannel(new Stream(fopen('php://stdin',  'r'), $kernel->eventLoop())),
-        new WritableStreamChannel(new Stream(fopen('php://stdout', 'w'), $kernel->eventLoop()))
+Recoil::run(
+    new Service(
+        new BidirectionalChannelAdaptor(
+            new ReadableStreamChannel(
+                new ReadableStream(STDIN)
+            ),
+            new WritableStreamChannel(
+                new WritableStream(STDOUT)
+            )
+        )
     )
 );
-
-$kernel->execute($service->run());
-
-$kernel->eventLoop()->run();
