@@ -1,8 +1,11 @@
 <?php
-namespace Icecave\Engage;
+namespace Icecave\Recoil\Database\Detail;
 
-use Icecave\Engage\Detail\Client;
-use Icecave\Engage\Detail\Request\InvokeConnectionMethod;
+use Icecave\Recoil\Channel\BidirectionalChannelInterface;
+use Icecave\Recoil\Database\ConnectionInterface;
+use Icecave\Recoil\Database\Detail\Ipc\Request\InvokeConnectionMethod;
+use Icecave\Recoil\Database\Detail\Ipc\ServiceClient;
+use Icecave\Recoil\Database\Exception\DatabaseException;
 use Icecave\Recoil\Recoil;
 use PDO;
 use PDOException;
@@ -12,18 +15,39 @@ use PDOException;
  */
 class Connection implements ConnectionInterface
 {
-    public function __construct(Client $serviceClient)
+    public function __construct(BidirectionalChannelInterface $channel)
     {
-        $this->serviceClient = $serviceClient;
+        $this->channel = $channel;
     }
 
     public function __destruct()
     {
-        $this->serviceClient->releaseConnection();
+        if ($this->kernel) {
+            $this->kernel->execute(
+                $this->channel->write([0, 'disconnect'])
+            );
+        }
     }
 
     /**
-     * [CO-ROUTINE] Prepare an SQL statement to be executed.
+     * [COROUTINE] Establish the database connection.
+     *
+     * The parameters are the same as {@see PDO::__construct()}.
+     *
+     * @param string      $dsn           The data-source name for the connection.
+     * @param string|null $username      The username to use for the DSN.
+     * @param string|null $password      The password to use for the DSN.
+     * @param array|null  $driverOptions Driver-specific configuration options.
+     */
+    public function connect($dsn, $username = null, $password = null, array $driverOptions = null)
+    {
+        $this->kernel = (yield Recoil::kernel());
+
+        yield $this->serviceRequest(__FUNCTION__, func_get_args());
+    }
+
+    /**
+     * [COROUTINE] Prepare an SQL statement to be executed.
      *
      * @link http://php.net/pdo.prepare
      *
@@ -35,41 +59,39 @@ class Connection implements ConnectionInterface
      */
     public function prepare($statement, $attributes = [])
     {
-        throw new \LogicException('Not implemented.');
+        return $this->serviceRequest(__FUNCTION__, func_get_args());
     }
 
     /**
-     * [CO-ROUTINE] Execute an SQL statement and return the result set.
+     * [COROUTINE] Execute an SQL statement and return the result set.
      *
      * There are a number of valid ways to call this method. See the PHP manual
      * entry for PDO::query() for more information.
      *
      * @link http://php.net/pdo.query
      *
-     * @param string $statement The statement to execute.
-     * @param mixed $argument,... Arguments.
+     * @param string $statement    The statement to execute.
+     * @param mixed  $argument,... Arguments.
      *
      * @return StatementInterface The result set.
      * @throws PDOException       If the statement cannot be executed.
      */
     public function query($statement)
     {
-        $statementId = (yield $this->invoke('query', [$statement]));
+        $statement = (yield $this->serviceRequest(__FUNCTION__, [$statement]));
 
-        $statementObject = new Statement($this->serviceClient, $statementId);
+        if ($statement && func_num_args() > 1) {
+            yield call_user_func_array(
+                [$statement, 'setFetchMode'],
+                array_slice(func_get_args(), 1)
+            );
+        }
 
-        // // if (func_num_args() > 1) {
-        // //     call_user_func_array(
-        // //         [$statement, 'setFetchMode'],
-        // //         array_slice(func_get_args(), 1)
-        // //     );
-        // // }
-
-        yield Recoil::return_($statementObject);
+        yield Recoil::return_($statement);
     }
 
     /**
-     * [CO-ROUTINE] Execute an SQL statement and return the number of rows
+     * [COROUTINE] Execute an SQL statement and return the number of rows
      * affected.
      *
      * @link http://php.net/pdo.exec
@@ -81,11 +103,11 @@ class Connection implements ConnectionInterface
      */
     public function exec($statement)
     {
-        return $this->invoke('exec', [$statement]);
+        return $this->serviceRequest(__FUNCTION__, func_get_args());
     }
 
     /**
-     * Returns true if there is an active transaction.
+     * [COROUTINE] Returns true if there is an active transaction.
      *
      * @link http://php.net/pdo.intransaction
      *
@@ -93,11 +115,11 @@ class Connection implements ConnectionInterface
      */
     public function inTransaction()
     {
-        return $this->invoke('inTransaction');
+        return $this->serviceRequest(__FUNCTION__);
     }
 
     /**
-     * [CO-ROUTINE] Start a transation.
+     * [COROUTINE] Start a transation.
      *
      * @link http://php.net/pdo.begintransaction
      *
@@ -106,11 +128,11 @@ class Connection implements ConnectionInterface
      */
     public function beginTransaction()
     {
-        return $this->invoke('beginTransaction');
+        return $this->serviceRequest(__FUNCTION__);
     }
 
     /**
-     * [CO-ROUTINE] Commit the active transaction.
+     * [COROUTINE] Commit the active transaction.
      *
      * @link http://php.net/pdo.commit
      *
@@ -119,11 +141,11 @@ class Connection implements ConnectionInterface
      */
     public function commit()
     {
-        return $this->invoke('commit');
+        return $this->serviceRequest(__FUNCTION__);
     }
 
     /**
-     * [CO-ROUTINE] Roll back the active transaction.
+     * [COROUTINE] Roll back the active transaction.
      *
      * @link http://php.net/pdo.rollback
      *
@@ -132,11 +154,11 @@ class Connection implements ConnectionInterface
      */
     public function rollBack()
     {
-        return $this->invoke('rollBack');
+        return $this->serviceRequest(__FUNCTION__);
     }
 
     /**
-     * [CO-ROUTINE] Get the ID of the last inserted row.
+     * [COROUTINE] Get the ID of the last inserted row.
      *
      * @link http://php.net/pdo.lastinsertid
      *
@@ -146,11 +168,11 @@ class Connection implements ConnectionInterface
      */
     public function lastInsertId($name = null)
     {
-        return $this->invoke('lastInsertId', [$name]);
+        return $this->serviceRequest(__FUNCTION__, func_get_args());
     }
 
     /**
-     * [CO-ROUTINE] Get the most recent status code for this connection.
+     * [COROUTINE] Get the most recent status code for this connection.
      *
      * @link http://php.net/pdo.errorcode
      *
@@ -158,11 +180,11 @@ class Connection implements ConnectionInterface
      */
     public function errorCode()
     {
-        return $this->invoke('errorCode');
+        return $this->serviceRequest(__FUNCTION__);
     }
 
     /**
-     * [CO-ROUTINE] Get status information about the last operation performed on
+     * [COROUTINE] Get status information about the last operation performed on
      * this connection.
      *
      * For details of the status information returned, see the PHP manual entry
@@ -174,11 +196,11 @@ class Connection implements ConnectionInterface
      */
     public function errorInfo()
     {
-        return $this->invoke('errorInfo');
+        return $this->serviceRequest(__FUNCTION__);
     }
 
     /**
-     * [CO-ROUTINE] Quotes a string using an appropriate quoting style for the
+     * [COROUTINE] Quotes a string using an appropriate quoting style for the
      * underlying driver.
      *
      * @link http://php.net/pdo.quote
@@ -191,11 +213,11 @@ class Connection implements ConnectionInterface
      */
     public function quote($string, $parameterType = PDO::PARAM_STR)
     {
-        return $this->invoke('quote', [$string, $parameterType]);
+        return $this->serviceRequest(__FUNCTION__, func_get_args());
     }
 
     /**
-     * [CO-ROUTINE] Set the value of an attribute.
+     * [COROUTINE] Set the value of an attribute.
      *
      * @link http://php.net/pdo.setattribute
      *
@@ -207,11 +229,11 @@ class Connection implements ConnectionInterface
      */
     public function setAttribute($attribute, $value)
     {
-        return $this->invoke('setAttribute', [$attribute, $value]);
+        return $this->serviceRequest(__FUNCTION__, func_get_args());
     }
 
     /**
-     * [CO-ROUTINE] Get the value of an attribute.
+     * [COROUTINE] Get the value of an attribute.
      *
      * @link http://php.net/pdo.getattribute
      *
@@ -222,18 +244,35 @@ class Connection implements ConnectionInterface
      */
     public function getAttribute($attribute)
     {
-        return $this->invoke('getAttribute', [$attribute]);
+        return $this->serviceRequest(__FUNCTION__, func_get_args());
     }
 
-    private function invoke($name, array $arguments = [])
+    public function serviceRequest($method, array $arguments = [])
     {
-        $request = new InvokeConnectionMethod(
-            $name,
-            $arguments
-        );
+        $request = [0, $method];
 
-        return $this->serviceClient->send($request);
+        if ($arguments) {
+            $request[] = $arguments;
+        }
+
+        yield $this->channel->write($request);
+
+        $response = (yield $this->channel->read());
+
+        switch ($response[0]) {
+            case ResponseType::VALUE:
+                yield Recoil::return_($response[1]);
+
+            case ResponseType::STATEMENT:
+                yield Recoil::return_(new Statement($this->channel, $this->kernel, $response[1]));
+
+            case ResponseType::EXCEPTION:
+                throw new DatabaseException($response[1], $response[2], $response[3]);
+        }
+
+        throw new RuntimeException('Invalid response type.');
     }
 
-    private $serviceClient;
+    private $channel;
+    private $kernel;
 }

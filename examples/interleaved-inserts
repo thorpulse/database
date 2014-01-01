@@ -24,38 +24,34 @@ function insertTestData($connection, $connectionName, $count)
 
 function connect($dsn)
 {
-    $factory = new Icecave\Engage\ConnectionFactory;
-    $connection = (yield $factory->create());
-    yield $connection->connect($dsn);
+    $factory = new Icecave\Recoil\Database\ConnectionFactory;
+    $connection = (yield $factory->connect($dsn));
     yield $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     yield Recoil::return_($connection);
 }
 
-function main()
-{
-    $db  = sys_get_temp_dir() . '/engage-examples.sq3';
-    $dsn = 'sqlite:' . $db;
+Recoil::run(
+    function () {
+        $db  = sys_get_temp_dir() . '/recoil-database-examples.sq3';
+        $dsn = 'sqlite:' . $db;
 
-    $connectionA = (yield connect($dsn));
-    $connectionB = (yield connect($dsn));
-    $connectionC = (yield connect($dsn));
-    $connectionD = (yield connect($dsn));
+        $connectionA = (yield connect($dsn));
+        $connectionB = (yield connect($dsn));
+        $connectionC = (yield connect($dsn));
+        $connectionD = (yield connect($dsn));
 
-    yield $connectionA->exec('DROP TABLE IF EXISTS interleaved_inserts');
-    yield $connectionA->exec(
-        'CREATE TABLE interleaved_inserts (
-            id INTEGER PRIMARY KEY,
-            name STRING NOT NULL
-        )'
-    );
+        yield $connectionA->exec('DROP TABLE IF EXISTS interleaved_inserts');
+        yield $connectionA->exec(
+            'CREATE TABLE interleaved_inserts (
+                id INTEGER PRIMARY KEY,
+                name STRING NOT NULL
+            )'
+        );
 
-    // Perform some interleaved, asynchronous inserts ...
-    yield Recoil::execute(insertTestData($connectionA, 'A', 5));
-    yield Recoil::execute(insertTestData($connectionB, 'B', 5));
-    yield Recoil::execute(insertTestData($connectionC, 'C', 5));
-    yield Recoil::execute(insertTestData($connectionD, 'D', 5));
-}
-
-$kernel = new Icecave\Recoil\Kernel\Kernel;
-$kernel->execute(main());
-$kernel->eventLoop()->run();
+        // Perform some interleaved, asynchronous inserts ...
+        yield Recoil::execute(insertTestData($connectionA, 'A', 5));
+        yield Recoil::execute(insertTestData($connectionB, 'B', 5));
+        yield Recoil::execute(insertTestData($connectionC, 'C', 5));
+        yield Recoil::execute(insertTestData($connectionD, 'D', 5));
+    }
+);

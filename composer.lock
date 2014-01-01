@@ -3,8 +3,59 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "1bc21d9e48d0f4c34c8b2abd01385237",
+    "hash": "e1e93039436072ed1b7e505bd192a271",
     "packages": [
+        {
+            "name": "eloquent/asplode",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/eloquent/asplode.git",
+                "reference": "34591a5919625bc49f86ac4b7a473593c2b8e95e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/eloquent/asplode/zipball/34591a5919625bc49f86ac4b7a473593c2b8e95e",
+                "reference": "34591a5919625bc49f86ac4b7a473593c2b8e95e",
+                "shasum": ""
+            },
+            "require": {
+                "icecave/isolator": "~2",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "icecave/archer": "1.0.0-alpha.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Eloquent\\Asplode": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Erin Millard",
+                    "email": "ezzatron@gmail.com",
+                    "homepage": "http://ezzatron.com/"
+                }
+            ],
+            "description": "Drop-in exception-based error handling for PHP.",
+            "homepage": "https://github.com/eloquent/asplode",
+            "keywords": [
+                "error",
+                "errorexception",
+                "exception",
+                "failure",
+                "fault",
+                "handler",
+                "handling"
+            ],
+            "time": "2013-08-01 10:46:05"
+        },
         {
             "name": "evenement/evenement",
             "version": "v2.0.0",
@@ -142,6 +193,55 @@
                 "web service"
             ],
             "time": "2013-12-05 23:39:20"
+        },
+        {
+            "name": "icecave/isolator",
+            "version": "2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/IcecaveStudios/isolator.git",
+                "reference": "2f3fbfcee90790fb3ddde9d4288a2a927cdf6dd6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/IcecaveStudios/isolator/zipball/2f3fbfcee90790fb3ddde9d4288a2a927cdf6dd6",
+                "reference": "2f3fbfcee90790fb3ddde9d4288a2a927cdf6dd6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "icecave/archer": "~0.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Icecave\\Isolator": "lib"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "James Harris",
+                    "email": "james.harris@icecave.com.au",
+                    "homepage": "https://github.com/jmalloc"
+                }
+            ],
+            "description": "Isolate PHP tests from the global environment.",
+            "homepage": "https://github.com/IcecaveStudios/isolator",
+            "keywords": [
+                "fake",
+                "mock",
+                "phake",
+                "phpunit",
+                "test",
+                "unit"
+            ],
+            "time": "2013-06-04 05:00:29"
         },
         {
             "name": "icecave/recoil",
@@ -587,33 +687,45 @@
         },
         {
             "name": "phake/phake",
-            "version": "v1.0.3",
+            "version": "v2.0.0-alpha4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mlively/Phake.git",
-                "reference": "4d822246b401f4dc609500d47e42dac8df645f4f"
+                "reference": "89c15ef5213b553d4a34f2d6d57d0682a29336ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mlively/Phake/zipball/4d822246b401f4dc609500d47e42dac8df645f4f",
-                "reference": "4d822246b401f4dc609500d47e42dac8df645f4f",
+                "url": "https://api.github.com/repos/mlively/Phake/zipball/89c15ef5213b553d4a34f2d6d57d0682a29336ec",
+                "reference": "89c15ef5213b553d4a34f2d6d57d0682a29336ec",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.2.0"
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "davedevelopment/hamcrest-php": "dev-master",
+                "doctrine/common": "2.3.*",
+                "ext-soap": "*",
+                "phpunit/phpunit": "3.7.*"
+            },
+            "suggest": {
+                "davedevelopment/hamcrest-php": "Use Hamcrest matchers.",
+                "doctrine/common": "Allows mock annotations to use import statements for classes."
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
             "autoload": {
-                "classmap": [
-                    "src"
-                ]
+                "psr-0": {
+                    "Phake": "src/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "include-path": [
-                "src"
-            ],
             "license": [
-                "BSD"
+                "BSD-3-Clause"
             ],
             "authors": [
                 {
@@ -627,7 +739,7 @@
                 "mock",
                 "testing"
             ],
-            "time": "2012-05-14 15:06:51"
+            "time": "2013-08-06 22:31:04"
         },
         {
             "name": "pimple/pimple",
@@ -1225,7 +1337,12 @@
         }
     ],
     "aliases": [
-
+        {
+            "alias": "v1.0.3",
+            "alias_normalized": "1.0.3.0",
+            "version": "2.0.0.0-alpha4",
+            "package": "phake/phake"
+        }
     ],
     "minimum-stability": "dev",
     "stability-flags": {

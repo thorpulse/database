@@ -7,37 +7,34 @@ class X
 
 }
 
-use Icecave\Engage\ConnectionFactory;
-use Icecave\Recoil\Kernel\Kernel;
+use Icecave\Recoil\Database\ConnectionFactory;
+use Icecave\Recoil\Recoil;
 
-function main()
-{
-    $factory = new ConnectionFactory;
+Recoil::run(
+    function () {
+        $factory = new ConnectionFactory;
 
-    // Establish a connection to an in-memory sqlite database ...
-    $connection = (yield $factory->connect('sqlite::memory:'));
+        // Establish a connection to an in-memory sqlite database ...
+        $connection = (yield $factory->connect('sqlite::memory:'));
 
-    // Use exceptions for error reporting ...
-    yield $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        // Use exceptions for error reporting ...
+        yield $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Create a table for testing ...
-    yield $connection->exec('CREATE TABLE testing (id INTEGER PRIMARY KEY, name STRING NOT NULL)');
+        // Create a table for testing ...
+        yield $connection->exec('CREATE TABLE testing (id INTEGER PRIMARY KEY, name STRING NOT NULL)');
 
-    // Insert some values ...
-    yield $connection->exec('INSERT INTO testing VALUES (null, "foo")');
-    yield $connection->exec('INSERT INTO testing VALUES (null, "bar")');
-    yield $connection->exec('INSERT INTO testing VALUES (null, "spam")');
+        // Insert some values ...
+        yield $connection->exec('INSERT INTO testing VALUES (null, "foo")');
+        yield $connection->exec('INSERT INTO testing VALUES (null, "bar")');
+        yield $connection->exec('INSERT INTO testing VALUES (null, "spam")');
 
-    // Select the values ...
-    $statement = (yield $connection->query('SELECT * FROM testing'));
+        // Select the values ...
+        $statement = (yield $connection->query('SELECT * FROM testing'));
 
-    yield $statement->debugDumpParams();
+        yield $statement->debugDumpParams();
 
-    // while ($row = (yield $statement->fetchObject('X', [1, 2, 3]))) {
-    //     var_dump($row);
-    // }
-}
-
-$kernel = new Kernel;
-$kernel->execute(main());
-$kernel->eventLoop()->run();
+        // while ($row = (yield $statement->fetchObject('X', [1, 2, 3]))) {
+        //     var_dump($row);
+        // }
+    }
+);

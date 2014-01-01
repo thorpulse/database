@@ -2,7 +2,7 @@
     "name": "icecave/recoil-database",
     "description": "This package needs a description!",
     "keywords": [],
-    "homepage": "https://github.com/IcecaveStudios/engage",
+    "homepage": "https://github.com/IcecaveStudios/recoil-database",
     "license": "MIT",
     "authors": [
         {
@@ -13,17 +13,17 @@
     ],
     "require": {
         "php": ">=5.5",
+        "eloquent/asplode": "~1",
         "icecave/recoil": "dev-develop"
     },
     "require-dev": {
-        "icecave/archer": "~1"
-    },
-    "suggest": {
-        "eloquent/asplode": "Drop-in exception-based error handling."
+        "icecave/archer": "~1",
+        "phake/phake": "2.0.0-alpha4 as v1.0.3"
     },
     "autoload": {
         "psr-0": {
-            "Icecave\\Engage": "src"
+            "Icecave\\Recoil\\Database": "src",
+            "Icecave\\Recoil\\Database\\Detail": "src-internal"
         }
     },
     "minimum-stability": "dev",

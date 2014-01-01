@@ -1,8 +1,7 @@
 <?php
-namespace Icecave\Engage;
+namespace Icecave\Recoil\Database;
 
 use PDO;
-use PDOException;
 
 interface StatementInterface
 {

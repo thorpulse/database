@@ -1,5 +1,5 @@
 <?php
-namespace Icecave\Engage;
+namespace Icecave\Recoil\Database;
 
 use PDO;
 use PDOException;
@@ -10,7 +10,7 @@ use PDOException;
 interface ConnectionInterface
 {
     /**
-     * [CO-ROUTINE] Prepare an SQL statement to be executed.
+     * [COROUTINE] Prepare an SQL statement to be executed.
      *
      * @link http://php.net/pdo.prepare
      *
@@ -23,15 +23,15 @@ interface ConnectionInterface
     public function prepare($statement, $attributes = []);
 
     /**
-     * [CO-ROUTINE] Execute an SQL statement and return the result set.
+     * [COROUTINE] Execute an SQL statement and return the result set.
      *
      * There are a number of valid ways to call this method. See the PHP manual
      * entry for PDO::query() for more information.
      *
      * @link http://php.net/pdo.query
      *
-     * @param string $statement The statement to execute.
-     * @param mixed $argument,... Arguments.
+     * @param string $statement    The statement to execute.
+     * @param mixed  $argument,... Arguments.
      *
      * @return StatementInterface The result set.
      * @throws PDOException       If the statement cannot be executed.
@@ -39,7 +39,7 @@ interface ConnectionInterface
     public function query($statement);
 
     /**
-     * [CO-ROUTINE] Execute an SQL statement and return the number of rows
+     * [COROUTINE] Execute an SQL statement and return the number of rows
      * affected.
      *
      * @link http://php.net/pdo.exec
@@ -52,7 +52,7 @@ interface ConnectionInterface
     public function exec($statement);
 
     /**
-     * Returns true if there is an active transaction.
+     * [COROUTINE] Returns true if there is an active transaction.
      *
      * @link http://php.net/pdo.intransaction
      *
@@ -61,7 +61,7 @@ interface ConnectionInterface
     public function inTransaction();
 
     /**
-     * [CO-ROUTINE] Start a transation.
+     * [COROUTINE] Start a transation.
      *
      * @link http://php.net/pdo.begintransaction
      *
@@ -71,7 +71,7 @@ interface ConnectionInterface
     public function beginTransaction();
 
     /**
-     * [CO-ROUTINE] Commit the active transaction.
+     * [COROUTINE] Commit the active transaction.
      *
      * @link http://php.net/pdo.commit
      *
@@ -81,7 +81,7 @@ interface ConnectionInterface
     public function commit();
 
     /**
-     * [CO-ROUTINE] Roll back the active transaction.
+     * [COROUTINE] Roll back the active transaction.
      *
      * @link http://php.net/pdo.rollback
      *
@@ -91,7 +91,7 @@ interface ConnectionInterface
     public function rollBack();
 
     /**
-     * [CO-ROUTINE] Get the ID of the last inserted row.
+     * [COROUTINE] Get the ID of the last inserted row.
      *
      * @link http://php.net/pdo.lastinsertid
      *
@@ -102,7 +102,7 @@ interface ConnectionInterface
     public function lastInsertId($name = null);
 
     /**
-     * [CO-ROUTINE] Get the most recent status code for this connection.
+     * [COROUTINE] Get the most recent status code for this connection.
      *
      * @link http://php.net/pdo.errorcode
      *
@@ -111,7 +111,7 @@ interface ConnectionInterface
     public function errorCode();
 
     /**
-     * [CO-ROUTINE] Get status information about the last operation performed on
+     * [COROUTINE] Get status information about the last operation performed on
      * this connection.
      *
      * For details of the status information returned, see the PHP manual entry
@@ -124,7 +124,7 @@ interface ConnectionInterface
     public function errorInfo();
 
     /**
-     * [CO-ROUTINE] Quotes a string using an appropriate quoting style for the
+     * [COROUTINE] Quotes a string using an appropriate quoting style for the
      * underlying driver.
      *
      * @link http://php.net/pdo.quote
@@ -138,7 +138,7 @@ interface ConnectionInterface
     public function quote($string, $parameterType = PDO::PARAM_STR);
 
     /**
-     * [CO-ROUTINE] Set the value of an attribute.
+     * [COROUTINE] Set the value of an attribute.
      *
      * @link http://php.net/pdo.setattribute
      *
@@ -151,7 +151,7 @@ interface ConnectionInterface
     public function setAttribute($attribute, $value);
 
     /**
-     * [CO-ROUTINE] Get the value of an attribute.
+     * [COROUTINE] Get the value of an attribute.
      *
      * @link http://php.net/pdo.getattribute
      *
