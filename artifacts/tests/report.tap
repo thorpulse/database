@@ -1,4 +1,31 @@
 TAP version 13
 ok 1 - Icecave\Recoil\Database\ConnectionFactoryTest::testConnect
 ok 2 - Icecave\Recoil\Database\ConnectionFactoryTest::testConnectLogic
-1..2
+ok 3 - Icecave\Recoil\Database\Exception\DatabaseExceptionTest::testException
+ok 4 - Icecave\Recoil\Database\Exception\DatabaseExceptionTest::testExceptionDefaultErrorInfo
+ok 5 - Icecave\Recoil\Database\Exception\DatabaseExceptionTest::testExceptionDefaults
+not ok 6 - Icecave\Recoil\Database\FunctionalCoverageTest::testPrepare # TODO Incomplete Test
+not ok 7 - Icecave\Recoil\Database\FunctionalCoverageTest::testQuery # TODO Incomplete Test
+ok 8 - Icecave\Recoil\Database\FunctionalCoverageTest::testExec
+ok 9 - Icecave\Recoil\Database\FunctionalCoverageTest::testInTransaction
+ok 10 - Icecave\Recoil\Database\FunctionalCoverageTest::testCommit
+ok 11 - Icecave\Recoil\Database\FunctionalCoverageTest::testRollback
+ok 12 - Icecave\Recoil\Database\FunctionalCoverageTest::testLastInsertId
+ok 13 - Icecave\Recoil\Database\FunctionalCoverageTest::testErrorCode
+ok 14 - Icecave\Recoil\Database\FunctionalCoverageTest::testErrorInfo
+ok 15 - Icecave\Recoil\Database\FunctionalCoverageTest::testQuote
+ok 16 - Icecave\Recoil\Database\FunctionalCoverageTest::testSetAndGetAttribute
+ok 17 - Icecave\Recoil\Database\FunctionalCoverageTest::testException
+not ok 18 - Icecave\Recoil\Database\FunctionalTest::testPrepare # TODO Incomplete Test
+not ok 19 - Icecave\Recoil\Database\FunctionalTest::testQuery # TODO Incomplete Test
+ok 20 - Icecave\Recoil\Database\FunctionalTest::testExec
+ok 21 - Icecave\Recoil\Database\FunctionalTest::testInTransaction
+ok 22 - Icecave\Recoil\Database\FunctionalTest::testCommit
+ok 23 - Icecave\Recoil\Database\FunctionalTest::testRollback
+ok 24 - Icecave\Recoil\Database\FunctionalTest::testLastInsertId
+ok 25 - Icecave\Recoil\Database\FunctionalTest::testErrorCode
+ok 26 - Icecave\Recoil\Database\FunctionalTest::testErrorInfo
+ok 27 - Icecave\Recoil\Database\FunctionalTest::testQuote
+ok 28 - Icecave\Recoil\Database\FunctionalTest::testSetAndGetAttribute
+ok 29 - Icecave\Recoil\Database\FunctionalTest::testException
+1..29
