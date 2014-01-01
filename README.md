@@ -4,7 +4,7 @@
 [![Test Coverage]](https://coveralls.io/r/IcecaveLabs/recoil-database?branch=develop)
 [![SemVer]](http://semver.org)
 
-**Recoil Database** needs a description!
+**Recoil Database** is an asynchronous PDO-like database abstraction layer that runs on [Recoil](https://github.com/IcecaveStudios/recoil).
 
 * Install via [Composer](http://getcomposer.org) package [icecave/recoil-database](https://packagist.org/packages/icecave/recoil-database)
 * Read the [API documentation](http://icecavelabs.github.io/recoil-database/artifacts/documentation/api/)

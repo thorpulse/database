@@ -1,7 +1,23 @@
 {
     "name": "icecave/recoil-database",
-    "description": "This package needs a description!",
-    "keywords": [],
+    "description": "An asynchronous PDO-like database abstraction for Recoil",
+    "keywords": [
+        "database",
+        "db",
+        "pdo",
+        "recoil",
+        "coroutine",
+        "generator",
+        "event",
+        "async",
+        "asynchronous",
+        "react",
+        "mysql",
+        "postgres",
+        "postgresql",
+        "sqlite",
+        "odbc"
+    ],
     "homepage": "https://github.com/IcecaveStudios/recoil-database",
     "license": "MIT",
     "authors": [

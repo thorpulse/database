@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "e1e93039436072ed1b7e505bd192a271",
+    "hash": "56a629edf0da86f45f4844a6eb60b806",
     "packages": [
         {
             "name": "eloquent/asplode",
@@ -249,12 +249,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/IcecaveStudios/recoil.git",
-                "reference": "5c28c24614f74dfa275f0c589c280447510b19c5"
+                "reference": "0d17949e388dd80f2b455ece739e6a7ab8127e02"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/IcecaveStudios/recoil/zipball/5c28c24614f74dfa275f0c589c280447510b19c5",
-                "reference": "5c28c24614f74dfa275f0c589c280447510b19c5",
+                "url": "https://api.github.com/repos/IcecaveStudios/recoil/zipball/0d17949e388dd80f2b455ece739e6a7ab8127e02",
+                "reference": "0d17949e388dd80f2b455ece739e6a7ab8127e02",
                 "shasum": ""
             },
             "require": {
@@ -301,7 +301,7 @@
                 "multitasking",
                 "react"
             ],
-            "time": "2013-12-29 01:09:15"
+            "time": "2014-01-01 08:28:45"
         },
         {
             "name": "icecave/repr",
