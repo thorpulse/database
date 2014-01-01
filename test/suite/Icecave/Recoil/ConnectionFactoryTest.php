@@ -11,47 +11,45 @@ use React\EventLoop\StreamSelectLoop;
 
 class ConnectionFactoryTest extends PHPUnit_Framework_TestCase
 {
-    public function setUp()
-    {
-        $this->factory = Phake::partialMock(ConnectionFactory::CLASS);
-    }
-
     public function testConnect()
     {
         Recoil::run(
             function () {
-                $connection = (yield $this->factory->connect('sqlite::memory:'));
+                $factory = new ConnectionFactory;
+
+                $connection = (yield $factory->connect('sqlite::memory:'));
 
                 $this->assertInstanceOf(Connection::CLASS, $connection);
 
-                $connection->__destruct(); // Mocked factory is holding reference to connection.
+                // $connection->__destruct(); // Mocked factory is holding reference to connection.
             }
         );
     }
 
     public function testConnectLogic()
     {
+        $factory = Phake::partialMock(ConnectionFactory::CLASS);
         $process = Phake::mock(Process::CLASS);
         $channel = Phake::mock(BidirectionalChannelInterface::CLASS);
         $connection = Phake::mock(Connection::CLASS);
 
-        Phake::when($this->factory)
+        Phake::when($factory)
             ->createProcess(Phake::anyParameters())
             ->thenReturn($process);
 
-        Phake::when($this->factory)
+        Phake::when($factory)
             ->createChannel(Phake::anyParameters())
             ->thenReturn($channel);
 
-        Phake::when($this->factory)
+        Phake::when($factory)
             ->createConnection(Phake::anyParameters())
             ->thenReturn($connection);
 
         $eventLoop = new StreamSelectLoop;
 
         Recoil::run(
-            function () use ($connection) {
-                $con = (yield $this->factory->connect(
+            function () use ($factory, $connection) {
+                $con = (yield $factory->connect(
                     'dsn',
                     'username',
                     'password',
@@ -64,10 +62,10 @@ class ConnectionFactoryTest extends PHPUnit_Framework_TestCase
         );
 
         Phake::inOrder(
-            Phake::verify($this->factory)->createProcess(),
+            Phake::verify($factory)->createProcess(),
             Phake::verify($process)->start($eventLoop),
-            Phake::verify($this->factory)->createChannel($process),
-            Phake::verify($this->factory)->createConnection($channel),
+            Phake::verify($factory)->createChannel($process),
+            Phake::verify($factory)->createConnection($channel),
             Phake::verify($connection)->connect(
                 'dsn',
                 'username',
@@ -77,52 +75,4 @@ class ConnectionFactoryTest extends PHPUnit_Framework_TestCase
         );
 
     }
-
-    // public function testConnectFunctional()
-    // {
-    //     Recoil::run(
-    //         function () {
-    //             $connection = (yield $this->factory->connect('sqlite::memory:'));
-
-    //             $this->assertInstanceOf(ConnectionInterface::CLASS, $connection);
-    //         }
-    //     );
-    // }
-
-    // public function testConnect()
-    // {
-    //     $process = Phake::mock(Process::CLASS);
-
-    //     Phake::when($this->factory)
-    //         ->createServiceProcess()
-    //         ->thenGetResultByLambda(
-    //             function () use ($process) {
-    //                 yield Recoil::return_($process);
-    //             }
-    //         );
-
-    //     Phake::when($this->factory)
-    //         ->createServiceProcess()
-    //         ->thenGetResultByLambda(
-    //             function () use ($process) {
-    //                 yield Recoil::return_($process);
-    //             }
-    //         );
-
-    //     $coroutine = function () {
-    //         $connection = (yield $this->factory->connect('sqlite::memory:'));
-
-    //         $this->assertInstanceOf(ConnectionInterface::CLASS, $connection);
-    //     };
-
-    //     $connection = $this->factory->connect(
-    //         'dsn',
-    //         'username',
-    //         'password',
-    //         ['driver' => 'options']
-    //     );
-
-    //     $this->kernel->execute($coroutine());
-    //     $this->kernel->eventLoop()->run();
-    // }
 }
