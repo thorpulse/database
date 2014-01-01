@@ -20,6 +20,16 @@ class StatementService
         return null; // Do not send a response.
     }
 
+    public function __call($name, array $arguments)
+    {
+        $value = call_user_func_array(
+            [$this->statement, $name],
+            $arguments
+        );
+
+        return [ResponseType::VALUE, $value];
+    }
+
     public function debugDumpParams()
     {
         ob_start();

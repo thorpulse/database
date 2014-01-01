@@ -32,15 +32,53 @@ trait FunctionalTestTrait
 
     abstract public function createFactory();
 
-    public function testPrepare()
+    public function testConnectionPrepare()
     {
+        Recoil::run(
+            function () {
+                $connection = (yield $this->factory->connect($this->dsn));
+
+                $statement = (yield $connection->prepare('INSERT INTO test VALUES (null, "foo")'));
+
+                $this->assertInstanceOf(StatementInterface::CLASS, $statement);
+
+                yield $statement->execute();
+
+                $this->assertEquals(
+                    [[1, 'foo']],
+                    $this->pdo->query('SELECT * FROM test')->fetchAll(PDO::FETCH_NUM)
+                );
+            }
+        );
     }
 
-    public function testQuery()
+    public function testConnectionQuery()
     {
+        Recoil::run(
+            function () {
+                $this->pdo->exec('INSERT INTO test VALUES (null, "foo")');
+                $this->pdo->exec('INSERT INTO test VALUES (null, "bar")');
+
+                $connection = (yield $this->factory->connect($this->dsn));
+
+                $statement = (yield $connection->query('SELECT * FROM test'));
+
+                $this->assertInstanceOf(StatementInterface::CLASS, $statement);
+
+                $this->assertEquals(
+                    [[1, 'foo'], [2, 'bar']],
+                    (yield $statement->fetchAll(PDO::FETCH_NUM))
+                );
+            }
+        );
     }
 
-    public function testExec()
+    public function testConnectionQueryWithAllParameterCombinations()
+    {
+        // TODO
+    }
+
+    public function testConnectionExec()
     {
         Recoil::run(
             function () {
@@ -56,7 +94,7 @@ trait FunctionalTestTrait
         );
     }
 
-    public function testInTransaction()
+    public function testConnectionInTransaction()
     {
         Recoil::run(
             function () {
@@ -75,7 +113,7 @@ trait FunctionalTestTrait
         );
     }
 
-    public function testCommit()
+    public function testConnectionCommit()
     {
         Recoil::run(
             function () {
@@ -96,7 +134,7 @@ trait FunctionalTestTrait
         );
     }
 
-    public function testRollback()
+    public function testConnectionRollback()
     {
         Recoil::run(
             function () {
@@ -117,7 +155,7 @@ trait FunctionalTestTrait
         );
     }
 
-    public function testLastInsertId()
+    public function testConnectionLastInsertId()
     {
         Recoil::run(
             function () {
@@ -134,7 +172,7 @@ trait FunctionalTestTrait
         );
     }
 
-    public function testErrorCode()
+    public function testConnectionErrorCode()
     {
         Recoil::run(
             function () {
@@ -149,7 +187,7 @@ trait FunctionalTestTrait
         );
     }
 
-    public function testErrorInfo()
+    public function testConnectionErrorInfo()
     {
         Recoil::run(
             function () {
@@ -164,7 +202,7 @@ trait FunctionalTestTrait
         );
     }
 
-    public function testQuote()
+    public function testConnectionQuote()
     {
         Recoil::run(
             function () {
@@ -179,7 +217,7 @@ trait FunctionalTestTrait
         );
     }
 
-    public function testSetAndGetAttribute()
+    public function testConnectionSetAndGetAttribute()
     {
         Recoil::run(
             function () {
@@ -198,7 +236,7 @@ trait FunctionalTestTrait
         );
     }
 
-    public function testException()
+    public function testExceptionPropagation()
     {
         Recoil::run(
             function () {

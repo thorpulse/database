@@ -20,11 +20,21 @@ class Connection implements ConnectionInterface
 
     public function __destruct()
     {
-        if ($this->kernel) {
+        if ($this->kernel && !$this->channel->isClosed()) {
             $this->kernel->execute(
                 $this->channel->write([0, 'disconnect'])
             );
         }
+    }
+
+    public function channel()
+    {
+        return $this->channel;
+    }
+
+    public function kernel()
+    {
+        return $this->kernel;
     }
 
     /**
@@ -262,7 +272,7 @@ class Connection implements ConnectionInterface
                 yield Recoil::return_($response[1]);
 
             case ResponseType::STATEMENT:
-                yield Recoil::return_(new Statement($this->channel, $this->kernel, $response[1]));
+                yield Recoil::return_(new Statement($this, $response[1]));
 
             case ResponseType::EXCEPTION:
                 throw new DatabaseException($response[1], $response[2], $response[3]);

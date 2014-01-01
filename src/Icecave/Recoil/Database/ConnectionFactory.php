@@ -52,8 +52,10 @@ class ConnectionFactory
         // if ($process->stderr) $process->stderr->on(
         //     'data',
         //     function ($data) {
-        //         echo 'ERR: ' . $data;
-        //         ob_flush();
+        //         if ($data) {
+        //             echo 'ERR: ' . $data;
+        //             ob_flush();
+        //         }
         //     }
         // );
 

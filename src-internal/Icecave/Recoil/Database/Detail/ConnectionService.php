@@ -29,7 +29,10 @@ class ConnectionService
 
     public function __call($name, array $arguments)
     {
-        $value = call_user_func_array([$this->connection, $name], $arguments);
+        $value = call_user_func_array(
+            [$this->connection, $name],
+            $arguments
+        );
 
         if (!$value instanceof PDOStatement) {
             return [ResponseType::VALUE, $value];
