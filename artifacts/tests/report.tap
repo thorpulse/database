@@ -1,0 +1,4 @@
+TAP version 13
+ok 1 - Icecave\Recoil\Database\ConnectionFactoryTest::testConnect
+ok 2 - Icecave\Recoil\Database\ConnectionFactoryTest::testConnectLogic
+1..2

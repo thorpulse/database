@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="robots" content="index, follow, all" />
+        <title>Icecave\Recoil\Database\ConnectionInterface | Recoil - Database API</title>
+                    <link rel="stylesheet" type="text/css" href="../../../stylesheet.css">
+                            </head>
+        <body id="class">
+            <div class="header">
+        <ul>
+            <li><a href="../../../classes.html">Classes</a></li>
+                            <li><a href="../../../namespaces.html">Namespaces</a></li>
+                        <li><a href="../../../interfaces.html">Interfaces</a></li>
+            <li><a href="../../../doc-index.html">Index</a></li>
+            
+        </ul>
+
+        <div id="title">Recoil - Database API</div>
+
+            <div class="type">Interface</div>
+    <h1><a href="../../../Icecave/Recoil/Database.html">Icecave\Recoil\Database</a>\ConnectionInterface</h1>
+    </div>
+        <div class="content">
+                <p>interface    <strong>ConnectionInterface</strong></p>
+
+            <div class="description">
+            <p>An asynchronous PDO-like database connection.</p>
+            <p>
+</p>
+        </div>
+    
+    
+    
+            <h2>Methods</h2>
+
+            <table>
+                    <tr>
+                <td class="type">
+                    <a href="../../../Icecave/Recoil/Database/StatementInterface.html"><abbr title="Icecave\Recoil\Database\StatementInterface">StatementInterface</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_prepare">prepare</a>(string $statement, <abbr title="Icecave\Recoil\Database\array&lt;integer,mixed&gt;">array&lt;integer,mixed&gt;</abbr> $attributes = array())
+                    <p>[COROUTINE] Prepare an SQL statement to be executed.</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../../../Icecave/Recoil/Database/StatementInterface.html"><abbr title="Icecave\Recoil\Database\StatementInterface">StatementInterface</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_query">query</a>($statement)
+                    <p>[COROUTINE] Execute an SQL statement and return the result set.</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    integer
+                </td>
+                <td class="last">
+                    <a href="#method_exec">exec</a>(string $statement)
+                    <p>[COROUTINE] Execute an SQL statement and return the number of rows affected.</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    boolean
+                </td>
+                <td class="last">
+                    <a href="#method_inTransaction">inTransaction</a>()
+                    <p>[COROUTINE] Returns true if there is an active transaction.</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    boolean
+                </td>
+                <td class="last">
+                    <a href="#method_beginTransaction">beginTransaction</a>()
+                    <p>[COROUTINE] Start a transation.</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    boolean
+                </td>
+                <td class="last">
+                    <a href="#method_commit">commit</a>()
+                    <p>[COROUTINE] Commit the active transaction.</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    boolean
+                </td>
+                <td class="last">
+                    <a href="#method_rollBack">rollBack</a>()
+                    <p>[COROUTINE] Roll back the active transaction.</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method_lastInsertId">lastInsertId</a>(string|null $name = null)
+                    <p>[COROUTINE] Get the ID of the last inserted row.</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string|null
+                </td>
+                <td class="last">
+                    <a href="#method_errorCode">errorCode</a>()
+                    <p>[COROUTINE] Get the most recent status code for this connection.</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    array
+                </td>
+                <td class="last">
+                    <a href="#method_errorInfo">errorInfo</a>()
+                    <p>[COROUTINE] Get status information about the last operation performed on this connection.</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method_quote">quote</a>(string $string, integer $parameterType = PDO::PARAM_STR)
+                    <p>[COROUTINE] Quotes a string using an appropriate quoting style for the underlying driver.</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    boolean
+                </td>
+                <td class="last">
+                    <a href="#method_setAttribute">setAttribute</a>(integer $attribute, mixed $value)
+                    <p>[COROUTINE] Set the value of an attribute.</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    mixed
+                </td>
+                <td class="last">
+                    <a href="#method_getAttribute">getAttribute</a>(integer $attribute)
+                    <p>[COROUTINE] Get the value of an attribute.</p>
+                </td>
+                <td></td>
+            </tr>
+            </table>
+
+
+        <h2>Details</h2>
+
+                        <h3 id="method_prepare">
+        <div class="location">at line 23</div>
+        <code>            public            <a href="../../../Icecave/Recoil/Database/StatementInterface.html"><abbr title="Icecave\Recoil\Database\StatementInterface">StatementInterface</abbr></a>
+    <strong>prepare</strong>(string $statement, <abbr title="Icecave\Recoil\Database\array&lt;integer,mixed&gt;">array&lt;integer,mixed&gt;</abbr> $attributes = array())</code>
+    </h3>
+    <div class="details">
+        <p>[COROUTINE] Prepare an SQL statement to be executed.</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$statement</td>
+                <td>The statement to prepare.</td>
+            </tr>
+                    <tr>
+                <td><abbr title="Icecave\Recoil\Database\array&lt;integer,mixed&gt;">array&lt;integer,mixed&gt;</abbr></td>
+                <td>$attributes</td>
+                <td>The connection attributes to use.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../../../Icecave/Recoil/Database/StatementInterface.html"><abbr title="Icecave\Recoil\Database\StatementInterface">StatementInterface</abbr></a></td>
+            <td>The prepared PDO statement.</td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="http://php.net/PDOException"><abbr title="PDOException">PDOException</abbr></a></td>
+                <td>If the statement cannot be prepared.</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+                <h3 id="method_query">
+        <div class="location">at line 39</div>
+        <code>            public            <a href="../../../Icecave/Recoil/Database/StatementInterface.html"><abbr title="Icecave\Recoil\Database\StatementInterface">StatementInterface</abbr></a>
+    <strong>query</strong>($statement)</code>
+    </h3>
+    <div class="details">
+        <p>[COROUTINE] Execute an SQL statement and return the result set.</p>
+        <p>There are a number of valid ways to call this method. See the PHP manual
+entry for PDO::query() for more information.</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$statement</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../../../Icecave/Recoil/Database/StatementInterface.html"><abbr title="Icecave\Recoil\Database\StatementInterface">StatementInterface</abbr></a></td>
+            <td>The result set.</td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="http://php.net/PDOException"><abbr title="PDOException">PDOException</abbr></a></td>
+                <td>If the statement cannot be executed.</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+                <h3 id="method_exec">
+        <div class="location">at line 52</div>
+        <code>            public            integer
+    <strong>exec</strong>(string $statement)</code>
+    </h3>
+    <div class="details">
+        <p>[COROUTINE] Execute an SQL statement and return the number of rows affected.</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$statement</td>
+                <td>The statement to execute.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>integer</td>
+            <td>The number of affected rows.</td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="http://php.net/PDOException"><abbr title="PDOException">PDOException</abbr></a></td>
+                <td>If the statement cannot be executed.</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+                <h3 id="method_inTransaction">
+        <div class="location">at line 61</div>
+        <code>            public            boolean
+    <strong>inTransaction</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>[COROUTINE] Returns true if there is an active transaction.</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>boolean</td>
+            <td>True if there is an active transaction.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_beginTransaction">
+        <div class="location">at line 71</div>
+        <code>            public            boolean
+    <strong>beginTransaction</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>[COROUTINE] Start a transation.</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>boolean</td>
+            <td>True if a transaction was started.</td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="http://php.net/PDOException"><abbr title="PDOException">PDOException</abbr></a></td>
+                <td>If the transaction cannot be started.</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+                <h3 id="method_commit">
+        <div class="location">at line 81</div>
+        <code>            public            boolean
+    <strong>commit</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>[COROUTINE] Commit the active transaction.</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>boolean</td>
+            <td>True if the transaction was successfully committed.</td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="http://php.net/PDOException"><abbr title="PDOException">PDOException</abbr></a></td>
+                <td>If the transaction cannot be committed.</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+                <h3 id="method_rollBack">
+        <div class="location">at line 91</div>
+        <code>            public            boolean
+    <strong>rollBack</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>[COROUTINE] Roll back the active transaction.</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>boolean</td>
+            <td>True if the transaction was successfully rolled back.</td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="http://php.net/PDOException"><abbr title="PDOException">PDOException</abbr></a></td>
+                <td>If the transaction cannot be rolled back.</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+                <h3 id="method_lastInsertId">
+        <div class="location">at line 102</div>
+        <code>            public            string
+    <strong>lastInsertId</strong>(string|null $name = null)</code>
+    </h3>
+    <div class="details">
+        <p>[COROUTINE] Get the ID of the last inserted row.</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string|null</td>
+                <td>$name</td>
+                <td>The name of the sequence object to query.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>The last inserted ID.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_errorCode">
+        <div class="location">at line 111</div>
+        <code>            public            string|null
+    <strong>errorCode</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>[COROUTINE] Get the most recent status code for this connection.</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string|null</td>
+            <td>The status code, or null if no statement has been run on this connection.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_errorInfo">
+        <div class="location">at line 124</div>
+        <code>            public            array
+    <strong>errorInfo</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>[COROUTINE] Get status information about the last operation performed on this connection.</p>
+        <p>For details of the status information returned, see the PHP manual entry
+for PDO::errorInfo().</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>array</td>
+            <td>The status information.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_quote">
+        <div class="location">at line 138</div>
+        <code>            public            string
+    <strong>quote</strong>(string $string, integer $parameterType = PDO::PARAM_STR)</code>
+    </h3>
+    <div class="details">
+        <p>[COROUTINE] Quotes a string using an appropriate quoting style for the underlying driver.</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$string</td>
+                <td>The string to quote.</td>
+            </tr>
+                    <tr>
+                <td>integer</td>
+                <td>$parameterType</td>
+                <td>The parameter type.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>The quoted string.</td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="http://php.net/PDOException"><abbr title="PDOException">PDOException</abbr></a></td>
+                <td>If the parameter type is not supported.</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+                <h3 id="method_setAttribute">
+        <div class="location">at line 151</div>
+        <code>            public            boolean
+    <strong>setAttribute</strong>(integer $attribute, mixed $value)</code>
+    </h3>
+    <div class="details">
+        <p>[COROUTINE] Set the value of an attribute.</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>integer</td>
+                <td>$attribute</td>
+                <td>The attribute to set.</td>
+            </tr>
+                    <tr>
+                <td>mixed</td>
+                <td>$value</td>
+                <td>The value to set the attribute to.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>boolean</td>
+            <td>True if the attribute was successfully set.</td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="http://php.net/PDOException"><abbr title="PDOException">PDOException</abbr></a></td>
+                <td>If the attribute could not be set.</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getAttribute">
+        <div class="location">at line 163</div>
+        <code>            public            mixed
+    <strong>getAttribute</strong>(integer $attribute)</code>
+    </h3>
+    <div class="details">
+        <p>[COROUTINE] Get the value of an attribute.</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>integer</td>
+                <td>$attribute</td>
+                <td>The attribute to get.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>mixed</td>
+            <td>The attribute value.</td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="http://php.net/PDOException"><abbr title="PDOException">PDOException</abbr></a></td>
+                <td>If the attribute could not be read.</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+    
+            </div>
+            <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/" target="_top">Sami, the API Documentation Generator</a>.
+    </div>
+    </body>
+</html>

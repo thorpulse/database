@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="" tests="2" assertions="7" failures="0" errors="0" time="0.188617">
+    <testsuite name="Icecave\Recoil\Database\ConnectionFactoryTest" file="/home/travis/build/IcecaveLabs/engage/test/suite/Icecave/Recoil/ConnectionFactoryTest.php" namespace="Icecave\Recoil\Database" fullPackage="Icecave.Recoil.Database" tests="2" assertions="7" failures="0" errors="0" time="0.188617">
+      <testcase name="testConnect" class="Icecave\Recoil\Database\ConnectionFactoryTest" file="/home/travis/build/IcecaveLabs/engage/test/suite/Icecave/Recoil/ConnectionFactoryTest.php" line="19" assertions="1" time="0.143491"/>
+      <testcase name="testConnectLogic" class="Icecave\Recoil\Database\ConnectionFactoryTest" file="/home/travis/build/IcecaveLabs/engage/test/suite/Icecave/Recoil/ConnectionFactoryTest.php" line="32" assertions="6" time="0.045126"/>
+    </testsuite>
+  </testsuite>
+</testsuites>
