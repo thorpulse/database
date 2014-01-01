@@ -3,8 +3,6 @@ namespace Icecave\Recoil\Database\Detail;
 
 use Icecave\Recoil\Channel\BidirectionalChannelInterface;
 use Icecave\Recoil\Database\ConnectionInterface;
-use Icecave\Recoil\Database\Detail\Ipc\Request\InvokeConnectionMethod;
-use Icecave\Recoil\Database\Detail\Ipc\ServiceClient;
 use Icecave\Recoil\Database\Exception\DatabaseException;
 use Icecave\Recoil\Recoil;
 use PDO;

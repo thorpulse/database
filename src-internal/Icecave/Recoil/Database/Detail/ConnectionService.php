@@ -1,9 +1,7 @@
 <?php
 namespace Icecave\Recoil\Database\Detail;
 
-use Exception;
 use PDO;
-use PDOException;
 use PDOStatement;
 
 class ConnectionService
