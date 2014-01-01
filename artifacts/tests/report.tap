@@ -4,28 +4,30 @@ ok 2 - Icecave\Recoil\Database\ConnectionFactoryTest::testConnectLogic
 ok 3 - Icecave\Recoil\Database\Exception\DatabaseExceptionTest::testException
 ok 4 - Icecave\Recoil\Database\Exception\DatabaseExceptionTest::testExceptionDefaultErrorInfo
 ok 5 - Icecave\Recoil\Database\Exception\DatabaseExceptionTest::testExceptionDefaults
-not ok 6 - Icecave\Recoil\Database\FunctionalCoverageTest::testPrepare # TODO Incomplete Test
-not ok 7 - Icecave\Recoil\Database\FunctionalCoverageTest::testQuery # TODO Incomplete Test
-ok 8 - Icecave\Recoil\Database\FunctionalCoverageTest::testExec
-ok 9 - Icecave\Recoil\Database\FunctionalCoverageTest::testInTransaction
-ok 10 - Icecave\Recoil\Database\FunctionalCoverageTest::testCommit
-ok 11 - Icecave\Recoil\Database\FunctionalCoverageTest::testRollback
-ok 12 - Icecave\Recoil\Database\FunctionalCoverageTest::testLastInsertId
-ok 13 - Icecave\Recoil\Database\FunctionalCoverageTest::testErrorCode
-ok 14 - Icecave\Recoil\Database\FunctionalCoverageTest::testErrorInfo
-ok 15 - Icecave\Recoil\Database\FunctionalCoverageTest::testQuote
-ok 16 - Icecave\Recoil\Database\FunctionalCoverageTest::testSetAndGetAttribute
-ok 17 - Icecave\Recoil\Database\FunctionalCoverageTest::testException
-not ok 18 - Icecave\Recoil\Database\FunctionalTest::testPrepare # TODO Incomplete Test
-not ok 19 - Icecave\Recoil\Database\FunctionalTest::testQuery # TODO Incomplete Test
-ok 20 - Icecave\Recoil\Database\FunctionalTest::testExec
-ok 21 - Icecave\Recoil\Database\FunctionalTest::testInTransaction
-ok 22 - Icecave\Recoil\Database\FunctionalTest::testCommit
-ok 23 - Icecave\Recoil\Database\FunctionalTest::testRollback
-ok 24 - Icecave\Recoil\Database\FunctionalTest::testLastInsertId
-ok 25 - Icecave\Recoil\Database\FunctionalTest::testErrorCode
-ok 26 - Icecave\Recoil\Database\FunctionalTest::testErrorInfo
-ok 27 - Icecave\Recoil\Database\FunctionalTest::testQuote
-ok 28 - Icecave\Recoil\Database\FunctionalTest::testSetAndGetAttribute
-ok 29 - Icecave\Recoil\Database\FunctionalTest::testException
-1..29
+ok 6 - Icecave\Recoil\Database\FunctionalCoverageTest::testConnectionPrepare
+ok 7 - Icecave\Recoil\Database\FunctionalCoverageTest::testConnectionQuery
+not ok 8 - Icecave\Recoil\Database\FunctionalCoverageTest::testConnectionQueryWithAllParameterCombinations # TODO Incomplete Test
+ok 9 - Icecave\Recoil\Database\FunctionalCoverageTest::testConnectionExec
+ok 10 - Icecave\Recoil\Database\FunctionalCoverageTest::testConnectionInTransaction
+ok 11 - Icecave\Recoil\Database\FunctionalCoverageTest::testConnectionCommit
+ok 12 - Icecave\Recoil\Database\FunctionalCoverageTest::testConnectionRollback
+ok 13 - Icecave\Recoil\Database\FunctionalCoverageTest::testConnectionLastInsertId
+ok 14 - Icecave\Recoil\Database\FunctionalCoverageTest::testConnectionErrorCode
+ok 15 - Icecave\Recoil\Database\FunctionalCoverageTest::testConnectionErrorInfo
+ok 16 - Icecave\Recoil\Database\FunctionalCoverageTest::testConnectionQuote
+ok 17 - Icecave\Recoil\Database\FunctionalCoverageTest::testConnectionSetAndGetAttribute
+ok 18 - Icecave\Recoil\Database\FunctionalCoverageTest::testExceptionPropagation
+ok 19 - Icecave\Recoil\Database\FunctionalTest::testConnectionPrepare
+ok 20 - Icecave\Recoil\Database\FunctionalTest::testConnectionQuery
+not ok 21 - Icecave\Recoil\Database\FunctionalTest::testConnectionQueryWithAllParameterCombinations # TODO Incomplete Test
+ok 22 - Icecave\Recoil\Database\FunctionalTest::testConnectionExec
+ok 23 - Icecave\Recoil\Database\FunctionalTest::testConnectionInTransaction
+ok 24 - Icecave\Recoil\Database\FunctionalTest::testConnectionCommit
+ok 25 - Icecave\Recoil\Database\FunctionalTest::testConnectionRollback
+ok 26 - Icecave\Recoil\Database\FunctionalTest::testConnectionLastInsertId
+ok 27 - Icecave\Recoil\Database\FunctionalTest::testConnectionErrorCode
+ok 28 - Icecave\Recoil\Database\FunctionalTest::testConnectionErrorInfo
+ok 29 - Icecave\Recoil\Database\FunctionalTest::testConnectionQuote
+ok 30 - Icecave\Recoil\Database\FunctionalTest::testConnectionSetAndGetAttribute
+ok 31 - Icecave\Recoil\Database\FunctionalTest::testExceptionPropagation
+1..31
