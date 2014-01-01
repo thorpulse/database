@@ -3,7 +3,6 @@ namespace Icecave\Recoil\Database\Detail;
 
 use Exception;
 use Icecave\Recoil\Channel\BidirectionalChannelInterface;
-use LogicException;
 use PDOException;
 
 class ServiceManager
@@ -29,11 +28,7 @@ class ServiceManager
 
     public function getObject($objectId)
     {
-        if (isset($this->objects[$objectId])) {
-            return $this->objects[$objectId];
-        }
-
-        throw new LogicException('Unknown object #' . $objectId . '.');
+        return $this->objects[$objectId];
     }
 
     public function addObject($object)
@@ -65,12 +60,12 @@ class ServiceManager
             $arguments = [];
         }
 
-        fwrite(STDERR, sprintf(
-            'call %s::%s(%s)' . PHP_EOL,
-            $objectId,
-            $method,
-            json_encode($arguments)
-        ));
+        // fwrite(STDERR, sprintf(
+        //     'call %s::%s(%s)' . PHP_EOL,
+        //     $objectId,
+        //     $method,
+        //     json_encode($arguments)
+        // ));
 
         $object = $this->getObject($objectId);
 
@@ -80,7 +75,7 @@ class ServiceManager
                 $arguments
             );
         } catch (PDOException $e) {
-            $response = [ResponseType::EXCEPTION, $e->getMessage(), $e->getCode(), $e->errorInfo];
+            $response = [ResponseType::EXCEPTION, $e->getMessage(), 0, $e->errorInfo];
         } catch (Exception $e) {
             $response = [ResponseType::EXCEPTION, $e->getMessage(), $e->getCode(), null];
         }

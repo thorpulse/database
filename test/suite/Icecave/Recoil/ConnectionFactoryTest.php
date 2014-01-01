@@ -16,12 +16,9 @@ class ConnectionFactoryTest extends PHPUnit_Framework_TestCase
         Recoil::run(
             function () {
                 $factory = new ConnectionFactory;
-
                 $connection = (yield $factory->connect('sqlite::memory:'));
 
                 $this->assertInstanceOf(Connection::CLASS, $connection);
-
-                // $connection->__destruct(); // Mocked factory is holding reference to connection.
             }
         );
     }
