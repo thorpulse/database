@@ -22,7 +22,6 @@ trait FunctionalStatementTestTrait
         Recoil::run(
             function () {
                 $connection = (yield $this->factory->connect($this->dsn));
-
                 $statement = (yield $connection->prepare('DELETE FROM test'));
 
                 yield $statement->execute();
@@ -37,16 +36,13 @@ trait FunctionalStatementTestTrait
      */
     public function testStatementSetFetchModeWithSimpleMode($mode)
     {
+        $select = 'SELECT id, name, name FROM test';
+        $statement = $this->pdo->query($select);
+        $statement->setFetchMode($mode);
+        $expected = $statement->fetch();
+
         Recoil::run(
-            function () use ($mode) {
-                $select = 'SELECT id, name, name FROM test';
-
-                // Prepare the expected value using PDO directly ...
-                $statement = $this->pdo->query($select);
-                $statement->setFetchMode($mode);
-                $expected = $statement->fetch();
-
-                // Attempt to produce the same result asynchronously ...
+            function () use ($mode, $select, $expected) {
                 $connection = (yield $this->factory->connect($this->dsn));
                 $statement = (yield $connection->prepare($select));
 
@@ -77,19 +73,16 @@ trait FunctionalStatementTestTrait
 
     public function testStatementFetch()
     {
+        $select = 'SELECT id, name, name FROM test';
+        $statement = $this->pdo->query($select);
+        $expected = [];
+
+        while ($row = $statement->fetch()) {
+            $expected[] = $row;
+        }
+
         Recoil::run(
-            function () {
-                $select = 'SELECT id, name, name FROM test';
-
-                // Prepare the expected value using PDO directly ...
-                $statement = $this->pdo->query($select);
-                $expected = [];
-
-                while ($row = $statement->fetch()) {
-                    $expected[] = $row;
-                }
-
-                // Attempt to produce the same result asynchronously ...
+            function () use ($select, $expected) {
                 $connection = (yield $this->factory->connect($this->dsn));
                 $statement = (yield $connection->prepare($select));
 
@@ -109,19 +102,16 @@ trait FunctionalStatementTestTrait
      */
     public function testStatementFetchWithSimpleMode($mode)
     {
+        $select = 'SELECT id, name, name FROM test';
+        $statement = $this->pdo->query($select);
+        $expected = [];
+
+        while ($row = $statement->fetch($mode)) {
+            $expected[] = $row;
+        }
+
         Recoil::run(
-            function () use ($mode) {
-                $select = 'SELECT id, name, name FROM test';
-
-                // Prepare the expected value using PDO directly ...
-                $statement = $this->pdo->query($select);
-                $expected = [];
-
-                while ($row = $statement->fetch($mode)) {
-                    $expected[] = $row;
-                }
-
-                // Attempt to produce the same result asynchronously ...
+            function () use ($mode, $select, $expected) {
                 $connection = (yield $this->factory->connect($this->dsn));
                 $statement = (yield $connection->prepare($select));
 
@@ -167,15 +157,12 @@ trait FunctionalStatementTestTrait
 
     public function testStatementFetchAll()
     {
+        $select = 'SELECT id, name, name FROM test';
+        $statement = $this->pdo->query($select);
+        $expected = $statement->fetchAll();
+
         Recoil::run(
-            function () {
-                $select = 'SELECT id, name, name FROM test';
-
-                // Prepare the expected value using PDO directly ...
-                $statement = $this->pdo->query($select);
-                $expected = $statement->fetchAll();
-
-                // Attempt to produce the same result asynchronously ...
+            function () use ($select, $expected) {
                 $connection = (yield $this->factory->connect($this->dsn));
                 $statement = (yield $connection->prepare($select));
 
@@ -192,15 +179,12 @@ trait FunctionalStatementTestTrait
      */
     public function testStatementFetchAllWithSimpleMode($mode)
     {
+        $select = 'SELECT id, name, name FROM test';
+        $statement = $this->pdo->query($select);
+        $expected = $statement->fetchAll($mode);
+
         Recoil::run(
-            function () use ($mode) {
-                $select = 'SELECT id, name, name FROM test';
-
-                // Prepare the expected value using PDO directly ...
-                $statement = $this->pdo->query($select);
-                $expected = $statement->fetchAll($mode);
-
-                // Attempt to produce the same result asynchronously ...
+            function () use ($mode, $select, $expected) {
                 $connection = (yield $this->factory->connect($this->dsn));
                 $statement = (yield $connection->prepare($select));
 
@@ -314,22 +298,14 @@ trait FunctionalStatementTestTrait
 
     public function testStatementGetColumnMeta()
     {
+        $select = 'SELECT id, name FROM test';
+        $statement = $this->pdo->query($select);
+        $expected = $statement->getcolumnMeta(1);
+
         Recoil::run(
-            function () {
+            function () use ($select, $expected) {
                 $connection = (yield $this->factory->connect($this->dsn));
-                $statement = (yield $connection->prepare('SELECT * FROM test'));
-
-                yield $statement->execute();
-
-                $expected = [
-                    'native_type' => 'string',
-                    'sqlite:decl_type' => 'STRING',
-                    'flags' => [],
-                    'name' => 'name',
-                    'len' => 4294967295,
-                    'precision' => 0,
-                    'pdo_type' => PDO::PARAM_STR,
-                ];
+                $statement = (yield $connection->query($select));
 
                 $metaData = (yield $statement->getColumnMeta(1));
 
