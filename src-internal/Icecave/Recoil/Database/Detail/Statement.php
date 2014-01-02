@@ -11,8 +11,9 @@ class Statement implements StatementInterface
 {
     public function __construct(Connection $connection, $objectId)
     {
-        $this->connection = $connection; // Keep the connection alive while there are active statements
+        $this->connection = $connection;
         $this->objectId = $objectId;
+        $this->defaultFetchMode = null;
     }
 
     public function __destruct()
@@ -51,7 +52,29 @@ class Statement implements StatementInterface
      */
     public function setFetchMode($mode, $fetchArgument = null, array $constructorArguments = null)
     {
-        throw new \LogicException('Not implemented');
+        $this->defaultFetchMode = null;
+        $this->defaultFetchArgument = null;
+        $this->defaultFetchConstructorArguments = null;
+
+        switch ($mode) {
+            case PDO::FETCH_ASSOC:
+            case PDO::FETCH_BOTH:
+            case PDO::FETCH_NAMED:
+            case PDO::FETCH_NUM:
+            case PDO::FETCH_OBJ:
+                yield $this->serviceRequest(__FUNCTION__, [$mode]);
+                break;
+
+            case PDO::FETCH_CLASS:
+                $this->defaultFetchConstructorArguments = $constructorArguments;
+            case PDO::FETCH_INTO:
+                $this->defaultFetchArgument = $fetchArgument;
+            case PDO::FETCH_BOUND:
+            case PDO::FETCH_LAZY:
+                $this->defaultFetchMode = $mode;
+                yield $this->serviceRequest(__FUNCTION__, [PDO::FETCH_BOTH]);
+                break;
+        }
     }
 
     /**
@@ -67,7 +90,19 @@ class Statement implements StatementInterface
      */
     public function fetch($mode = null, $cursorOrientation = PDO::FETCH_ORI_NEXT, $cursorOffset = 0)
     {
-        throw new \LogicException('Not implemented');
+        if (null === $mode) {
+            $mode = $this->defaultFetchMode;
+        }
+
+        switch ($mode) {
+            case PDO::FETCH_CLASS:
+            case PDO::FETCH_INTO:
+            case PDO::FETCH_BOUND:
+            case PDO::FETCH_LAZY:
+                throw new \LogicException('The current fetch mode is not yet supported.');
+        }
+
+        return $this->serviceRequest(__FUNCTION__, [$mode, $cursorOrientation, $cursorOffset]);
     }
 
     /**
@@ -82,7 +117,24 @@ class Statement implements StatementInterface
      */
     public function fetchObject($className = 'stdClass', array $constructorArguments = [])
     {
-        throw new \LogicException('Not implemented');
+        $reflector = new ReflectionClass($className);
+        $object = $reflector->newInstanceWithoutConstructor();
+
+        $values = (yield $this->fetch(PDO::FETCH_ASSOC));
+
+        if (false === $values) {
+            yield Recoil::return_(false);
+        }
+
+        foreach ($values as $key => $value) {
+            $object->{$key} = $value;
+        }
+
+        if ($constructor = $reflector->getConstructor()) {
+            $constructor->invokeArgs($object, $constructorArguments);
+        }
+
+        yield Recoil::return_($object);
     }
 
     /**
@@ -96,10 +148,18 @@ class Statement implements StatementInterface
      *
      * @return array An array containing all of the remaining rows in the result set.
      */
-    public function fetchAll($mode = null, $fetchArguments = null, array $constructorArguments = null)
+    public function fetchAll($mode = null, $fetchArgument = null, array $constructorArguments = null)
     {
-        if (null !== $fetchArguments) {
-            throw new \LogicException('TODO!');
+        if (null === $mode) {
+            $mode = $this->defaultFetchMode;
+        }
+
+        switch ($mode) {
+            case PDO::FETCH_CLASS:
+            case PDO::FETCH_INTO:
+            case PDO::FETCH_BOUND:
+            case PDO::FETCH_LAZY:
+                throw new \LogicException('The current fetch mode is not yet supported.');
         }
 
         return $this->serviceRequest(__FUNCTION__, func_get_args());
@@ -116,7 +176,7 @@ class Statement implements StatementInterface
      */
     public function fetchColumn($columnIndex = 0)
     {
-        throw new \LogicException('Not implemented');
+        return $this->serviceRequest(__FUNCTION__, func_get_args());
     }
 
     /**
@@ -132,7 +192,7 @@ class Statement implements StatementInterface
      */
     public function bindValue($parameter, $value, $dataType = PDO::PARAM_STR)
     {
-        throw new \LogicException('Not implemented');
+        return $this->serviceRequest(__FUNCTION__, func_get_args());
     }
 
     /**
@@ -180,7 +240,7 @@ class Statement implements StatementInterface
      */
     public function columnCount()
     {
-        throw new \LogicException('Not implemented');
+        return $this->serviceRequest(__FUNCTION__);
     }
 
     /**
@@ -196,7 +256,7 @@ class Statement implements StatementInterface
      */
     public function rowCount()
     {
-        throw new \LogicException('Not implemented');
+        return $this->serviceRequest(__FUNCTION__);
     }
 
     /**
@@ -210,7 +270,7 @@ class Statement implements StatementInterface
      */
     public function getColumnMeta($columnIndex)
     {
-        throw new \LogicException('Not implemented');
+        return $this->serviceRequest(__FUNCTION__, func_get_args());
     }
 
     /**
@@ -222,7 +282,7 @@ class Statement implements StatementInterface
      */
     public function nextRowset()
     {
-        throw new \LogicException('Not implemented');
+        return $this->serviceRequest(__FUNCTION__);
     }
 
     /**
@@ -234,17 +294,7 @@ class Statement implements StatementInterface
      */
     public function closeCursor()
     {
-        throw new \LogicException('Not implemented');
-    }
-
-    /**
-     * [COROUTINE] Fetch the query string used by the statement.
-     *
-     * @return string The query string used by the statement.
-     */
-    public function queryString()
-    {
-        throw new \LogicException('Not implemented');
+        return $this->serviceRequest(__FUNCTION__);
     }
 
     /**
@@ -260,7 +310,7 @@ class Statement implements StatementInterface
      */
     public function setAttribute($attribute, $value)
     {
-        throw new \LogicException('Not implemented');
+        return $this->serviceRequest(__FUNCTION__, func_get_args());
     }
 
     /**
@@ -275,7 +325,7 @@ class Statement implements StatementInterface
      */
     public function getAttribute($attribute)
     {
-        throw new \LogicException('Not implemented');
+        return $this->serviceRequest(__FUNCTION__, func_get_args());
     }
 
     /**
@@ -287,7 +337,7 @@ class Statement implements StatementInterface
      */
     public function errorCode()
     {
-        throw new \LogicException('Not implemented');
+        return $this->serviceRequest(__FUNCTION__);
     }
 
     /**
@@ -303,7 +353,17 @@ class Statement implements StatementInterface
      */
     public function errorInfo()
     {
-        throw new \LogicException('Not implemented');
+        return $this->serviceRequest(__FUNCTION__);
+    }
+
+    /**
+     * [COROUTINE] Fetch the query string used by the statement.
+     *
+     * @return string The query string used by the statement.
+     */
+    public function queryString()
+    {
+        return $this->serviceRequest(__FUNCTION__);
     }
 
     /**
@@ -313,93 +373,8 @@ class Statement implements StatementInterface
      */
     public function debugDumpParams()
     {
-        throw new \LogicException('Not implemented');
+        echo (yield $this->serviceRequest(__FUNCTION__));
     }
-
-    // public function fetch(
-    //     $fetchStyle = null,
-    //     $cursorOrientation = PDO::FETCH_ORI_NEXT,
-    //     $cursorOffset = 0
-    //) {
-    //     return $this->serviceRequest(__FUNCTION__, func_get_args());
-    // }
-
-    // public function fetchObject($className = 'stdClass', array $constructorArguments = [])
-    // {
-    //     $reflector = new ReflectionClass($className);
-    //     $object = $reflector->newInstanceWithoutConstructor();
-
-    //     $values = (yield $this->fetch(PDO::FETCH_ASSOC));
-
-    //     if (!is_array($values)) {
-    //         yield Recoil::return_($values);
-    //     }
-
-    //     foreach ($values as $key => $value) {
-    //         $object->{$key} = $value;
-    //     }
-
-    //     if ($constructor = $reflector->getConstructor()) {
-    //         $constructor->invokeArgs($object, $constructorArguments);
-    //     }
-
-    //     yield Recoil::return_($object);
-    // }
-
-    // public function fetchColumn($columnIndex)
-    // {
-    //     return $this->serviceRequest(__FUNCTION__, func_get_args());
-    // }
-
-    // public function nextRowset()
-    // {
-    //     return $this->serviceRequest(__FUNCTION__);
-    // }
-
-    // public function closeCursor()
-    // {
-    //     return $this->serviceRequest(__FUNCTION__);
-    // }
-
-    // public function columnCount()
-    // {
-    //     return $this->serviceRequest(__FUNCTION__);
-    // }
-
-    // public function rowCount()
-    // {
-    //     return $this->serviceRequest(__FUNCTION__);
-    // }
-
-    // public function errorCode()
-    // {
-    //     return $this->serviceRequest(__FUNCTION__);
-    // }
-
-    // public function errorInfo()
-    // {
-    //     return $this->serviceRequest(__FUNCTION__);
-    // }
-
-    // public function getColumnMeta($columnIndex)
-    // {
-    //     return $this->serviceRequest(__FUNCTION__, func_get_args());
-    // }
-
-    // public function setAttribute($attribute, $value)
-    // {
-    //     return $this->serviceRequest(__FUNCTION__, func_get_args());
-    // }
-
-    // public function getAttribute($attribute)
-    // {
-    //     return $this->serviceRequest(__FUNCTION__, func_get_args());
-    // }
-
-    // public function debugDumpParams()
-    // {
-    //     echo (yield $this->serviceRequest('debugDumpParams'));
-    // }
 
     private function serviceRequest($method, array $arguments = [])
     {
@@ -425,4 +400,7 @@ class Statement implements StatementInterface
 
     private $connection;
     private $objectId;
+    private $defaultFetchMode;
+    private $defaultFetchArgument;
+    private $defaultFetchConstructorArguments;
 }

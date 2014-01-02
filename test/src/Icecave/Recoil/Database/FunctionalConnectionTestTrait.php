@@ -21,6 +21,10 @@ trait FunctionalConnectionTestTrait
                 name STRING NOT NULL
             )'
         );
+
+        $this->pdo->exec('INSERT INTO test VALUES (null, "foo")');
+        $this->pdo->exec('INSERT INTO test VALUES (null, "bar")');
+        $this->pdo->exec('INSERT INTO test VALUES (null, "spam")');
     }
 
     public function tearDown()
@@ -38,16 +42,9 @@ trait FunctionalConnectionTestTrait
             function () {
                 $connection = (yield $this->factory->connect($this->dsn));
 
-                $statement = (yield $connection->prepare('INSERT INTO test VALUES (null, "foo")'));
+                $statement = (yield $connection->prepare('DELETE FROM test'));
 
                 $this->assertInstanceOf(StatementInterface::CLASS, $statement);
-
-                yield $statement->execute();
-
-                $this->assertEquals(
-                    [[1, 'foo']],
-                    $this->pdo->query('SELECT * FROM test')->fetchAll(PDO::FETCH_NUM)
-                );
             }
         );
     }
@@ -56,9 +53,6 @@ trait FunctionalConnectionTestTrait
     {
         Recoil::run(
             function () {
-                $this->pdo->exec('INSERT INTO test VALUES (null, "foo")');
-                $this->pdo->exec('INSERT INTO test VALUES (null, "bar")');
-
                 $connection = (yield $this->factory->connect($this->dsn));
 
                 $statement = (yield $connection->query('SELECT * FROM test'));
@@ -66,7 +60,7 @@ trait FunctionalConnectionTestTrait
                 $this->assertInstanceOf(StatementInterface::CLASS, $statement);
 
                 $this->assertEquals(
-                    [[1, 'foo'], [2, 'bar']],
+                    [[1, 'foo'], [2, 'bar'], [3, 'spam']],
                     (yield $statement->fetchAll(PDO::FETCH_NUM))
                 );
             }
@@ -83,9 +77,10 @@ trait FunctionalConnectionTestTrait
         Recoil::run(
             function () {
                 $connection = (yield $this->factory->connect($this->dsn));
-                $count = (yield $connection->exec('INSERT INTO test VALUES (null, "foo")'));
 
-                $this->assertSame(1, $count);
+                $count = (yield $connection->exec('DELETE FROM test WHERE id > 1'));
+
+                $this->assertSame(2, $count);
                 $this->assertEquals(
                     [[1, 'foo']],
                     $this->pdo->query('SELECT * FROM test')->fetchAll(PDO::FETCH_NUM)
@@ -121,14 +116,14 @@ trait FunctionalConnectionTestTrait
 
                 yield $connection->beginTransaction();
 
-                yield $connection->exec('INSERT INTO test VALUES (null, "foo")');
+                yield $connection->exec('DELETE FROM test');
 
-                $this->assertEquals(0, $this->pdo->query('SELECT COUNT(*) FROM test')->fetchColumn());
+                $this->assertEquals(3, $this->pdo->query('SELECT COUNT(*) FROM test')->fetchColumn());
 
                 yield $connection->commit();
 
                 $this->assertFalse(yield $connection->inTransaction());
-                $this->assertEquals(1, $this->pdo->query('SELECT COUNT(*) FROM test')->fetchColumn());
+                $this->assertEquals(0, $this->pdo->query('SELECT COUNT(*) FROM test')->fetchColumn());
 
             }
         );
@@ -142,14 +137,14 @@ trait FunctionalConnectionTestTrait
 
                 yield $connection->beginTransaction();
 
-                yield $connection->exec('INSERT INTO test VALUES (null, "foo")');
+                yield $connection->exec('DELETE FROM test');
 
-                $this->assertEquals(0, $this->pdo->query('SELECT COUNT(*) FROM test')->fetchColumn());
+                $this->assertEquals(3, $this->pdo->query('SELECT COUNT(*) FROM test')->fetchColumn());
 
                 yield $connection->rollback();
 
                 $this->assertFalse(yield $connection->inTransaction());
-                $this->assertEquals(0, $this->pdo->query('SELECT COUNT(*) FROM test')->fetchColumn());
+                $this->assertEquals(3, $this->pdo->query('SELECT COUNT(*) FROM test')->fetchColumn());
 
             }
         );
@@ -161,13 +156,13 @@ trait FunctionalConnectionTestTrait
             function () {
                 $connection = (yield $this->factory->connect($this->dsn));
 
-                yield $connection->exec('INSERT INTO test VALUES (null, "foo")');
+                yield $connection->exec('INSERT INTO test VALUES (null, "a")');
 
-                $this->assertEquals(1, (yield $connection->lastInsertId()));
+                $this->assertEquals(4, (yield $connection->lastInsertId()));
 
-                yield $connection->exec('INSERT INTO test VALUES (null, "bar")');
+                yield $connection->exec('INSERT INTO test VALUES (null, "b")');
 
-                $this->assertEquals(2, (yield $connection->lastInsertId()));
+                $this->assertEquals(5, (yield $connection->lastInsertId()));
             }
         );
     }

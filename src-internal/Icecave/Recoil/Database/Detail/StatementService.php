@@ -30,6 +30,11 @@ class StatementService
         return [ResponseType::VALUE, $value];
     }
 
+    public function queryString()
+    {
+        return [ResponseType::VALUE, $this->statement->queryString];
+    }
+
     public function debugDumpParams()
     {
         ob_start();

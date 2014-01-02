@@ -65,7 +65,7 @@ interface StatementInterface
      *
      * @return array An array containing all of the remaining rows in the result set.
      */
-    public function fetchAll($mode = null, $fetchArguments = null, array $constructorArguments = null);
+    public function fetchAll($mode = null, $fetchArgument = null, array $constructorArguments = null);
 
     /**
      * [COROUTINE] Return a single column from the next row in the result set.
@@ -173,13 +173,6 @@ interface StatementInterface
     public function closeCursor();
 
     /**
-     * [COROUTINE] Fetch the query string used by the statement.
-     *
-     * @return string The query string used by the statement.
-     */
-    public function queryString();
-
-    /**
      * [COROUTINE] Set the value of an attribute.
      *
      * @link http://php.net/pdostatement.setattribute
@@ -225,6 +218,13 @@ interface StatementInterface
      * @return array The status information.
      */
     public function errorInfo();
+
+    /**
+     * [COROUTINE] Fetch the query string used by the statement.
+     *
+     * @return string The query string used by the statement.
+     */
+    public function queryString();
 
     /**
      * [COROUTINE] Dump debug information about the prepared statement to STDOUT.

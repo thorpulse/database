@@ -2,7 +2,6 @@
 namespace Icecave\Recoil\Database;
 
 use PDO;
-use PDOException;
 
 /**
  * An asynchronous PDO-like database connection.
@@ -18,25 +17,22 @@ interface ConnectionInterface
      * @param array<integer,mixed> $attributes The connection attributes to use.
      *
      * @return StatementInterface The prepared PDO statement.
-     * @throws PDOException       If the statement cannot be prepared.
      */
     public function prepare($statement, $attributes = []);
 
     /**
      * [COROUTINE] Execute an SQL statement and return the result set.
      *
-     * There are a number of valid ways to call this method. See the PHP manual
-     * entry for PDO::query() for more information.
-     *
      * @link http://php.net/pdo.query
      *
-     * @param string $statement    The statement to execute.
-     * @param mixed  $argument,... Arguments.
+     * @param string             $statement            The statement to execute.
+     * @param integer|null       $mode                 The fetch mode (one of the PDO::FETCH_* constants), or null to use the default.
+     * @param string|object|null $fetchArgument        The class name for PDO::FETCH_CLASS, or object for PDO::FETCH_OBJECT.
+     * @param array|null         $constructorArguments The constructor arguments for PDO::FETCH_OBJECT.
      *
      * @return StatementInterface The result set.
-     * @throws PDOException       If the statement cannot be executed.
      */
-    public function query($statement);
+    public function query($statement, $mode = null, $fetchArgument = null, array $constructorArguments = null);
 
     /**
      * [COROUTINE] Execute an SQL statement and return the number of rows
@@ -46,8 +42,7 @@ interface ConnectionInterface
      *
      * @param string $statement The statement to execute.
      *
-     * @return integer      The number of affected rows.
-     * @throws PDOException If the statement cannot be executed.
+     * @return integer The number of affected rows.
      */
     public function exec($statement);
 
@@ -65,8 +60,7 @@ interface ConnectionInterface
      *
      * @link http://php.net/pdo.begintransaction
      *
-     * @return boolean      True if a transaction was started.
-     * @throws PDOException If the transaction cannot be started.
+     * @return boolean True if a transaction was started.
      */
     public function beginTransaction();
 
@@ -75,8 +69,7 @@ interface ConnectionInterface
      *
      * @link http://php.net/pdo.commit
      *
-     * @return boolean      True if the transaction was successfully committed.
-     * @throws PDOException If the transaction cannot be committed.
+     * @return boolean True if the transaction was successfully committed.
      */
     public function commit();
 
@@ -85,8 +78,7 @@ interface ConnectionInterface
      *
      * @link http://php.net/pdo.rollback
      *
-     * @return boolean      True if the transaction was successfully rolled back.
-     * @throws PDOException If the transaction cannot be rolled back.
+     * @return boolean True if the transaction was successfully rolled back.
      */
     public function rollBack();
 
@@ -132,8 +124,7 @@ interface ConnectionInterface
      * @param string  $string        The string to quote.
      * @param integer $parameterType The parameter type.
      *
-     * @return string       The quoted string.
-     * @throws PDOException If the parameter type is not supported.
+     * @return string The quoted string.
      */
     public function quote($string, $parameterType = PDO::PARAM_STR);
 
@@ -145,8 +136,7 @@ interface ConnectionInterface
      * @param integer $attribute The attribute to set.
      * @param mixed   $value     The value to set the attribute to.
      *
-     * @return boolean      True if the attribute was successfully set.
-     * @throws PDOException If the attribute could not be set.
+     * @return boolean True if the attribute was successfully set.
      */
     public function setAttribute($attribute, $value);
 
@@ -157,8 +147,7 @@ interface ConnectionInterface
      *
      * @param integer $attribute The attribute to get.
      *
-     * @return mixed        The attribute value.
-     * @throws PDOException If the attribute could not be read.
+     * @return mixed The attribute value.
      */
     public function getAttribute($attribute);
 }
