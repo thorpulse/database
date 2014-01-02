@@ -255,7 +255,7 @@ class Connection implements ConnectionInterface
         return $this->serviceRequest(__FUNCTION__, func_get_args());
     }
 
-    public function serviceRequest($method, array $arguments = [])
+    private function serviceRequest($method, array $arguments = [])
     {
         $request = [0, $method];
 

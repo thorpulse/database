@@ -10,7 +10,8 @@ use PHPUnit_Framework_TestCase;
  */
 class FunctionalCoverageTest extends PHPUnit_Framework_TestCase
 {
-    use FunctionalTestTrait;
+    use FunctionalConnectionTestTrait;
+    use FunctionalStatementTestTrait;
 
     public function createFactory()
     {

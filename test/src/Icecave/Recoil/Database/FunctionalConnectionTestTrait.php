@@ -6,7 +6,7 @@ use Icecave\Recoil\Database\Exception\DatabaseException;
 use Icecave\Recoil\Recoil;
 use PDO;
 
-trait FunctionalTestTrait
+trait FunctionalConnectionTestTrait
 {
     public function setUp()
     {

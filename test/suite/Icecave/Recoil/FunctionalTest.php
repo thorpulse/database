@@ -5,7 +5,8 @@ use PHPUnit_Framework_TestCase;
 
 class FunctionalTest extends PHPUnit_Framework_TestCase
 {
-    use FunctionalTestTrait;
+    use FunctionalConnectionTestTrait;
+    use FunctionalStatementTestTrait;
 
     public function createFactory()
     {
