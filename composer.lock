@@ -249,12 +249,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/IcecaveStudios/recoil.git",
-                "reference": "0d17949e388dd80f2b455ece739e6a7ab8127e02"
+                "reference": "2326f8b1b9db499e1b3dff78c1c42d339879515e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/IcecaveStudios/recoil/zipball/0d17949e388dd80f2b455ece739e6a7ab8127e02",
-                "reference": "0d17949e388dd80f2b455ece739e6a7ab8127e02",
+                "url": "https://api.github.com/repos/IcecaveStudios/recoil/zipball/2326f8b1b9db499e1b3dff78c1c42d339879515e",
+                "reference": "2326f8b1b9db499e1b3dff78c1c42d339879515e",
                 "shasum": ""
             },
             "require": {
@@ -287,7 +287,7 @@
                     "homepage": "https://github.com/jmalloc"
                 }
             ],
-            "description": "A generator-based cooperative multitasking kernel for ReactPHP.",
+            "description": "A generator-based cooperative multitasking kernel for React.",
             "homepage": "https://github.com/IcecaveStudios/recoil",
             "keywords": [
                 "Thread",
@@ -301,7 +301,7 @@
                 "multitasking",
                 "react"
             ],
-            "time": "2014-01-01 08:28:45"
+            "time": "2014-01-01 10:38:06"
         },
         {
             "name": "icecave/repr",
