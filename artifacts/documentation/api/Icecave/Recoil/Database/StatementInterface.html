@@ -75,7 +75,7 @@
                     array
                 </td>
                 <td class="last">
-                    <a href="#method_fetchAll">fetchAll</a>($mode = null, $fetchArguments = null, array $constructorArguments = null)
+                    <a href="#method_fetchAll">fetchAll</a>(integer|null $mode = null, string|object|null $fetchArgument = null, array $constructorArguments = null)
                     <p>[COROUTINE] Fetch all remaining results.</p>
                 </td>
                 <td></td>
@@ -172,16 +172,6 @@
             </tr>
                     <tr>
                 <td class="type">
-                    string
-                </td>
-                <td class="last">
-                    <a href="#method_queryString">queryString</a>()
-                    <p>[COROUTINE] Fetch the query string used by the statement.</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
                     boolean
                 </td>
                 <td class="last">
@@ -217,6 +207,16 @@
                 <td class="last">
                     <a href="#method_errorInfo">errorInfo</a>()
                     <p>[COROUTINE] Get status information about the last operation performed on this statement.</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method_queryString">queryString</a>()
+                    <p>[COROUTINE] Fetch the query string used by the statement.</p>
                 </td>
                 <td></td>
             </tr>
@@ -403,7 +403,7 @@
                 <h3 id="method_fetchAll">
         <div class="location">at line 68</div>
         <code>            public            array
-    <strong>fetchAll</strong>($mode = null, $fetchArguments = null, array $constructorArguments = null)</code>
+    <strong>fetchAll</strong>(integer|null $mode = null, string|object|null $fetchArgument = null, array $constructorArguments = null)</code>
     </h3>
     <div class="details">
         <p>[COROUTINE] Fetch all remaining results.</p>
@@ -414,22 +414,19 @@
 
                     <table>
                     <tr>
-                <td></td>
+                <td>integer|null</td>
                 <td>$mode</td>
-                <td>
-</td>
+                <td>The fetch mode (one of the PDO::FETCH_* constants), or null to use the default.</td>
             </tr>
                     <tr>
-                <td></td>
-                <td>$fetchArguments</td>
-                <td>
-</td>
+                <td>string|object|null</td>
+                <td>$fetchArgument</td>
+                <td>The class name for PDO::FETCH<em>CLASS, or object for PDO::FETCH</em>OBJECT.</td>
             </tr>
                     <tr>
                 <td>array</td>
                 <td>$constructorArguments</td>
-                <td>
-</td>
+                <td>The constructor arguments for PDO::FETCH_OBJECT.</td>
             </tr>
             </table>
 
@@ -774,33 +771,8 @@ last SELECT statement, but this should not be relied upon.</p>
                     </div>
     </div>
 
-                <h3 id="method_queryString">
-        <div class="location">at line 180</div>
-        <code>            public            string
-    <strong>queryString</strong>()</code>
-    </h3>
-    <div class="details">
-        <p>[COROUTINE] Fetch the query string used by the statement.</p>
-        <p>
-</p>
-        <div class="tags">
-            
-                            <h4>Return Value</h4>
-
-                    <table>
-        <tr>
-            <td>string</td>
-            <td>The query string used by the statement.</td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
                 <h3 id="method_setAttribute">
-        <div class="location">at line 193</div>
+        <div class="location">at line 186</div>
         <code>            public            boolean
     <strong>setAttribute</strong>(integer $attribute, mixed $value)</code>
     </h3>
@@ -849,7 +821,7 @@ last SELECT statement, but this should not be relied upon.</p>
     </div>
 
                 <h3 id="method_getAttribute">
-        <div class="location">at line 205</div>
+        <div class="location">at line 198</div>
         <code>            public            mixed
     <strong>getAttribute</strong>(integer $attribute)</code>
     </h3>
@@ -893,7 +865,7 @@ last SELECT statement, but this should not be relied upon.</p>
     </div>
 
                 <h3 id="method_errorCode">
-        <div class="location">at line 214</div>
+        <div class="location">at line 207</div>
         <code>            public            string|null
     <strong>errorCode</strong>()</code>
     </h3>
@@ -918,7 +890,7 @@ last SELECT statement, but this should not be relied upon.</p>
     </div>
 
                 <h3 id="method_errorInfo">
-        <div class="location">at line 227</div>
+        <div class="location">at line 220</div>
         <code>            public            array
     <strong>errorInfo</strong>()</code>
     </h3>
@@ -934,6 +906,31 @@ for PDOStatement::errorInfo().</p>
         <tr>
             <td>array</td>
             <td>The status information.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_queryString">
+        <div class="location">at line 227</div>
+        <code>            public            string
+    <strong>queryString</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>[COROUTINE] Fetch the query string used by the statement.</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>The query string used by the statement.</td>
         </tr>
     </table>
 
