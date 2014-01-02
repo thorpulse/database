@@ -57,14 +57,7 @@ not ok 55 - Icecave\Recoil\Database\FunctionalCoverageTest::testStatementBindPar
 not ok 56 - Icecave\Recoil\Database\FunctionalCoverageTest::testStatementBindColumn # TODO Incomplete Test
 ok 57 - Icecave\Recoil\Database\FunctionalCoverageTest::testStatementColumnCount
 ok 58 - Icecave\Recoil\Database\FunctionalCoverageTest::testStatementRowCount
-not ok 59 - Failure: Icecave\Recoil\Database\FunctionalCoverageTest::testStatementGetColumnMeta
-  ---
-  message: 'Failed asserting that two arrays are equal.'
-  severity: fail
-  data:
-      got: { native_type: string, 'sqlite:decl_type': STRING, table: test, flags: {  }, name: name, len: 4294967295, precision: 0, pdo_type: 2 }
-      expected: { native_type: string, 'sqlite:decl_type': STRING, flags: {  }, name: name, len: 4294967295, precision: 0, pdo_type: 2 }
-  ...
+ok 59 - Icecave\Recoil\Database\FunctionalCoverageTest::testStatementGetColumnMeta
 not ok 60 - Icecave\Recoil\Database\FunctionalCoverageTest::testStatementNextRowset # TODO Incomplete Test
 not ok 61 - Icecave\Recoil\Database\FunctionalCoverageTest::testStatementCloseCursor # TODO Incomplete Test
 not ok 62 - Icecave\Recoil\Database\FunctionalCoverageTest::testStatementSetAttribute # TODO Incomplete Test
@@ -126,14 +119,7 @@ not ok 117 - Icecave\Recoil\Database\FunctionalTest::testStatementBindParam # TO
 not ok 118 - Icecave\Recoil\Database\FunctionalTest::testStatementBindColumn # TODO Incomplete Test
 ok 119 - Icecave\Recoil\Database\FunctionalTest::testStatementColumnCount
 ok 120 - Icecave\Recoil\Database\FunctionalTest::testStatementRowCount
-not ok 121 - Failure: Icecave\Recoil\Database\FunctionalTest::testStatementGetColumnMeta
-  ---
-  message: 'Failed asserting that two arrays are equal.'
-  severity: fail
-  data:
-      got: { native_type: string, 'sqlite:decl_type': STRING, table: test, flags: {  }, name: name, len: 4294967295, precision: 0, pdo_type: 2 }
-      expected: { native_type: string, 'sqlite:decl_type': STRING, flags: {  }, name: name, len: 4294967295, precision: 0, pdo_type: 2 }
-  ...
+ok 121 - Icecave\Recoil\Database\FunctionalTest::testStatementGetColumnMeta
 not ok 122 - Icecave\Recoil\Database\FunctionalTest::testStatementNextRowset # TODO Incomplete Test
 not ok 123 - Icecave\Recoil\Database\FunctionalTest::testStatementCloseCursor # TODO Incomplete Test
 not ok 124 - Icecave\Recoil\Database\FunctionalTest::testStatementSetAttribute # TODO Incomplete Test
