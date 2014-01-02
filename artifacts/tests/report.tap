@@ -17,17 +17,57 @@ ok 15 - Icecave\Recoil\Database\FunctionalCoverageTest::testConnectionErrorInfo
 ok 16 - Icecave\Recoil\Database\FunctionalCoverageTest::testConnectionQuote
 ok 17 - Icecave\Recoil\Database\FunctionalCoverageTest::testConnectionSetAndGetAttribute
 ok 18 - Icecave\Recoil\Database\FunctionalCoverageTest::testExceptionPropagation
-ok 19 - Icecave\Recoil\Database\FunctionalTest::testConnectionPrepare
-ok 20 - Icecave\Recoil\Database\FunctionalTest::testConnectionQuery
-not ok 21 - Icecave\Recoil\Database\FunctionalTest::testConnectionQueryWithAllParameterCombinations # TODO Incomplete Test
-ok 22 - Icecave\Recoil\Database\FunctionalTest::testConnectionExec
-ok 23 - Icecave\Recoil\Database\FunctionalTest::testConnectionInTransaction
-ok 24 - Icecave\Recoil\Database\FunctionalTest::testConnectionCommit
-ok 25 - Icecave\Recoil\Database\FunctionalTest::testConnectionRollback
-ok 26 - Icecave\Recoil\Database\FunctionalTest::testConnectionLastInsertId
-ok 27 - Icecave\Recoil\Database\FunctionalTest::testConnectionErrorCode
-ok 28 - Icecave\Recoil\Database\FunctionalTest::testConnectionErrorInfo
-ok 29 - Icecave\Recoil\Database\FunctionalTest::testConnectionQuote
-ok 30 - Icecave\Recoil\Database\FunctionalTest::testConnectionSetAndGetAttribute
-ok 31 - Icecave\Recoil\Database\FunctionalTest::testExceptionPropagation
-1..31
+not ok 19 - Icecave\Recoil\Database\FunctionalCoverageTest::testStatementExecute # TODO Incomplete Test
+not ok 20 - Icecave\Recoil\Database\FunctionalCoverageTest::testStatementSetFetchMode # TODO Incomplete Test
+not ok 21 - Icecave\Recoil\Database\FunctionalCoverageTest::testStatementFetch # TODO Incomplete Test
+not ok 22 - Icecave\Recoil\Database\FunctionalCoverageTest::testStatementFetchObject # TODO Incomplete Test
+not ok 23 - Icecave\Recoil\Database\FunctionalCoverageTest::testStatementFetchAll # TODO Incomplete Test
+not ok 24 - Icecave\Recoil\Database\FunctionalCoverageTest::testStatementFetchColumn # TODO Incomplete Test
+not ok 25 - Icecave\Recoil\Database\FunctionalCoverageTest::testStatementBindValue # TODO Incomplete Test
+not ok 26 - Icecave\Recoil\Database\FunctionalCoverageTest::testStatementBindParam # TODO Incomplete Test
+not ok 27 - Icecave\Recoil\Database\FunctionalCoverageTest::testStatementBindColumn # TODO Incomplete Test
+not ok 28 - Icecave\Recoil\Database\FunctionalCoverageTest::testStatementColumnCount # TODO Incomplete Test
+not ok 29 - Icecave\Recoil\Database\FunctionalCoverageTest::testStatementRowCount # TODO Incomplete Test
+not ok 30 - Icecave\Recoil\Database\FunctionalCoverageTest::testStatementGetColumnMeta # TODO Incomplete Test
+not ok 31 - Icecave\Recoil\Database\FunctionalCoverageTest::testStatementNextRowset # TODO Incomplete Test
+not ok 32 - Icecave\Recoil\Database\FunctionalCoverageTest::testStatementCloseCursor # TODO Incomplete Test
+not ok 33 - Icecave\Recoil\Database\FunctionalCoverageTest::testStatementQueryString # TODO Incomplete Test
+not ok 34 - Icecave\Recoil\Database\FunctionalCoverageTest::testStatementSetAttribute # TODO Incomplete Test
+not ok 35 - Icecave\Recoil\Database\FunctionalCoverageTest::testStatementGetAttribute # TODO Incomplete Test
+not ok 36 - Icecave\Recoil\Database\FunctionalCoverageTest::testStatementErrorCode # TODO Incomplete Test
+not ok 37 - Icecave\Recoil\Database\FunctionalCoverageTest::testStatementErrorInfo # TODO Incomplete Test
+not ok 38 - Icecave\Recoil\Database\FunctionalCoverageTest::testStatementDebugDumpParams # TODO Incomplete Test
+ok 39 - Icecave\Recoil\Database\FunctionalTest::testConnectionPrepare
+ok 40 - Icecave\Recoil\Database\FunctionalTest::testConnectionQuery
+not ok 41 - Icecave\Recoil\Database\FunctionalTest::testConnectionQueryWithAllParameterCombinations # TODO Incomplete Test
+ok 42 - Icecave\Recoil\Database\FunctionalTest::testConnectionExec
+ok 43 - Icecave\Recoil\Database\FunctionalTest::testConnectionInTransaction
+ok 44 - Icecave\Recoil\Database\FunctionalTest::testConnectionCommit
+ok 45 - Icecave\Recoil\Database\FunctionalTest::testConnectionRollback
+ok 46 - Icecave\Recoil\Database\FunctionalTest::testConnectionLastInsertId
+ok 47 - Icecave\Recoil\Database\FunctionalTest::testConnectionErrorCode
+ok 48 - Icecave\Recoil\Database\FunctionalTest::testConnectionErrorInfo
+ok 49 - Icecave\Recoil\Database\FunctionalTest::testConnectionQuote
+ok 50 - Icecave\Recoil\Database\FunctionalTest::testConnectionSetAndGetAttribute
+ok 51 - Icecave\Recoil\Database\FunctionalTest::testExceptionPropagation
+not ok 52 - Icecave\Recoil\Database\FunctionalTest::testStatementExecute # TODO Incomplete Test
+not ok 53 - Icecave\Recoil\Database\FunctionalTest::testStatementSetFetchMode # TODO Incomplete Test
+not ok 54 - Icecave\Recoil\Database\FunctionalTest::testStatementFetch # TODO Incomplete Test
+not ok 55 - Icecave\Recoil\Database\FunctionalTest::testStatementFetchObject # TODO Incomplete Test
+not ok 56 - Icecave\Recoil\Database\FunctionalTest::testStatementFetchAll # TODO Incomplete Test
+not ok 57 - Icecave\Recoil\Database\FunctionalTest::testStatementFetchColumn # TODO Incomplete Test
+not ok 58 - Icecave\Recoil\Database\FunctionalTest::testStatementBindValue # TODO Incomplete Test
+not ok 59 - Icecave\Recoil\Database\FunctionalTest::testStatementBindParam # TODO Incomplete Test
+not ok 60 - Icecave\Recoil\Database\FunctionalTest::testStatementBindColumn # TODO Incomplete Test
+not ok 61 - Icecave\Recoil\Database\FunctionalTest::testStatementColumnCount # TODO Incomplete Test
+not ok 62 - Icecave\Recoil\Database\FunctionalTest::testStatementRowCount # TODO Incomplete Test
+not ok 63 - Icecave\Recoil\Database\FunctionalTest::testStatementGetColumnMeta # TODO Incomplete Test
+not ok 64 - Icecave\Recoil\Database\FunctionalTest::testStatementNextRowset # TODO Incomplete Test
+not ok 65 - Icecave\Recoil\Database\FunctionalTest::testStatementCloseCursor # TODO Incomplete Test
+not ok 66 - Icecave\Recoil\Database\FunctionalTest::testStatementQueryString # TODO Incomplete Test
+not ok 67 - Icecave\Recoil\Database\FunctionalTest::testStatementSetAttribute # TODO Incomplete Test
+not ok 68 - Icecave\Recoil\Database\FunctionalTest::testStatementGetAttribute # TODO Incomplete Test
+not ok 69 - Icecave\Recoil\Database\FunctionalTest::testStatementErrorCode # TODO Incomplete Test
+not ok 70 - Icecave\Recoil\Database\FunctionalTest::testStatementErrorInfo # TODO Incomplete Test
+not ok 71 - Icecave\Recoil\Database\FunctionalTest::testStatementDebugDumpParams # TODO Incomplete Test
+1..71
