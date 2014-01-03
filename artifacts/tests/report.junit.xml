@@ -1,110 +1,110 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="" tests="85" assertions="122" failures="0" errors="0" time="13.063468">
-    <testsuite name="Icecave\Recoil\Database\ConnectionFactoryTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/ConnectionFactoryTest.php" namespace="Icecave\Recoil\Database" fullPackage="Icecave.Recoil.Database" tests="2" assertions="7" failures="0" errors="0" time="0.187876">
-      <testcase name="testConnect" class="Icecave\Recoil\Database\ConnectionFactoryTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/ConnectionFactoryTest.php" line="14" assertions="1" time="0.129133"/>
-      <testcase name="testConnectLogic" class="Icecave\Recoil\Database\ConnectionFactoryTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/ConnectionFactoryTest.php" line="26" assertions="6" time="0.058743"/>
+  <testsuite name="" tests="85" assertions="122" failures="0" errors="0" time="13.685673">
+    <testsuite name="Icecave\Recoil\Database\ConnectionFactoryTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/ConnectionFactoryTest.php" namespace="Icecave\Recoil\Database" fullPackage="Icecave.Recoil.Database" tests="2" assertions="7" failures="0" errors="0" time="0.189349">
+      <testcase name="testConnect" class="Icecave\Recoil\Database\ConnectionFactoryTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/ConnectionFactoryTest.php" line="14" assertions="1" time="0.129671"/>
+      <testcase name="testConnectLogic" class="Icecave\Recoil\Database\ConnectionFactoryTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/ConnectionFactoryTest.php" line="26" assertions="6" time="0.059678"/>
     </testsuite>
-    <testsuite name="Icecave\Recoil\Database\Exception\DatabaseExceptionTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/Exception/DatabaseExceptionTest.php" namespace="Icecave\Recoil\Database\Exception" fullPackage="Icecave.Recoil.Database.Exception" tests="3" assertions="9" failures="0" errors="0" time="0.011245">
-      <testcase name="testException" class="Icecave\Recoil\Database\Exception\DatabaseExceptionTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/Exception/DatabaseExceptionTest.php" line="10" assertions="3" time="0.003867"/>
-      <testcase name="testExceptionDefaultErrorInfo" class="Icecave\Recoil\Database\Exception\DatabaseExceptionTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/Exception/DatabaseExceptionTest.php" line="19" assertions="3" time="0.003325"/>
-      <testcase name="testExceptionDefaults" class="Icecave\Recoil\Database\Exception\DatabaseExceptionTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/Exception/DatabaseExceptionTest.php" line="28" assertions="3" time="0.004053"/>
+    <testsuite name="Icecave\Recoil\Database\Exception\DatabaseExceptionTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/Exception/DatabaseExceptionTest.php" namespace="Icecave\Recoil\Database\Exception" fullPackage="Icecave.Recoil.Database.Exception" tests="3" assertions="9" failures="0" errors="0" time="0.011019">
+      <testcase name="testException" class="Icecave\Recoil\Database\Exception\DatabaseExceptionTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/Exception/DatabaseExceptionTest.php" line="10" assertions="3" time="0.003808"/>
+      <testcase name="testExceptionDefaultErrorInfo" class="Icecave\Recoil\Database\Exception\DatabaseExceptionTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/Exception/DatabaseExceptionTest.php" line="19" assertions="3" time="0.003234"/>
+      <testcase name="testExceptionDefaults" class="Icecave\Recoil\Database\Exception\DatabaseExceptionTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/Exception/DatabaseExceptionTest.php" line="28" assertions="3" time="0.003977"/>
     </testsuite>
-    <testsuite name="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" namespace="Icecave\Recoil\Database" fullPackage="Icecave.Recoil.Database" tests="40" assertions="53" failures="0" errors="0" time="3.306047">
-      <testcase name="testConnectionPrepare" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="39" assertions="1" time="0.100460"/>
-      <testcase name="testConnectionQuery" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="52" assertions="2" time="0.082120"/>
-      <testcase name="testConnectionExec" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="75" assertions="2" time="0.054413"/>
-      <testcase name="testConnectionInTransaction" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="92" assertions="3" time="0.084923"/>
-      <testcase name="testConnectionCommit" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="111" assertions="3" time="0.082419"/>
-      <testcase name="testConnectionRollback" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="132" assertions="3" time="0.074521"/>
-      <testcase name="testConnectionLastInsertId" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="153" assertions="2" time="0.081594"/>
-      <testcase name="testConnectionErrorCode" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="170" assertions="1" time="0.056332"/>
-      <testcase name="testConnectionErrorInfo" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="185" assertions="1" time="0.056982"/>
-      <testcase name="testConnectionQuote" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="200" assertions="1" time="0.049565"/>
-      <testcase name="testConnectionSetAndGetAttribute" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="215" assertions="2" time="0.066103"/>
-      <testcase name="testExceptionPropagation" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="234" assertions="2" time="0.054599"/>
-      <testcase name="testStatementExecute" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="20" assertions="1" time="0.067948"/>
-      <testsuite name="Icecave\Recoil\Database\FunctionalCoverageTest::testStatementSetFetchModeWithSimpleMode" tests="5" assertions="5" failures="0" errors="0" time="0.458620">
-        <testcase name="testStatementSetFetchModeWithSimpleMode with data set #0" assertions="1" time="0.083191"/>
-        <testcase name="testStatementSetFetchModeWithSimpleMode with data set #1" assertions="1" time="0.088150"/>
-        <testcase name="testStatementSetFetchModeWithSimpleMode with data set #2" assertions="1" time="0.090731"/>
-        <testcase name="testStatementSetFetchModeWithSimpleMode with data set #3" assertions="1" time="0.098753"/>
-        <testcase name="testStatementSetFetchModeWithSimpleMode with data set #4" assertions="1" time="0.097795"/>
+    <testsuite name="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" namespace="Icecave\Recoil\Database" fullPackage="Icecave.Recoil.Database" tests="40" assertions="53" failures="0" errors="0" time="3.465169">
+      <testcase name="testConnectionPrepare" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="39" assertions="1" time="0.107742"/>
+      <testcase name="testConnectionQuery" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="52" assertions="2" time="0.089552"/>
+      <testcase name="testConnectionExec" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="75" assertions="2" time="0.061276"/>
+      <testcase name="testConnectionInTransaction" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="92" assertions="3" time="0.087481"/>
+      <testcase name="testConnectionCommit" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="111" assertions="3" time="0.112091"/>
+      <testcase name="testConnectionRollback" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="132" assertions="3" time="0.074765"/>
+      <testcase name="testConnectionLastInsertId" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="153" assertions="2" time="0.083811"/>
+      <testcase name="testConnectionErrorCode" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="170" assertions="1" time="0.057935"/>
+      <testcase name="testConnectionErrorInfo" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="185" assertions="1" time="0.057726"/>
+      <testcase name="testConnectionQuote" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="200" assertions="1" time="0.049147"/>
+      <testcase name="testConnectionSetAndGetAttribute" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="215" assertions="2" time="0.066044"/>
+      <testcase name="testExceptionPropagation" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="234" assertions="2" time="0.054794"/>
+      <testcase name="testStatementExecute" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="20" assertions="1" time="0.107677"/>
+      <testsuite name="Icecave\Recoil\Database\FunctionalCoverageTest::testStatementSetFetchModeWithSimpleMode" tests="5" assertions="5" failures="0" errors="0" time="0.436673">
+        <testcase name="testStatementSetFetchModeWithSimpleMode with data set #0" assertions="1" time="0.084443"/>
+        <testcase name="testStatementSetFetchModeWithSimpleMode with data set #1" assertions="1" time="0.089302"/>
+        <testcase name="testStatementSetFetchModeWithSimpleMode with data set #2" assertions="1" time="0.087715"/>
+        <testcase name="testStatementSetFetchModeWithSimpleMode with data set #3" assertions="1" time="0.087419"/>
+        <testcase name="testStatementSetFetchModeWithSimpleMode with data set #4" assertions="1" time="0.087794"/>
       </testsuite>
-      <testcase name="testStatementFetch" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="74" assertions="1" time="0.118368"/>
-      <testsuite name="Icecave\Recoil\Database\FunctionalCoverageTest::testStatementFetchWithSimpleMode" tests="5" assertions="5" failures="0" errors="0" time="0.594974">
-        <testcase name="testStatementFetchWithSimpleMode with data set #0" assertions="1" time="0.111520"/>
-        <testcase name="testStatementFetchWithSimpleMode with data set #1" assertions="1" time="0.119586"/>
-        <testcase name="testStatementFetchWithSimpleMode with data set #2" assertions="1" time="0.117195"/>
-        <testcase name="testStatementFetchWithSimpleMode with data set #3" assertions="1" time="0.143031"/>
-        <testcase name="testStatementFetchWithSimpleMode with data set #4" assertions="1" time="0.103642"/>
+      <testcase name="testStatementFetch" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="74" assertions="1" time="0.112254"/>
+      <testsuite name="Icecave\Recoil\Database\FunctionalCoverageTest::testStatementFetchWithSimpleMode" tests="5" assertions="5" failures="0" errors="0" time="0.577701">
+        <testcase name="testStatementFetchWithSimpleMode with data set #0" assertions="1" time="0.107632"/>
+        <testcase name="testStatementFetchWithSimpleMode with data set #1" assertions="1" time="0.148724"/>
+        <testcase name="testStatementFetchWithSimpleMode with data set #2" assertions="1" time="0.108441"/>
+        <testcase name="testStatementFetchWithSimpleMode with data set #3" assertions="1" time="0.106990"/>
+        <testcase name="testStatementFetchWithSimpleMode with data set #4" assertions="1" time="0.105914"/>
       </testsuite>
-      <testcase name="testStatementFetchAll" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="158" assertions="1" time="0.082360"/>
-      <testsuite name="Icecave\Recoil\Database\FunctionalCoverageTest::testStatementFetchAllWithSimpleMode" tests="5" assertions="5" failures="0" errors="0" time="0.405092">
-        <testcase name="testStatementFetchAllWithSimpleMode with data set #0" assertions="1" time="0.078109"/>
-        <testcase name="testStatementFetchAllWithSimpleMode with data set #1" assertions="1" time="0.084960"/>
-        <testcase name="testStatementFetchAllWithSimpleMode with data set #2" assertions="1" time="0.081839"/>
-        <testcase name="testStatementFetchAllWithSimpleMode with data set #3" assertions="1" time="0.081083"/>
-        <testcase name="testStatementFetchAllWithSimpleMode with data set #4" assertions="1" time="0.079101"/>
+      <testcase name="testStatementFetchAll" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="158" assertions="1" time="0.087391"/>
+      <testsuite name="Icecave\Recoil\Database\FunctionalCoverageTest::testStatementFetchAllWithSimpleMode" tests="5" assertions="5" failures="0" errors="0" time="0.418419">
+        <testcase name="testStatementFetchAllWithSimpleMode with data set #0" assertions="1" time="0.081635"/>
+        <testcase name="testStatementFetchAllWithSimpleMode with data set #1" assertions="1" time="0.088264"/>
+        <testcase name="testStatementFetchAllWithSimpleMode with data set #2" assertions="1" time="0.084379"/>
+        <testcase name="testStatementFetchAllWithSimpleMode with data set #3" assertions="1" time="0.083995"/>
+        <testcase name="testStatementFetchAllWithSimpleMode with data set #4" assertions="1" time="0.080146"/>
       </testsuite>
-      <testcase name="testStatementFetchColumn" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="215" assertions="3" time="0.090590"/>
-      <testcase name="testStatementBindValueWithPlaceholderIndex" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="231" assertions="1" time="0.081881"/>
-      <testcase name="testStatementBindValueWithPlaceholderName" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="247" assertions="1" time="0.079547"/>
-      <testcase name="testStatementColumnCount" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="271" assertions="1" time="0.068497"/>
-      <testcase name="testStatementRowCount" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="285" assertions="1" time="0.072071"/>
-      <testcase name="testStatementGetColumnMeta" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="299" assertions="1" time="0.067382"/>
-      <testcase name="testStatementErrorCode" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="333" assertions="1" time="0.076534"/>
-      <testcase name="testStatementErrorInfo" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="352" assertions="1" time="0.076396"/>
-      <testcase name="testStatementQueryString" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="371" assertions="1" time="0.060380"/>
-      <testcase name="testStatementDebugDumpParams" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="385" assertions="1" time="0.061377"/>
+      <testcase name="testStatementFetchColumn" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="215" assertions="3" time="0.090719"/>
+      <testcase name="testStatementBindValueWithPlaceholderIndex" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="231" assertions="1" time="0.086785"/>
+      <testcase name="testStatementBindValueWithPlaceholderName" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="247" assertions="1" time="0.085539"/>
+      <testcase name="testStatementColumnCount" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="271" assertions="1" time="0.109560"/>
+      <testcase name="testStatementRowCount" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="285" assertions="1" time="0.075531"/>
+      <testcase name="testStatementGetColumnMeta" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="299" assertions="1" time="0.071908"/>
+      <testcase name="testStatementErrorCode" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="333" assertions="1" time="0.081385"/>
+      <testcase name="testStatementErrorInfo" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="352" assertions="1" time="0.084818"/>
+      <testcase name="testStatementQueryString" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="371" assertions="1" time="0.069801"/>
+      <testcase name="testStatementDebugDumpParams" class="Icecave\Recoil\Database\FunctionalCoverageTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalCoverageTest.php" line="385" assertions="1" time="0.066644"/>
     </testsuite>
-    <testsuite name="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" namespace="Icecave\Recoil\Database" fullPackage="Icecave.Recoil.Database" tests="40" assertions="53" failures="0" errors="0" time="9.558299">
-      <testcase name="testConnectionPrepare" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="39" assertions="1" time="0.233025"/>
-      <testcase name="testConnectionQuery" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="52" assertions="2" time="0.228666"/>
-      <testcase name="testConnectionExec" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="75" assertions="2" time="0.229507"/>
-      <testcase name="testConnectionInTransaction" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="92" assertions="3" time="0.226661"/>
-      <testcase name="testConnectionCommit" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="111" assertions="3" time="0.234572"/>
-      <testcase name="testConnectionRollback" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="132" assertions="3" time="0.225841"/>
-      <testcase name="testConnectionLastInsertId" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="153" assertions="2" time="0.227615"/>
-      <testcase name="testConnectionErrorCode" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="170" assertions="1" time="0.226042"/>
-      <testcase name="testConnectionErrorInfo" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="185" assertions="1" time="0.224791"/>
-      <testcase name="testConnectionQuote" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="200" assertions="1" time="0.223796"/>
-      <testcase name="testConnectionSetAndGetAttribute" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="215" assertions="2" time="0.224034"/>
-      <testcase name="testExceptionPropagation" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="234" assertions="2" time="0.133863"/>
-      <testcase name="testStatementExecute" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="20" assertions="1" time="0.224607"/>
-      <testsuite name="Icecave\Recoil\Database\FunctionalTest::testStatementSetFetchModeWithSimpleMode" tests="5" assertions="5" failures="0" errors="0" time="1.128963">
-        <testcase name="testStatementSetFetchModeWithSimpleMode with data set #0" assertions="1" time="0.223360"/>
-        <testcase name="testStatementSetFetchModeWithSimpleMode with data set #1" assertions="1" time="0.228604"/>
-        <testcase name="testStatementSetFetchModeWithSimpleMode with data set #2" assertions="1" time="0.222591"/>
-        <testcase name="testStatementSetFetchModeWithSimpleMode with data set #3" assertions="1" time="0.230737"/>
-        <testcase name="testStatementSetFetchModeWithSimpleMode with data set #4" assertions="1" time="0.223671"/>
+    <testsuite name="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" namespace="Icecave\Recoil\Database" fullPackage="Icecave.Recoil.Database" tests="40" assertions="53" failures="0" errors="0" time="10.020135">
+      <testcase name="testConnectionPrepare" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="39" assertions="1" time="0.236862"/>
+      <testcase name="testConnectionQuery" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="52" assertions="2" time="0.241412"/>
+      <testcase name="testConnectionExec" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="75" assertions="2" time="0.238463"/>
+      <testcase name="testConnectionInTransaction" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="92" assertions="3" time="0.248184"/>
+      <testcase name="testConnectionCommit" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="111" assertions="3" time="0.242563"/>
+      <testcase name="testConnectionRollback" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="132" assertions="3" time="0.236625"/>
+      <testcase name="testConnectionLastInsertId" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="153" assertions="2" time="0.249740"/>
+      <testcase name="testConnectionErrorCode" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="170" assertions="1" time="0.232970"/>
+      <testcase name="testConnectionErrorInfo" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="185" assertions="1" time="0.230318"/>
+      <testcase name="testConnectionQuote" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="200" assertions="1" time="0.233502"/>
+      <testcase name="testConnectionSetAndGetAttribute" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="215" assertions="2" time="0.236133"/>
+      <testcase name="testExceptionPropagation" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="234" assertions="2" time="0.137875"/>
+      <testcase name="testStatementExecute" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="20" assertions="1" time="0.232598"/>
+      <testsuite name="Icecave\Recoil\Database\FunctionalTest::testStatementSetFetchModeWithSimpleMode" tests="5" assertions="5" failures="0" errors="0" time="1.189090">
+        <testcase name="testStatementSetFetchModeWithSimpleMode with data set #0" assertions="1" time="0.242382"/>
+        <testcase name="testStatementSetFetchModeWithSimpleMode with data set #1" assertions="1" time="0.243674"/>
+        <testcase name="testStatementSetFetchModeWithSimpleMode with data set #2" assertions="1" time="0.234359"/>
+        <testcase name="testStatementSetFetchModeWithSimpleMode with data set #3" assertions="1" time="0.235208"/>
+        <testcase name="testStatementSetFetchModeWithSimpleMode with data set #4" assertions="1" time="0.233467"/>
       </testsuite>
-      <testcase name="testStatementFetch" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="74" assertions="1" time="0.349560"/>
-      <testsuite name="Icecave\Recoil\Database\FunctionalTest::testStatementFetchWithSimpleMode" tests="5" assertions="5" failures="0" errors="0" time="1.675642">
-        <testcase name="testStatementFetchWithSimpleMode with data set #0" assertions="1" time="0.357287"/>
-        <testcase name="testStatementFetchWithSimpleMode with data set #1" assertions="1" time="0.331356"/>
-        <testcase name="testStatementFetchWithSimpleMode with data set #2" assertions="1" time="0.328824"/>
-        <testcase name="testStatementFetchWithSimpleMode with data set #3" assertions="1" time="0.329802"/>
-        <testcase name="testStatementFetchWithSimpleMode with data set #4" assertions="1" time="0.328373"/>
+      <testcase name="testStatementFetch" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="74" assertions="1" time="0.338044"/>
+      <testsuite name="Icecave\Recoil\Database\FunctionalTest::testStatementFetchWithSimpleMode" tests="5" assertions="5" failures="0" errors="0" time="1.743579">
+        <testcase name="testStatementFetchWithSimpleMode with data set #0" assertions="1" time="0.336747"/>
+        <testcase name="testStatementFetchWithSimpleMode with data set #1" assertions="1" time="0.354652"/>
+        <testcase name="testStatementFetchWithSimpleMode with data set #2" assertions="1" time="0.346618"/>
+        <testcase name="testStatementFetchWithSimpleMode with data set #3" assertions="1" time="0.355255"/>
+        <testcase name="testStatementFetchWithSimpleMode with data set #4" assertions="1" time="0.350307"/>
       </testsuite>
-      <testcase name="testStatementFetchAll" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="158" assertions="1" time="0.223320"/>
-      <testsuite name="Icecave\Recoil\Database\FunctionalTest::testStatementFetchAllWithSimpleMode" tests="5" assertions="5" failures="0" errors="0" time="1.105665">
-        <testcase name="testStatementFetchAllWithSimpleMode with data set #0" assertions="1" time="0.221632"/>
-        <testcase name="testStatementFetchAllWithSimpleMode with data set #1" assertions="1" time="0.222128"/>
-        <testcase name="testStatementFetchAllWithSimpleMode with data set #2" assertions="1" time="0.220710"/>
-        <testcase name="testStatementFetchAllWithSimpleMode with data set #3" assertions="1" time="0.220773"/>
-        <testcase name="testStatementFetchAllWithSimpleMode with data set #4" assertions="1" time="0.220422"/>
+      <testcase name="testStatementFetchAll" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="158" assertions="1" time="0.231796"/>
+      <testsuite name="Icecave\Recoil\Database\FunctionalTest::testStatementFetchAllWithSimpleMode" tests="5" assertions="5" failures="0" errors="0" time="1.214579">
+        <testcase name="testStatementFetchAllWithSimpleMode with data set #0" assertions="1" time="0.243300"/>
+        <testcase name="testStatementFetchAllWithSimpleMode with data set #1" assertions="1" time="0.231503"/>
+        <testcase name="testStatementFetchAllWithSimpleMode with data set #2" assertions="1" time="0.233680"/>
+        <testcase name="testStatementFetchAllWithSimpleMode with data set #3" assertions="1" time="0.233798"/>
+        <testcase name="testStatementFetchAllWithSimpleMode with data set #4" assertions="1" time="0.272298"/>
       </testsuite>
-      <testcase name="testStatementFetchColumn" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="215" assertions="3" time="0.219016"/>
-      <testcase name="testStatementBindValueWithPlaceholderIndex" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="231" assertions="1" time="0.218297"/>
-      <testcase name="testStatementBindValueWithPlaceholderName" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="247" assertions="1" time="0.219369"/>
-      <testcase name="testStatementColumnCount" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="271" assertions="1" time="0.218502"/>
-      <testcase name="testStatementRowCount" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="285" assertions="1" time="0.221556"/>
-      <testcase name="testStatementGetColumnMeta" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="299" assertions="1" time="0.222979"/>
-      <testcase name="testStatementErrorCode" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="333" assertions="1" time="0.220618"/>
-      <testcase name="testStatementErrorInfo" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="352" assertions="1" time="0.219969"/>
-      <testcase name="testStatementQueryString" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="371" assertions="1" time="0.227814"/>
-      <testcase name="testStatementDebugDumpParams" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="385" assertions="1" time="0.224010"/>
+      <testcase name="testStatementFetchColumn" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="215" assertions="3" time="0.233298"/>
+      <testcase name="testStatementBindValueWithPlaceholderIndex" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="231" assertions="1" time="0.229584"/>
+      <testcase name="testStatementBindValueWithPlaceholderName" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="247" assertions="1" time="0.230713"/>
+      <testcase name="testStatementColumnCount" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="271" assertions="1" time="0.239775"/>
+      <testcase name="testStatementRowCount" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="285" assertions="1" time="0.234008"/>
+      <testcase name="testStatementGetColumnMeta" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="299" assertions="1" time="0.229335"/>
+      <testcase name="testStatementErrorCode" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="333" assertions="1" time="0.227262"/>
+      <testcase name="testStatementErrorInfo" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="352" assertions="1" time="0.226432"/>
+      <testcase name="testStatementQueryString" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="371" assertions="1" time="0.231595"/>
+      <testcase name="testStatementDebugDumpParams" class="Icecave\Recoil\Database\FunctionalTest" file="/home/travis/build/IcecaveLabs/recoil-database/test/suite/Icecave/Recoil/FunctionalTest.php" line="385" assertions="1" time="0.223800"/>
     </testsuite>
   </testsuite>
 </testsuites>

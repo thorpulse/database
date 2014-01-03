@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1388635526">
-  <project timestamp="1388635526">
+<coverage generated="1388729298">
+  <project timestamp="1388729298">
     <package name="Icecave\Recoil\Database\Detail">
       <file name="/home/travis/build/IcecaveLabs/recoil-database/src-internal/Icecave/Recoil/Database/Detail/Connection.php">
         <class name="Connection" namespace="Icecave\Recoil\Database\Detail">
