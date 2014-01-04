@@ -1,11 +1,11 @@
 <?php
-namespace Icecave\Recoil\Database;
+namespace Recoil\Database;
 
-use Icecave\Recoil\Channel\BidirectionalChannelAdaptor;
-use Icecave\Recoil\Channel\Channel;
-use Icecave\Recoil\Database\Detail\Connection;
-use Icecave\Recoil\Database\Detail\ServiceManager;
-use Icecave\Recoil\Recoil;
+use Recoil\Channel\BidirectionalChannelAdaptor;
+use Recoil\Channel\Channel;
+use Recoil\Database\Detail\Connection;
+use Recoil\Database\Detail\ServiceManager;
+use Recoil\Recoil;
 
 class SynchronousConnectionFactory implements ConnectionFactoryInterface
 {

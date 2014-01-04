@@ -2,14 +2,14 @@
 <?php
 require dirname(__DIR__) . '/vendor/autoload.php';
 
-use Icecave\Recoil\Channel\BidirectionalChannelAdaptor;
-use Icecave\Recoil\Channel\ReadableStreamChannel;
-use Icecave\Recoil\Channel\WritableStreamChannel;
-use Icecave\Recoil\Database\Detail\ServiceManager;
-use Icecave\Recoil\Recoil;
-use Icecave\Recoil\Stream\ReadableStream;
-use Icecave\Recoil\Stream\WritableStream;
 use Eloquent\Asplode\Asplode;
+use Recoil\Channel\BidirectionalChannelAdaptor;
+use Recoil\Channel\ReadableStreamChannel;
+use Recoil\Channel\WritableStreamChannel;
+use Recoil\Database\Detail\ServiceManager;
+use Recoil\Recoil;
+use Recoil\Stream\ReadableStream;
+use Recoil\Stream\WritableStream;
 
 Asplode::instance()->install();
 

@@ -1,9 +1,9 @@
 <?php
-namespace Icecave\Recoil\Database;
+namespace Recoil\Database;
 
-use Icecave\Recoil\Channel\BidirectionalChannelInterface;
-use Icecave\Recoil\Database\Detail\Connection;
-use Icecave\Recoil\Recoil;
+use Recoil\Channel\BidirectionalChannelInterface;
+use Recoil\Database\Detail\Connection;
+use Recoil\Recoil;
 use Phake;
 use PHPUnit_Framework_TestCase;
 use React\ChildProcess\Process;

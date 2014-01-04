@@ -1,8 +1,8 @@
 <?php
-namespace Icecave\Recoil\Database\Exception;
+namespace Recoil\Database\Exception;
 
 use Exception;
-use Icecave\Recoil\Recoil;
+use Recoil\Recoil;
 use PHPUnit_Framework_TestCase;
 
 class DatabaseExceptionTest extends PHPUnit_Framework_TestCase

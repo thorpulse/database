@@ -1,10 +1,10 @@
 <?php
-namespace Icecave\Recoil\Database\Detail;
+namespace Recoil\Database\Detail;
 
-use Icecave\Recoil\Channel\BidirectionalChannelInterface;
-use Icecave\Recoil\Database\ConnectionInterface;
-use Icecave\Recoil\Database\Exception\DatabaseException;
-use Icecave\Recoil\Recoil;
+use Recoil\Channel\BidirectionalChannelInterface;
+use Recoil\Database\ConnectionInterface;
+use Recoil\Database\Exception\DatabaseException;
+use Recoil\Recoil;
 use PDO;
 
 /**

@@ -2,7 +2,7 @@
 <?php
 require dirname(__DIR__) . '/vendor/autoload.php';
 
-use Icecave\Recoil\Recoil;
+use Recoil\Recoil;
 
 function insertTestData($connection, $connectionName, $count)
 {
@@ -24,7 +24,7 @@ function insertTestData($connection, $connectionName, $count)
 
 function connect($dsn)
 {
-    $factory = new Icecave\Recoil\Database\ConnectionFactory;
+    $factory = new \Recoil\Database\ConnectionFactory;
     $connection = (yield $factory->connect($dsn));
     yield $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     yield Recoil::return_($connection);

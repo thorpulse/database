@@ -1,5 +1,5 @@
 <?php
-namespace Icecave\Recoil\Database;
+namespace Recoil\Database;
 
 /**
  * Interface for database connection factories.

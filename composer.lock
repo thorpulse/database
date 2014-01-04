@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "56a629edf0da86f45f4844a6eb60b806",
+    "hash": "e4133c82a47029c7d9ed3b0f70e09d1c",
     "packages": [
         {
             "name": "eloquent/asplode",
@@ -244,66 +244,6 @@
             "time": "2013-06-04 05:00:29"
         },
         {
-            "name": "icecave/recoil",
-            "version": "dev-develop",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/IcecaveStudios/recoil.git",
-                "reference": "2326f8b1b9db499e1b3dff78c1c42d339879515e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/IcecaveStudios/recoil/zipball/2326f8b1b9db499e1b3dff78c1c42d339879515e",
-                "reference": "2326f8b1b9db499e1b3dff78c1c42d339879515e",
-                "shasum": ""
-            },
-            "require": {
-                "evenement/evenement": "~2",
-                "icecave/repr": "~1",
-                "php": ">=5.5",
-                "react/react": "dev-master"
-            },
-            "require-dev": {
-                "icecave/archer": "~1",
-                "phake/phake": "2.0.0-alpha4 as v1.0.3"
-            },
-            "suggest": {
-                "eloquent/asplode": "Drop-in exception-based error handling."
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Icecave\\Recoil": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "James Harris",
-                    "email": "james.harris@icecave.com.au",
-                    "homepage": "https://github.com/jmalloc"
-                }
-            ],
-            "description": "A generator-based cooperative multitasking kernel for React.",
-            "homepage": "https://github.com/IcecaveStudios/recoil",
-            "keywords": [
-                "Thread",
-                "async",
-                "asynchronous",
-                "continuation",
-                "coroutine",
-                "event",
-                "generator",
-                "green",
-                "multitasking",
-                "react"
-            ],
-            "time": "2014-01-01 10:38:06"
-        },
-        {
             "name": "icecave/repr",
             "version": "1.0.0",
             "source": {
@@ -453,6 +393,66 @@
                 "reactor"
             ],
             "time": "2013-12-21 19:51:45"
+        },
+        {
+            "name": "recoil/recoil",
+            "version": "dev-develop",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/recoilphp/recoil.git",
+                "reference": "02850dbc1aef9f68bdffea8b65fa2e5aea2697f2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/recoilphp/recoil/zipball/02850dbc1aef9f68bdffea8b65fa2e5aea2697f2",
+                "reference": "02850dbc1aef9f68bdffea8b65fa2e5aea2697f2",
+                "shasum": ""
+            },
+            "require": {
+                "evenement/evenement": "~2",
+                "icecave/repr": "~1",
+                "php": ">=5.5",
+                "react/react": "dev-master"
+            },
+            "require-dev": {
+                "icecave/archer": "~1",
+                "phake/phake": "2.0.0-alpha4 as v1.0.3"
+            },
+            "suggest": {
+                "eloquent/asplode": "Drop-in exception-based error handling."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Recoil\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "James Harris",
+                    "email": "james.harris@icecave.com.au",
+                    "homepage": "https://github.com/jmalloc"
+                }
+            ],
+            "description": "A generator-based cooperative multitasking kernel for React.",
+            "homepage": "https://github.com/recoilphp/recoil",
+            "keywords": [
+                "Thread",
+                "async",
+                "asynchronous",
+                "continuation",
+                "coroutine",
+                "event",
+                "generator",
+                "green",
+                "multitasking",
+                "react"
+            ],
+            "time": "2014-01-03 23:58:43"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -1346,7 +1346,7 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
-        "icecave/recoil": 20
+        "recoil/recoil": 20
     },
     "platform": {
         "php": ">=5.5"

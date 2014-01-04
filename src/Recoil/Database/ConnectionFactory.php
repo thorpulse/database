@@ -1,14 +1,14 @@
 <?php
-namespace Icecave\Recoil\Database;
+namespace Recoil\Database;
 
-use Icecave\Recoil\Channel\BidirectionalChannelAdaptor;
-use Icecave\Recoil\Channel\BidirectionalChannelInterface;
-use Icecave\Recoil\Channel\ReadableStreamChannel;
-use Icecave\Recoil\Channel\WritableStreamChannel;
-use Icecave\Recoil\Database\Detail\Connection;
-use Icecave\Recoil\Recoil;
-use Icecave\Recoil\Stream\ReadableReactStream;
-use Icecave\Recoil\Stream\WritableReactStream;
+use Recoil\Channel\BidirectionalChannelAdaptor;
+use Recoil\Channel\BidirectionalChannelInterface;
+use Recoil\Channel\ReadableStreamChannel;
+use Recoil\Channel\WritableStreamChannel;
+use Recoil\Database\Detail\Connection;
+use Recoil\Recoil;
+use Recoil\Stream\ReadableReactStream;
+use Recoil\Stream\WritableReactStream;
 use React\ChildProcess\Process;
 
 /**
@@ -23,7 +23,7 @@ class ConnectionFactory
     public function __construct($commandLine = null)
     {
         if (null === $commandLine) {
-            $serviceExecutable = realpath(__DIR__ . '/../../../../bin/database-service');
+            $serviceExecutable = __DIR__ . '/../../../bin/database-service';
             $commandLine = 'php --define display_errors=stderr ' . escapeshellarg($serviceExecutable);
         }
 
@@ -49,11 +49,21 @@ class ConnectionFactory
         $channel = $this->createChannel($process);
         $connection = $this->createConnection($channel);
 
-        // if ($process->stderr) $process->stderr->on(
+        // $process->stderr->on(
         //     'data',
         //     function ($data) {
         //         if ($data) {
         //             echo 'ERR: ' . $data;
+        //             ob_flush();
+        //         }
+        //     }
+        // );
+
+        // $process->stdout->on(
+        //     'data',
+        //     function ($data) {
+        //         if ($data) {
+        //             echo 'OUT: ' . $data;
         //             ob_flush();
         //         }
         //     }

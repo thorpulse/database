@@ -1,9 +1,9 @@
 <?php
-namespace Icecave\Recoil\Database;
+namespace Recoil\Database;
 
-use Icecave\Recoil\Database\Detail\Connection;
-use Icecave\Recoil\Database\Exception\DatabaseException;
-use Icecave\Recoil\Recoil;
+use Recoil\Database\Detail\Connection;
+use Recoil\Database\Exception\DatabaseException;
+use Recoil\Recoil;
 use PDO;
 
 trait FunctionalConnectionTestTrait

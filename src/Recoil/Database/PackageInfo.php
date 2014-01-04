@@ -1,5 +1,5 @@
 <?php
-namespace Icecave\Recoil\Database;
+namespace Recoil\Database;
 
 class PackageInfo
 {

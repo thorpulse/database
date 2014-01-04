@@ -1,5 +1,5 @@
 <?php
-namespace Icecave\Recoil\Database\Exception;
+namespace Recoil\Database\Exception;
 
 use Exception;
 use PDOException;

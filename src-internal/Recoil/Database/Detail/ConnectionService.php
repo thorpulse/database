@@ -1,5 +1,5 @@
 <?php
-namespace Icecave\Recoil\Database\Detail;
+namespace Recoil\Database\Detail;
 
 use PDO;
 use PDOStatement;

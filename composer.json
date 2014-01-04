@@ -1,5 +1,5 @@
 {
-    "name": "icecave/recoil-database",
+    "name": "recoil/database",
     "description": "An asynchronous PDO-like database abstraction for Recoil",
     "keywords": [
         "database",
@@ -18,7 +18,7 @@
         "sqlite",
         "odbc"
     ],
-    "homepage": "https://github.com/IcecaveStudios/recoil-database",
+    "homepage": "https://github.com/recoilphp/database",
     "license": "MIT",
     "authors": [
         {
@@ -30,7 +30,7 @@
     "require": {
         "php": ">=5.5",
         "eloquent/asplode": "~1",
-        "icecave/recoil": "dev-develop"
+        "recoil/recoil": "dev-develop"
     },
     "require-dev": {
         "icecave/archer": "~1",
@@ -38,8 +38,8 @@
     },
     "autoload": {
         "psr-0": {
-            "Icecave\\Recoil\\Database": "src",
-            "Icecave\\Recoil\\Database\\Detail": "src-internal"
+            "Recoil\\Database\\": "src",
+            "Recoil\\Database\\Detail\\": "src-internal"
         }
     },
     "minimum-stability": "dev",

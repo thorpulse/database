@@ -1,7 +1,7 @@
 <?php
-namespace Icecave\Recoil\Database;
+namespace Recoil\Database;
 
-use Icecave\Recoil\Recoil;
+use Recoil\Recoil;
 use PDO;
 
 trait FunctionalStatementTestTrait

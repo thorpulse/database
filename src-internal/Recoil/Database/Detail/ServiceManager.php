@@ -1,8 +1,8 @@
 <?php
-namespace Icecave\Recoil\Database\Detail;
+namespace Recoil\Database\Detail;
 
 use Exception;
-use Icecave\Recoil\Channel\BidirectionalChannelInterface;
+use Recoil\Channel\BidirectionalChannelInterface;
 use PDOException;
 
 class ServiceManager

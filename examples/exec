@@ -2,8 +2,8 @@
 <?php
 require dirname(__DIR__) . '/vendor/autoload.php';
 
-use Icecave\Recoil\Database\ConnectionFactory;
-use Icecave\Recoil\Recoil;
+use Recoil\Database\ConnectionFactory;
+use Recoil\Recoil;
 
 Recoil::run(
     function () {

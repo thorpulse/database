@@ -1,5 +1,5 @@
 <?php
-namespace Icecave\Recoil\Database;
+namespace Recoil\Database;
 
 use PHPUnit_Framework_TestCase;
 
