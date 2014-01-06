@@ -37,7 +37,7 @@
         "phake/phake": "2.0.0-alpha4 as v1.0.3"
     },
     "autoload": {
-        "psr-0": {
+        "psr-4": {
             "Recoil\\Database\\": "src",
             "Recoil\\Database\\Detail\\": "src-internal"
         }

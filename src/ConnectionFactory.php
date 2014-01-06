@@ -23,8 +23,7 @@ class ConnectionFactory
     public function __construct($commandLine = null)
     {
         if (null === $commandLine) {
-            $serviceExecutable = __DIR__ . '/../../../bin/database-service';
-            $commandLine = 'php --define display_errors=stderr ' . escapeshellarg($serviceExecutable);
+            $commandLine = 'php --define display_errors=stderr ' . escapeshellarg(__DIR__ . '/../bin/database-service');
         }
 
         $this->commandLine = $commandLine;
