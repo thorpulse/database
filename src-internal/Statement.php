@@ -1,10 +1,11 @@
 <?php
 namespace Recoil\Database\Detail;
 
+use LogicException;
+use PDO;
 use Recoil\Database\Exception\DatabaseException;
 use Recoil\Database\StatementInterface;
 use Recoil\Recoil;
-use PDO;
 use ReflectionClass;
 
 class Statement implements StatementInterface
@@ -52,27 +53,22 @@ class Statement implements StatementInterface
      */
     public function setFetchMode($mode, $fetchArgument = null, array $constructorArguments = null)
     {
-        $this->defaultFetchMode = null;
-        $this->defaultFetchArgument = null;
-        $this->defaultFetchConstructorArguments = null;
-
         switch ($mode) {
-            case PDO::FETCH_ASSOC:
-            case PDO::FETCH_BOTH:
-            case PDO::FETCH_NAMED:
-            case PDO::FETCH_NUM:
-            case PDO::FETCH_OBJ:
-                yield $this->serviceRequest(__FUNCTION__, [$mode]);
+            case PDO::FETCH_CLASS:
+                $this->defaultFetchMode = $mode;
+                $this->defaultFetchClassReflector = new ReflectionClass($fetchArgument);
+                $this->defaultFetchConstructorArguments = $constructorArguments ?: [];
                 break;
 
-            case PDO::FETCH_CLASS:
-                $this->defaultFetchConstructorArguments = $constructorArguments;
             case PDO::FETCH_INTO:
-                $this->defaultFetchArgument = $fetchArgument;
             case PDO::FETCH_BOUND:
             case PDO::FETCH_LAZY:
-                $this->defaultFetchMode = $mode;
                 break;
+
+            default:
+                $this->defaultFetchMode = $mode;
+                $this->defaultFetchClassReflector = null;
+                $this->defaultFetchConstructorArguments = null;
         }
     }
 
@@ -98,24 +94,33 @@ class Statement implements StatementInterface
             case PDO::FETCH_BOUND:
             case PDO::FETCH_LAZY:
                 throw new \LogicException('The current fetch mode is not yet supported.');
+
+            case PDO::FETCH_CLASS:
+                return $this->fetchClassLogic($cursorOrientation, $cursorOffset);
         }
 
-        if (PDO::FETCH_CLASS === $mode) {
-            $values = (yield $this->serviceRequest(
-                __FUNCTION__,
-                [PDO::FETCH_ASSOC, $cursorOrientation, $cursorOffset]
-            ));
+        return $this->serviceRequest(
+            __FUNCTION__,
+            [$mode, $cursorOrientation, $cursorOffset]
+        );
+    }
 
+    private function fetchClassLogic($cursorOrientation, $cursorOffset)
+    {
+        if (PDO::FETCH_CLASS !== $this->defaultFetchMode) {
+            throw new LogicException(
+                'PDO::FETCH_CLASS must be configured as the DEFAULT fetch mode in order to use PDO::FETCH_CLASS.'
+            );
+        }
+
+        $result = (yield $this->fetch(PDO::FETCH_ASSOC, $cursorOrientation, $cursorOffset));
+
+        if ($result) {
             $result = $this->createObject(
-                $values,
-                $this->defaultFetchArgument,
+                $result,
+                $this->defaultFetchClassReflector,
                 $this->defaultFetchConstructorArguments
             );
-        } else {
-            $result = (yield $this->serviceRequest(
-                __FUNCTION__,
-                [$mode, $cursorOrientation, $cursorOffset]
-            ));
         }
 
         yield Recoil::return_($result);
@@ -135,15 +140,17 @@ class Statement implements StatementInterface
      */
     public function fetchObject($className = 'stdClass', array $constructorArguments = [])
     {
-        $values = (yield $this->serviceRequest('fetch', [PDO::FETCH_ASSOC]));
+        $result = (yield $this->fetch(PDO::FETCH_ASSOC));
 
-        yield Recoil::return_(
-            $this->createObject(
-                $values,
-                $className,
+        if ($result) {
+            $result = $this->createObject(
+                $result,
+                new ReflectionClass($className),
                 $constructorArguments
-            )
-        );
+            );
+        }
+
+        yield Recoil::return_($result);
     // @codeCoverageIgnoreStart
     }
     // @codeCoverageIgnoreEnd
@@ -166,15 +173,42 @@ class Statement implements StatementInterface
         }
 
         switch ($mode) {
-            case PDO::FETCH_CLASS:
             case PDO::FETCH_INTO:
             case PDO::FETCH_BOUND:
             case PDO::FETCH_LAZY:
                 throw new \LogicException('The current fetch mode is not yet supported.');
+
+            case PDO::FETCH_CLASS:
+                return $this->fetchAllClassLogic($fetchArgument, $constructorArguments);
         }
 
-        return $this->serviceRequest(__FUNCTION__, func_get_args());
+        return $this->serviceRequest(__FUNCTION__, [$mode]);
     }
+
+    public function fetchAllClassLogic($className, array $constructorArguments = null)
+    {
+        $reflector = new ReflectionClass($className);
+
+        $result = (yield $this->fetchAll(PDO::FETCH_ASSOC));
+
+        if ($result) {
+            $objects = [];
+
+            foreach ($result as $row) {
+                $objects[] = $this->createObject(
+                    $row,
+                    $reflector,
+                    $constructorArguments
+                );
+            }
+
+            $result = $objects;
+        }
+
+        yield Recoil::return_($result);
+    // @codeCoverageIgnoreStart
+    }
+    // @codeCoverageIgnoreEnd
 
     /**
      * [COROUTINE] Return a single column from the next row in the result set.
@@ -387,21 +421,20 @@ class Statement implements StatementInterface
         echo (yield $this->serviceRequest(__FUNCTION__));
     }
 
-    private function createObject($values, $className, $constructorArguments)
+    private function createObject($rowData, ReflectionClass $reflector, array $constructorArguments)
     {
-        $reflector = new ReflectionClass($className);
         $object = $reflector->newInstanceWithoutConstructor();
 
-        if (false === $values) {
-            return false;
-        }
-
-        foreach ($values as $key => $value) {
+        foreach ($rowData as $key => $value) {
             $object->{$key} = $value;
         }
 
         if ($constructor = $reflector->getConstructor()) {
-            $constructor->invokeArgs($object, $constructorArguments);
+            if ($constructorArguments) {
+                $constructor->invokeArgs($object, $constructorArguments);
+            } else {
+                $constructor->invoke($object);
+            }
         }
 
         return $object;
@@ -429,6 +462,6 @@ class Statement implements StatementInterface
     private $connection;
     private $objectId;
     private $defaultFetchMode;
-    private $defaultFetchArgument;
+    private $defaultFetchClassReflector;
     private $defaultFetchConstructorArguments;
 }

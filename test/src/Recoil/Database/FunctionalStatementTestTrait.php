@@ -67,7 +67,11 @@ trait FunctionalStatementTestTrait
     {
         $select = 'SELECT id, name, name FROM test';
         $statement = $this->pdo->query($select);
-        $statement->setFetchMode(PDO::FETCH_CLASS, TestRowClass::CLASS, [1, 2, 3]);
+        $statement->setFetchMode(
+            PDO::FETCH_CLASS,
+            TestRowClass::CLASS,
+            [1, 2, 3]
+        );
         $expected = $statement->fetch();
 
         Recoil::run(
@@ -76,10 +80,27 @@ trait FunctionalStatementTestTrait
                 $statement = (yield $connection->prepare($select));
 
                 yield $statement->execute();
-                yield $statement->setFetchMode(PDO::FETCH_CLASS, TestRowClass::CLASS, [1, 2, 3]);
+                yield $statement->setFetchMode(
+                    PDO::FETCH_CLASS,
+                    TestRowClass::CLASS,
+                    [1, 2, 3]
+                );
                 $result = (yield $statement->fetch());
 
                 $this->assertEquals($expected, $result);
+            }
+        );
+    }
+
+    public function testStatementSetFetchModeWithInvalidClassArgument()
+    {
+        Recoil::run(
+            function () {
+                $connection = (yield $this->factory->connect($this->dsn));
+                $statement = (yield $connection->prepare('SELECT 1'));
+
+                $this->setExpectedException('ReflectionException', 'Class ClassDoesNotExist does not exist');
+                yield $statement->setFetchMode(PDO::FETCH_CLASS, 'ClassDoesNotExist');
             }
         );
     }
@@ -154,6 +175,42 @@ trait FunctionalStatementTestTrait
 
     public function testStatementFetchClass()
     {
+        $select = 'SELECT id, name, name FROM test';
+        $statement = $this->pdo->query($select);
+        $statement->setFetchMode(PDO::FETCH_CLASS, 'stdClass');
+        $expected = $statement->fetch(PDO::FETCH_CLASS);
+
+        Recoil::run(
+            function () use ($select, $expected) {
+                $connection = (yield $this->factory->connect($this->dsn));
+                $statement = (yield $connection->prepare($select));
+
+                yield $statement->execute();
+                yield $statement->setFetchMode(PDO::FETCH_CLASS, 'stdClass');
+                $result = (yield $statement->fetch(PDO::FETCH_CLASS));
+
+                $this->assertEquals($expected, $result);
+            }
+        );
+    }
+
+    public function testStatementFetchClassWhenNoClassSet()
+    {
+        Recoil::run(
+            function () {
+                $connection = (yield $this->factory->connect($this->dsn));
+                $statement = (yield $connection->prepare('SELECT 1'));
+
+                yield $statement->execute();
+
+                $this->setExpectedException(
+                    'LogicException',
+                    'PDO::FETCH_CLASS must be configured as the DEFAULT fetch mode in order to use PDO::FETCH_CLASS.'
+                );
+
+                yield $statement->fetch(PDO::FETCH_CLASS);
+            }
+        );
     }
 
     public function testStatementFetchInto()
@@ -204,11 +261,14 @@ trait FunctionalStatementTestTrait
         );
     }
 
-    public function testStatementFetchObjectWithConstructArguments()
+    public function testStatementFetchObjectWithConstructorArguments()
     {
         $select = 'SELECT id, name FROM test';
         $statement = $this->pdo->query($select);
-        $expected = $statement->fetchObject(TestRowClass::CLASS, [1, 2, 3]);
+        $expected = $statement->fetchObject(
+            TestRowClass::CLASS,
+            [1, 2, 3]
+        );
 
         Recoil::run(
             function () use ($select, $expected) {
@@ -216,7 +276,10 @@ trait FunctionalStatementTestTrait
                 $statement = (yield $connection->prepare($select));
 
                 yield $statement->execute();
-                $result = (yield $statement->fetchObject(TestRowClass::CLASS, [1, 2, 3]));
+                $result = (yield $statement->fetchObject(
+                    TestRowClass::CLASS,
+                    [1, 2, 3]
+                ));
 
                 $this->assertEquals($expected, $result);
             }
@@ -274,6 +337,29 @@ trait FunctionalStatementTestTrait
 
     public function testStatementFetchAllClass()
     {
+        $select = 'SELECT id, name, name FROM test';
+        $statement = $this->pdo->query($select);
+        $expected = $statement->fetchAll(
+            PDO::FETCH_CLASS,
+            TestRowClass::CLASS,
+            [1, 2, 3]
+        );
+
+        Recoil::run(
+            function () use ($select, $expected) {
+                $connection = (yield $this->factory->connect($this->dsn));
+                $statement = (yield $connection->prepare($select));
+
+                yield $statement->execute();
+                $result = (yield $statement->fetchAll(
+                    PDO::FETCH_CLASS,
+                    TestRowClass::CLASS,
+                    [1, 2, 3]
+                ));
+
+                $this->assertEquals($expected, $result);
+            }
+        );
     }
 
     public function testStatementFetchAllInto()
