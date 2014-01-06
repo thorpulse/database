@@ -89,7 +89,9 @@ class Connection implements ConnectionInterface
         }
 
         yield Recoil::return_($statement);
+    // @codeCoverageIgnoreStart
     }
+    // @codeCoverageIgnoreEnd
 
     /**
      * [COROUTINE] Execute an SQL statement and return the number of rows
@@ -259,12 +261,9 @@ class Connection implements ConnectionInterface
 
             case ResponseType::STATEMENT:
                 yield Recoil::return_(new Statement($this, $response[1]));
-
-            case ResponseType::EXCEPTION:
-                throw new DatabaseException($response[1], $response[2], $response[3]);
         }
 
-        throw new RuntimeException('Invalid response type.');
+        throw new DatabaseException($response[1], $response[2], $response[3]);
     }
 
     private $channel;

@@ -65,6 +65,23 @@ trait FunctionalStatementTestTrait
 
     public function testStatementSetFetchModeClass()
     {
+        $select = 'SELECT id, name, name FROM test';
+        $statement = $this->pdo->query($select);
+        $statement->setFetchMode(PDO::FETCH_CLASS, TestRowClass::CLASS, [1, 2, 3]);
+        $expected = $statement->fetch();
+
+        Recoil::run(
+            function () use ($select, $expected) {
+                $connection = (yield $this->factory->connect($this->dsn));
+                $statement = (yield $connection->prepare($select));
+
+                yield $statement->execute();
+                yield $statement->setFetchMode(PDO::FETCH_CLASS, TestRowClass::CLASS, [1, 2, 3]);
+                $result = (yield $statement->fetch());
+
+                $this->assertEquals($expected, $result);
+            }
+        );
     }
 
     public function testStatementSetFetchModeInto()
@@ -145,14 +162,65 @@ trait FunctionalStatementTestTrait
 
     public function testStatementFetchObject()
     {
+        $select = 'SELECT id, name, name FROM test LIMIT 1';
+        $statement = $this->pdo->query($select);
+        $expected = $statement->fetchObject();
+
+        Recoil::run(
+            function () use ($select, $expected) {
+                $connection = (yield $this->factory->connect($this->dsn));
+                $statement = (yield $connection->prepare($select));
+
+                yield $statement->execute();
+
+                $this->assertEquals(
+                    $expected,
+                    (yield $statement->fetchObject())
+                );
+
+                $this->assertFalse(
+                    yield $statement->fetchObject()
+                );
+            }
+        );
     }
 
     public function testStatementFetchObjectWithCustomClass()
     {
+        $select = 'SELECT id, name, name FROM test';
+        $statement = $this->pdo->query($select);
+        $expected = $statement->fetchObject(TestRowClass::CLASS);
+
+        Recoil::run(
+            function () use ($select, $expected) {
+                $connection = (yield $this->factory->connect($this->dsn));
+                $statement = (yield $connection->prepare($select));
+
+                yield $statement->execute();
+                $result = (yield $statement->fetchObject(TestRowClass::CLASS));
+
+                $this->assertEquals($expected, $result);
+            }
+        );
     }
 
-    public function testStatementFetchObjectWithUnknownClass()
+    public function testStatementFetchObjectWithConstructArguments()
     {
+        $select = 'SELECT id, name FROM test';
+        $statement = $this->pdo->query($select);
+        $expected = $statement->fetchObject(TestRowClass::CLASS, [1, 2, 3]);
+
+        Recoil::run(
+            function () use ($select, $expected) {
+                $connection = (yield $this->factory->connect($this->dsn));
+                $statement = (yield $connection->prepare($select));
+
+                yield $statement->execute();
+                $result = (yield $statement->fetchObject(TestRowClass::CLASS, [1, 2, 3]));
+
+                $this->assertEquals($expected, $result);
+            }
+        );
     }
 
     public function testStatementFetchAll()

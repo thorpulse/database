@@ -72,7 +72,6 @@ class Statement implements StatementInterface
             case PDO::FETCH_BOUND:
             case PDO::FETCH_LAZY:
                 $this->defaultFetchMode = $mode;
-                yield $this->serviceRequest(__FUNCTION__, [PDO::FETCH_BOTH]);
                 break;
         }
     }
@@ -95,15 +94,34 @@ class Statement implements StatementInterface
         }
 
         switch ($mode) {
-            case PDO::FETCH_CLASS:
             case PDO::FETCH_INTO:
             case PDO::FETCH_BOUND:
             case PDO::FETCH_LAZY:
                 throw new \LogicException('The current fetch mode is not yet supported.');
         }
 
-        return $this->serviceRequest(__FUNCTION__, [$mode, $cursorOrientation, $cursorOffset]);
+        if (PDO::FETCH_CLASS === $mode) {
+            $values = (yield $this->serviceRequest(
+                __FUNCTION__,
+                [PDO::FETCH_ASSOC, $cursorOrientation, $cursorOffset]
+            ));
+
+            $result = $this->createObject(
+                $values,
+                $this->defaultFetchArgument,
+                $this->defaultFetchConstructorArguments
+            );
+        } else {
+            $result = (yield $this->serviceRequest(
+                __FUNCTION__,
+                [$mode, $cursorOrientation, $cursorOffset]
+            ));
+        }
+
+        yield Recoil::return_($result);
+    // @codeCoverageIgnoreStart
     }
+    // @codeCoverageIgnoreEnd
 
     /**
      * [COROUTINE] Fetch the next result in the rowset as an object.
@@ -117,25 +135,18 @@ class Statement implements StatementInterface
      */
     public function fetchObject($className = 'stdClass', array $constructorArguments = [])
     {
-        $reflector = new ReflectionClass($className);
-        $object = $reflector->newInstanceWithoutConstructor();
+        $values = (yield $this->serviceRequest('fetch', [PDO::FETCH_ASSOC]));
 
-        $values = (yield $this->fetch(PDO::FETCH_ASSOC));
-
-        if (false === $values) {
-            yield Recoil::return_(false);
-        }
-
-        foreach ($values as $key => $value) {
-            $object->{$key} = $value;
-        }
-
-        if ($constructor = $reflector->getConstructor()) {
-            $constructor->invokeArgs($object, $constructorArguments);
-        }
-
-        yield Recoil::return_($object);
+        yield Recoil::return_(
+            $this->createObject(
+                $values,
+                $className,
+                $constructorArguments
+            )
+        );
+    // @codeCoverageIgnoreStart
     }
+    // @codeCoverageIgnoreEnd
 
     /**
      * [COROUTINE] Fetch all remaining results.
@@ -376,6 +387,26 @@ class Statement implements StatementInterface
         echo (yield $this->serviceRequest(__FUNCTION__));
     }
 
+    private function createObject($values, $className, $constructorArguments)
+    {
+        $reflector = new ReflectionClass($className);
+        $object = $reflector->newInstanceWithoutConstructor();
+
+        if (false === $values) {
+            return false;
+        }
+
+        foreach ($values as $key => $value) {
+            $object->{$key} = $value;
+        }
+
+        if ($constructor = $reflector->getConstructor()) {
+            $constructor->invokeArgs($object, $constructorArguments);
+        }
+
+        return $object;
+    }
+
     private function serviceRequest($method, array $arguments = [])
     {
         $request = [$this->objectId, $method];
@@ -390,12 +421,9 @@ class Statement implements StatementInterface
         switch ($response[0]) {
             case ResponseType::VALUE:
                 yield Recoil::return_($response[1]);
-
-            case ResponseType::EXCEPTION:
-                throw new DatabaseException($response[1], $response[2], $response[3]);
         }
 
-        throw new RuntimeException('Invalid response type.');
+        throw new DatabaseException($response[1], $response[2], $response[3]);
     }
 
     private $connection;

@@ -67,9 +67,31 @@ trait FunctionalConnectionTestTrait
         );
     }
 
-    public function testConnectionQueryWithAllParameterCombinations()
+    public function testConnectionQueryWithFetchModeParameters()
     {
-        // TODO
+        Recoil::run(
+            function () {
+                $connection = (yield $this->factory->connect($this->dsn));
+
+                $statement = (yield $connection->query(
+                    'SELECT * FROM test',
+                    PDO::FETCH_CLASS,
+                    TestRowClass::CLASS,
+                    [1, 2, 3]
+                ));
+
+                $expected = new TestRowClass(1, 2, 3);
+                $expected->id = '1';
+                $expected->name = 'foo';
+
+                $this->assertInstanceOf(StatementInterface::CLASS, $statement);
+
+                $this->assertEquals(
+                    $expected,
+                    (yield $statement->fetch())
+                );
+            }
+        );
     }
 
     public function testConnectionExec()
