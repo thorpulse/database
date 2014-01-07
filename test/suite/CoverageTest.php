@@ -8,10 +8,9 @@ use PHPUnit_Framework_TestCase;
  * use a sub-process. This allows PHPUnit to produce accurate coverage information
  * for code that would normally be executed in the sub-process.
  */
-class FunctionalCoverageTest extends PHPUnit_Framework_TestCase
+class CoverageTest extends PHPUnit_Framework_TestCase
 {
-    use FunctionalConnectionTestTrait;
-    use FunctionalStatementTestTrait;
+    use FunctionalTestTrait;
 
     public function createFactory()
     {

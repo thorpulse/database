@@ -53,22 +53,27 @@ class Statement implements StatementInterface
      */
     public function setFetchMode($mode, $fetchArgument = null, array $constructorArguments = null)
     {
+        $this->defaultFetchMode = $mode;
+        $this->defaultFetchArgument = null;
+        $this->defaultFetchConstructorArguments = null;
+
         switch ($mode) {
             case PDO::FETCH_CLASS:
-                $this->defaultFetchMode = $mode;
-                $this->defaultFetchClassReflector = new ReflectionClass($fetchArgument);
-                $this->defaultFetchConstructorArguments = $constructorArguments ?: [];
+                $this->defaultFetchArgument = new ReflectionClass($fetchArgument);
+                $this->defaultFetchConstructorArguments = $constructorArguments;
                 break;
 
             case PDO::FETCH_INTO:
-            case PDO::FETCH_BOUND:
-            case PDO::FETCH_LAZY:
+                if (!is_object($fetchArgument)) {
+                    throw new InvalidArgumentException('Fetch argument must be an object.');
+                }
+
+                $this->defaultFetchArgument = $fetchArgument;
                 break;
 
-            default:
-                $this->defaultFetchMode = $mode;
-                $this->defaultFetchClassReflector = null;
-                $this->defaultFetchConstructorArguments = null;
+            case PDO::FETCH_BOUND:
+            case PDO::FETCH_LAZY:
+                throw new LogicException('The current fetch mode is not yet supported.');
         }
     }
 
@@ -90,13 +95,15 @@ class Statement implements StatementInterface
         }
 
         switch ($mode) {
-            case PDO::FETCH_INTO:
             case PDO::FETCH_BOUND:
             case PDO::FETCH_LAZY:
                 throw new \LogicException('The current fetch mode is not yet supported.');
 
             case PDO::FETCH_CLASS:
                 return $this->fetchClassLogic($cursorOrientation, $cursorOffset);
+
+            case PDO::FETCH_INTO:
+                return $this->fetchIntoLogic($cursorOrientation, $cursorOffset);
         }
 
         return $this->serviceRequest(
@@ -118,9 +125,33 @@ class Statement implements StatementInterface
         if ($result) {
             $result = $this->createObject(
                 $result,
-                $this->defaultFetchClassReflector,
+                $this->defaultFetchArgument,
                 $this->defaultFetchConstructorArguments
             );
+        }
+
+        yield Recoil::return_($result);
+    // @codeCoverageIgnoreStart
+    }
+    // @codeCoverageIgnoreEnd
+
+    private function fetchIntoLogic($cursorOrientation, $cursorOffset)
+    {
+        if (PDO::FETCH_INTO !== $this->defaultFetchMode) {
+            throw new LogicException(
+                'PDO::FETCH_INTO must be configured as the DEFAULT fetch mode in order to use PDO::FETCH_INTO.'
+            );
+        }
+
+        $result = (yield $this->fetch(PDO::FETCH_ASSOC, $cursorOrientation, $cursorOffset));
+
+        if ($result) {
+            $this->populateObject(
+                $result,
+                $this->defaultFetchArgument
+            );
+
+            $result = $this->defaultFetchArgument;
         }
 
         yield Recoil::return_($result);
@@ -176,7 +207,7 @@ class Statement implements StatementInterface
             case PDO::FETCH_INTO:
             case PDO::FETCH_BOUND:
             case PDO::FETCH_LAZY:
-                throw new \LogicException('The current fetch mode is not yet supported.');
+                throw new LogicException('The current fetch mode is not yet supported.');
 
             case PDO::FETCH_CLASS:
                 return $this->fetchAllClassLogic($fetchArgument, $constructorArguments);
@@ -255,7 +286,7 @@ class Statement implements StatementInterface
      */
     public function bindParam($parameter, &$value, $dataType = PDO::PARAM_STR, $length = null, $driverOptions = null)
     {
-        throw new \LogicException('Not implemented');
+        throw new LogicException('Not implemented');
     }
 
     /**
@@ -273,7 +304,7 @@ class Statement implements StatementInterface
      */
     public function bindColumn($column, &$value, $dataType = null, $length = null, $driverOptions = null)
     {
-        throw new \LogicException('Not implemented');
+        throw new LogicException('Not implemented');
     }
 
     /**
@@ -421,13 +452,13 @@ class Statement implements StatementInterface
         echo (yield $this->serviceRequest(__FUNCTION__));
     }
 
-    private function createObject($rowData, ReflectionClass $reflector, array $constructorArguments)
+    private function createObject($rowData, ReflectionClass $reflector, array $constructorArguments = null)
     {
         $object = $reflector->newInstanceWithoutConstructor();
 
-        foreach ($rowData as $key => $value) {
-            $object->{$key} = $value;
-        }
+        // Note that object properties are set BEFORE the constructor is called
+        // to mirror PDO's behaviour ...
+        $this->populateObject($rowData, $object);
 
         if ($constructor = $reflector->getConstructor()) {
             if ($constructorArguments) {
@@ -438,6 +469,13 @@ class Statement implements StatementInterface
         }
 
         return $object;
+    }
+
+    private function populateObject($rowData, $object)
+    {
+        foreach ($rowData as $key => $value) {
+            $object->{$key} = $value;
+        }
     }
 
     private function serviceRequest($method, array $arguments = [])
@@ -462,6 +500,6 @@ class Statement implements StatementInterface
     private $connection;
     private $objectId;
     private $defaultFetchMode;
-    private $defaultFetchClassReflector;
+    private $defaultFetchArgument;
     private $defaultFetchConstructorArguments;
 }
