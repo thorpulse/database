@@ -341,12 +341,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactphp/react.git",
-                "reference": "581b3c944497649739449d4cf5cc4cff5598d152"
+                "reference": "9d927565beb1948ac6c898372b920d5e239f0869"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/reactphp/react/zipball/581b3c944497649739449d4cf5cc4cff5598d152",
-                "reference": "581b3c944497649739449d4cf5cc4cff5598d152",
+                "url": "https://api.github.com/repos/reactphp/react/zipball/9d927565beb1948ac6c898372b920d5e239f0869",
+                "reference": "9d927565beb1948ac6c898372b920d5e239f0869",
                 "shasum": ""
             },
             "require": {
@@ -392,7 +392,7 @@
                 "event-loop",
                 "reactor"
             ],
-            "time": "2013-12-21 19:51:45"
+            "time": "2014-01-09 19:33:29"
         },
         {
             "name": "recoil/recoil",
@@ -400,12 +400,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/recoilphp/recoil.git",
-                "reference": "4b67cbeef05e776f5edb7c92093d5b0cd742d51a"
+                "reference": "4be9cec67073d0293d26e2e4684bdc4264f7d883"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/recoilphp/recoil/zipball/4b67cbeef05e776f5edb7c92093d5b0cd742d51a",
-                "reference": "4b67cbeef05e776f5edb7c92093d5b0cd742d51a",
+                "url": "https://api.github.com/repos/recoilphp/recoil/zipball/4be9cec67073d0293d26e2e4684bdc4264f7d883",
+                "reference": "4be9cec67073d0293d26e2e4684bdc4264f7d883",
                 "shasum": ""
             },
             "require": {
@@ -452,7 +452,7 @@
                 "multitasking",
                 "react"
             ],
-            "time": "2014-01-06 08:10:36"
+            "time": "2014-01-25 22:29:54"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -571,16 +571,16 @@
         },
         {
             "name": "icecave/archer",
-            "version": "1.1.0",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/IcecaveStudios/archer.git",
-                "reference": "5ab6803e2fbcb27cbad8624f7f137477a5ca0fb3"
+                "reference": "c8f777640f216f75d10905619135d4f92bb0223f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/IcecaveStudios/archer/zipball/5ab6803e2fbcb27cbad8624f7f137477a5ca0fb3",
-                "reference": "5ab6803e2fbcb27cbad8624f7f137477a5ca0fb3",
+                "url": "https://api.github.com/repos/IcecaveStudios/archer/zipball/c8f777640f216f75d10905619135d4f92bb0223f",
+                "reference": "c8f777640f216f75d10905619135d4f92bb0223f",
                 "shasum": ""
             },
             "require": {
@@ -639,7 +639,7 @@
                 "testing",
                 "unit"
             ],
-            "time": "2013-10-13 23:54:24"
+            "time": "2014-01-21 01:56:19"
         },
         {
             "name": "nikic/php-parser",
