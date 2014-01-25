@@ -10,6 +10,6 @@
 * Read the [API documentation](http://recoilphp.github.io/database/artifacts/documentation/api/)
 
 <!-- references -->
-[Build Status]: https://travis-ci.org/recoilphp/database.png?branch=develop
-[Test Coverage]: https://coveralls.io/repos/recoilphp/database/badge.png?branch=develop
-[SemVer]: http://calm-shore-6115.herokuapp.com/?label=semver&value=0.0.0&color=red
+[Build Status]: https://b.adge.me/travis/recoilphp/database/develop.svg
+[Test Coverage]: https://b.adge.me/coveralls/recoilphp/database/develop.svg
+[SemVer]: https://b.adge.me/:semver-0.0.0-red.svg
